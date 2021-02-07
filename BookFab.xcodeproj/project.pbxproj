@@ -15,6 +15,8 @@
 		FC4ECC8525C2E9E3002C5622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC4ECC8325C2E9E3002C5622 /* LaunchScreen.storyboard */; };
 		FC4ECC9025C2E9E4002C5622 /* BookFabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC8F25C2E9E4002C5622 /* BookFabTests.swift */; };
 		FC4ECC9B25C2E9E4002C5622 /* BookFabUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC9A25C2E9E4002C5622 /* BookFabUITests.swift */; };
+		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
+		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		FC4ECC9625C2E9E4002C5622 /* BookFabUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookFabUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4ECC9A25C2E9E4002C5622 /* BookFabUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFabUITests.swift; sourceTree = "<group>"; };
 		FC4ECC9C25C2E9E4002C5622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +105,9 @@
 			children = (
 				FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */,
 				FC4ECC7A25C2E9E2002C5622 /* SceneDelegate.swift */,
-				FC4ECC7C25C2E9E2002C5622 /* ContentView.swift */,
-				FC4ECC7E25C2E9E3002C5622 /* Assets.xcassets */,
+				FCC73B0125C880DE0058129E /* View */,
+				FCC73B0225C880FF0058129E /* Model */,
+				FCC73B0325C8810B0058129E /* Assets */,
 				FC4ECC8325C2E9E3002C5622 /* LaunchScreen.storyboard */,
 				FC4ECC8625C2E9E3002C5622 /* Info.plist */,
 				FC4ECC8025C2E9E3002C5622 /* Preview Content */,
@@ -134,6 +139,31 @@
 				FC4ECC9C25C2E9E4002C5622 /* Info.plist */,
 			);
 			path = BookFabUITests;
+			sourceTree = "<group>";
+		};
+		FCC73B0125C880DE0058129E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC4ECC7C25C2E9E2002C5622 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FCC73B0225C880FF0058129E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FCC73AF925C880D10058129E /* ColorManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FCC73B0325C8810B0058129E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				FC4ECC7E25C2E9E3002C5622 /* Assets.xcassets */,
+				FCC73AF425C87EA40058129E /* Colors.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC4ECC8525C2E9E3002C5622 /* LaunchScreen.storyboard in Resources */,
+				FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */,
 				FC4ECC8225C2E9E3002C5622 /* Preview Assets.xcassets in Resources */,
 				FC4ECC7F25C2E9E3002C5622 /* Assets.xcassets in Resources */,
 			);
@@ -269,6 +300,7 @@
 				FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */,
 				FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */,
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
+				FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
