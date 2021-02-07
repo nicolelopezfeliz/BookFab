@@ -79,7 +79,7 @@ struct ContentView: View {
                  message: "Kontot existerar inte, vill du skapa ett konto?",
                  preferredStyle: .alert)
                  })*/
-                
+                //
                 HStack {
                     Text(registerAccountText)
                         .font(.system(size: 13))
