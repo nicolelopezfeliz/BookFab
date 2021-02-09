@@ -9,6 +9,7 @@
 
 import SwiftUI
 import Firebase
+import MapKit
 
 struct ContentView: View {
     
@@ -22,6 +23,7 @@ struct ContentView: View {
     @State var passwordText = ""
     //@State var showAlert = true
     @State var registerAccoutSheetShow = false
+    @State var mapScreenPresentet = false
     
     //@State var eMailEntry: String? = nil
     
@@ -62,7 +64,7 @@ struct ContentView: View {
                 
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText)
-                    
+                    mapScreenPresentet = Login().checkIfUserLoggedIn()
                 }, label: {
                     Text(loginText)
                         .font(.title3)
@@ -123,45 +125,18 @@ struct ContentView: View {
             }
             
         }.onAppear() {
-            Login().checkIfUserLoggedIn()
-            //logoutUser()
+            mapScreenPresentet = Login().checkIfUserLoggedIn()
+            Login().logOutUser()
         }
         .sheet(isPresented: $registerAccoutSheetShow){
             RegisterAccountSheet(eMailText: "\(emailText)")
         }
+        .fullScreenCover(isPresented: $mapScreenPresentet, content: {
+            MapView.init(coordinate: CLLocationCoordinate2D(latitude: 34.011_286, longitude: -116.166_868))
+        })
+        
     }    //ctrl + i = indentation
     
-
-    /*func checkLoggedInUser(){
-        if Firebase.Auth.auth().currentUser != nil {
-            print("DU är inloggad sen tidigare")
-        } else {
-            print("Ingen användare är inloggad")
-        }
-    }*/
-    
-    /*func loginBtn(email: String, password: String){
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { result, err in
-
-            guard err == nil else {
-                //If we cant sign in user we show alert
-                //Show allert to create account
-                return
-            }
-            
-            //Här vill vi komma till nästa vy
-            print("Inloggning, sucsess, du är inloggad")
-        })
-    }*/
-    
-    /*func logoutUser(){
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            print("You sucsessfully logged out")
-        } catch  {
-            print("Error in logging out")
-        }
-    }*/
 }
 
 
@@ -171,62 +146,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-/*func readFromFirestore(){
-    db.collection("tmp").getDocuments() { (snapshot, err) in
-        if let err = err {
-            print("Error in document: \(err)")
-        } else {
-            //Om error inte är likamed nil så loopar vi egenom alla våra document
-            for document in snapshot!.documents {
-                print("\(document.documentID) : \(document.data())")
-            }
-        }
-    }
-    
-}*/
-
-/*func saveToFirestore (){
-    
-    //db.collection("tmp").addDocument(data: ["name" : "David"])
-    
-    do {
-     db.collection("tmp").addDocument(data: ["name" : "David"])
-     } catch {
-     print("Error in saving to DB")
-     }
-    
-}*/
-
-/*func createAccount(email: String, password: String){
-    FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
-        
-        //db.collection(usersCollection).addDocument(data: ["name" : "David"])
-        
-        guard err == nil else {
-            //Show account creation error
-            print("Error när du skapade kontot")
-            return
-        }
-    })
-    
-    //Vill göra en alert - när man klickar på skapa konto så skapar man konto
-    let alert = UIAlertController(
-        title: "Skapa konto",
-        message: "Kontot existerar inte, vill du skapa ett konto?",
-        preferredStyle: .alert)
-    alert.addAction(UIAlertAction(
-                        title: "Skapa Konto?",
-                        style: .default,
-                        handler: { _ in
-                            
-                        }))
-    alert.addAction(UIAlertAction(
-                        title: "Avbryt",
-                        style: .cancel,
-                        handler: { _ in
-                            
-                        }))
-    
-}*/

@@ -58,7 +58,7 @@ struct RegisterAccountSheet: View {
                     .keyboardType(.emailAddress)
                 
                 
-                TextEditor(/*"Enter password",*/ text: $password)
+                SecureField("Enter password", text: $password)
                     .font(.body)
                     .foregroundColor(.gray)
                     .frame(width: 200, height: 40, alignment: .leading)
@@ -68,7 +68,7 @@ struct RegisterAccountSheet: View {
                     )
                     .padding()
                 
-                TextEditor(/*"Confirm password",*/ text: $passwordConfirmed)
+                SecureField("Confirm password", text: $passwordConfirmed)
                     .font(.body)
                     .foregroundColor(.gray)
                     .frame(width: 200, height: 40, alignment: .leading)
@@ -79,11 +79,8 @@ struct RegisterAccountSheet: View {
                     .padding()
                 
                 Button(action: {
-                        /*createAccount(
-                            email: self.eMailText,
-                            password: self.passwordConfirmed)*/
+                    Login().createAccount(email: eMailText, password: passwordConfirmed, name: nameText)
                     
-                    Login().createAccount(email: eMailText, password: passwordConfirmed)
                     
                 }, label: {
                     Text(registerBtnText)
@@ -102,21 +99,6 @@ struct RegisterAccountSheet: View {
             }
         }
     }
-    
-    /*func createAccount(email: String, password: String){
-        
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
-            
-            db.collection(usersCollection).addDocument(data: ["name" : "\(nameText)", "e-mail" : "\(email)"])
-            
-            guard err == nil else {
-                //Show account creation error
-                print("Error när du skapade kontot")
-                return
-            }
-        })
-        
-    }*/
 }
 
 struct RegisterAccountSheet_Previews: PreviewProvider {

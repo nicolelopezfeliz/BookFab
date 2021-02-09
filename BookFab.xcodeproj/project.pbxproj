@@ -10,6 +10,7 @@
 		232FD453356E4BB7D2DD8F1A /* Pods_BookFab_BookFabUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982101150C8B10A9FC0D9C22 /* Pods_BookFab_BookFabUITests.framework */; };
 		2375EF2C718231758DFA9FD9 /* Pods_BookFabTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961A2A6CBC01A8D94076372 /* Pods_BookFabTests.framework */; };
 		98BDC4F93CC2EEA3F6BAE22E /* Pods_BookFab.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F733DF96267445D476F0594D /* Pods_BookFab.framework */; };
+		FC419F0025D2C3E100708FEA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC419EFF25D2C3E100708FEA /* Location.swift */; };
 		FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */; };
 		FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7A25C2E9E2002C5622 /* SceneDelegate.swift */; };
 		FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7C25C2E9E2002C5622 /* ContentView.swift */; };
@@ -22,6 +23,8 @@
 		FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */; };
 		FC5B807D25CF5711009F2E92 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807C25CF5710009F2E92 /* MapView.swift */; };
 		FC5FF2F225C9D771000CFE92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */; };
+		FC90621D25D08D2600699DC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90621C25D08D2600699DC6 /* User.swift */; };
+		FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90622125D1CCD800699DC6 /* LocationModel.swift */; };
 		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
 		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +56,7 @@
 		A6F8DBD7999640069E3E1783 /* Pods-BookFab.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookFab.release.xcconfig"; path = "Target Support Files/Pods-BookFab/Pods-BookFab.release.xcconfig"; sourceTree = "<group>"; };
 		DDB319F46D8F79BCD69682C7 /* Pods-BookFab-BookFabUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookFab-BookFabUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookFab-BookFabUITests/Pods-BookFab-BookFabUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F733DF96267445D476F0594D /* Pods_BookFab.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookFab.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC419EFF25D2C3E100708FEA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FC4ECC7525C2E9E2002C5622 /* BookFab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookFab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC4ECC7A25C2E9E2002C5622 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountSheet.swift; sourceTree = "<group>"; };
 		FC5B807C25CF5710009F2E92 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FC90621C25D08D2600699DC6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FC90622125D1CCD800699DC6 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +211,9 @@
 			children = (
 				FCC73AF925C880D10058129E /* ColorManager.swift */,
 				FC5B805025CCA523009F2E92 /* Login.swift */,
+				FC90621C25D08D2600699DC6 /* User.swift */,
+				FC90622125D1CCD800699DC6 /* LocationModel.swift */,
+				FC419EFF25D2C3E100708FEA /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -460,8 +469,11 @@
 			files = (
 				FC5B807D25CF5711009F2E92 /* MapView.swift in Sources */,
 				FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */,
+				FC419F0025D2C3E100708FEA /* Location.swift in Sources */,
 				FC5B805125CCA523009F2E92 /* Login.swift in Sources */,
 				FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */,
+				FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */,
+				FC90621D25D08D2600699DC6 /* User.swift in Sources */,
 				FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */,
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
 				FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */,

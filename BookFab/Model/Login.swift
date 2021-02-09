@@ -10,14 +10,19 @@ import Firebase
 import FirebaseFirestoreSwift
 
 struct Login {
+    var usersCollection = "users"
     var db = Firestore.firestore()
     
-    func checkIfUserLoggedIn(){
+    func checkIfUserLoggedIn() -> Bool {
         if Firebase.Auth.auth().currentUser != nil {
             print("DU är inloggad sen tidigare")
+            return true
         } else {
             print("Ingen användare är inloggad")
+            return false
         }
+        print("Error när användaren skulle läsas")
+        return false
     }
     
     func loginUser(email: String, password: String){
@@ -39,18 +44,26 @@ struct Login {
         
     }
     
-    func createAccount(email: String, password: String){
+    func createAccount(email: String, password: String, name: String){
+        print("emejlen: \(email)")
+        print("lösenordet: \(password)")
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
-            
-            //db.collection(usersCollection).addDocument(data: ["name" : "\(nameText)", "e-mail" : "\(email)"])
-            
-            guard err == nil else {
-                //Show account creation error
-                print("Error när du skapade kontot")
-                return
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+            if let error = err {
+                print("Error in creating account")
+                print(error.localizedDescription )
+            } else {
+                //user registered successfully
+                print("Registered sucsessfully")
+                print(result)
             }
-        })
+            
+            self.db.collection(self.usersCollection).addDocument(data: ["name" : "\(name)", "e-mail" : "\(email)"])
+            
+            print("emejlen: \(email)")
+            print("lösenordet: \(password)")
+            print("namn: \(name)")
+        }
         
     }
     
