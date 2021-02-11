@@ -6,11 +6,11 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct User {
     var name: String
     var email: String
-    var location = Location()
+    var location = Location(name: "", latitude: 0.0, longitude: 0.0)
     var businessAccount: Bool
-    
 }

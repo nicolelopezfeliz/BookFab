@@ -11,6 +11,14 @@ import SwiftUI
 import Firebase
 import MapKit
 
+enum ActiveScreenCover: Identifiable {
+    case mapScreen, registerAccountScreen
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ContentView: View {
     
     let registerAccountText = "Har du inget konto?"
@@ -21,11 +29,9 @@ struct ContentView: View {
     @State var loginText = "Login"
     @State var emailText = "e-mail@example.com"
     @State var passwordText = ""
-    //@State var showAlert = true
-    @State var registerAccoutSheetShow = false
-    @State var mapScreenPresentet = false
-    
-    //@State var eMailEntry: String? = nil
+    @State var registerAccoutSheetShow = true
+    @State var mapScreenPresentet = true
+    @State var activeScreen: ActiveScreenCover?
     
         
     var body: some View {
@@ -64,7 +70,9 @@ struct ContentView: View {
                 
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText)
-                    mapScreenPresentet = Login().checkIfUserLoggedIn()
+                    activeScreen = .mapScreen
+                    
+                    //mapScreenPresentet = Login().checkIfUserLoggedIn()
                 }, label: {
                     Text(loginText)
                         .font(.title3)
@@ -90,7 +98,8 @@ struct ContentView: View {
                     
                     Button(action: {
                         print("CLICKED")
-                        registerAccoutSheetShow = true
+                        activeScreen = .registerAccountScreen
+                        //registerAccoutSheetShow = true
                             
                         
                     }, label: {
@@ -128,13 +137,15 @@ struct ContentView: View {
             mapScreenPresentet = Login().checkIfUserLoggedIn()
             Login().logOutUser()
         }
-        .sheet(isPresented: $registerAccoutSheetShow){
-            RegisterAccountSheet(eMailText: "\(emailText)")
+        .fullScreenCover(item: $activeScreen) { item in
+            switch item {
+            case .mapScreen:
+                MapView.init()
+            case .registerAccountScreen:
+                RegisterAccountSheet(eMailText: "\(emailText)")
+                
+            }
         }
-        .fullScreenCover(isPresented: $mapScreenPresentet, content: {
-            MapView.init(coordinate: CLLocationCoordinate2D(latitude: 34.011_286, longitude: -116.166_868))
-        })
-        
     }    //ctrl + i = indentation
     
 }
