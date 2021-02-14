@@ -12,6 +12,9 @@ import SwiftUI
 struct RegisterAccountSheet: View {
     //var db = Firestore.firestore()
     
+    var locationModel = LocationModel()
+    @State var fullScreenCover = false
+    
     @State var nameText = "Name"
     @State var eMailText: String
     @State var password = ""
@@ -81,6 +84,8 @@ struct RegisterAccountSheet: View {
                 Button(action: {
                     Login().createAccount(email: eMailText, password: passwordConfirmed, name: nameText)
                     
+                    fullScreenCover = true
+                    
                     
                 }, label: {
                     Text(registerBtnText)
@@ -96,6 +101,10 @@ struct RegisterAccountSheet: View {
                 
                 Spacer()
                 
+            }.onAppear(){
+                locationModel.askForPermission()
+            }.fullScreenCover(isPresented: $fullScreenCover) {
+                MapView.init()
             }
         }
     }

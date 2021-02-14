@@ -134,7 +134,9 @@ struct ContentView: View {
             }
             
         }.onAppear() {
-            mapScreenPresentet = Login().checkIfUserLoggedIn()
+            /*if Login().checkIfUserLoggedIn() == true {
+                activeScreen = .mapScreen
+            }*/
             Login().logOutUser()
         }
         .fullScreenCover(item: $activeScreen) { item in

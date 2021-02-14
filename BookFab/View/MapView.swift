@@ -9,8 +9,17 @@ import Foundation
 import SwiftUI
 import MapKit
 
+enum ScreenCoverActive: Identifiable {
+    case mapScreen, registerAccountScreen
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct MapView: View {
     var locationModel = LocationModel()
+    @State var activeScreen: ActiveScreenCover?
     
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
@@ -39,9 +48,9 @@ struct MapView: View {
                 annotationItems: locations) { location in
                 
                 //För varje plats har vi en marker
-                //MapPin(coordinate: place.coordinate)
+                //MapPin(coordinate: location.coordinate)
                 //Ett annat utseende än den övre
-                //MapMarker(coordinate: place.coordinate)
+                //MapMarker(coordinate: location.coordinate)
                 
                 //eget utseende för vår marker
                 //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
@@ -49,6 +58,13 @@ struct MapView: View {
                     Image(systemName: "rhombus")
                         .resizable()
                         .frame(width: 25, height: 35)
+                        .onTapGesture(count: 1, perform: {
+                            print("Klick")
+                            activeScreen = .registerAccountScreen
+                                    })
+
+                    
+                    
                 }
                 
                 
@@ -65,6 +81,14 @@ struct MapView: View {
         }.onAppear {
             //setRegion(coordinate)
             locationModel.askForPermission()
+        }.sheet(item: $activeScreen) { item in
+            switch item {
+            case .mapScreen:
+                MapView.init()
+            case .registerAccountScreen:
+                RegisterAccountSheet(eMailText: "hello det funkar")
+                
+            }
         }
         
     }

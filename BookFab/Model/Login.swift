@@ -10,8 +10,11 @@ import Firebase
 import FirebaseFirestoreSwift
 
 struct Login {
-    var usersCollection = "users"
+   // @State var isBusinessAccount = false
+    
+    var usersCollection = "locationTest"
     var db = Firestore.firestore()
+    var locationModel = LocationModel()
     
     func checkIfUserLoggedIn() -> Bool {
         if Firebase.Auth.auth().currentUser != nil {
@@ -46,10 +49,6 @@ struct Login {
     }
     
     func createAccount(email: String, password: String, name: String){
-        var newUser = User(name: "", email: "", businessAccount: false)
-        
-        print("emejlen: \(email)")
-        print("lösenordet: \(password)")
         
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
             if let error = err {
@@ -59,32 +58,26 @@ struct Login {
                 //user registered successfully
                 print("Registered sucsessfully")
                 print(result)
-            }
-            
-            if let location = LocationModel().location {
-                newUser = User(name: "\(newUser.name)",
-                               email: "\(newUser.email)",
-                               location: Location(name: "HERE", latitude: location.latitude, longitude: location.longitude) ,
-                               businessAccount: false)
                 
-                print("Location: \(location.latitude) : \(location.longitude)")
-            }
-            
-            do {
-                _ = try self.db.collection(self.usersCollection).addDocument(data: ["user" : "\(newUser)" /*"name" : "\(name)", "e-mail" : "\(email)"*/])
-            } catch {
-                print("Error in saving to DB")
+                
+                let userLocation = Location(name: "", latitude: 59.4281, longitude: 17.9509)
+                
+                let newUser = User(name: "\(name)",
+                                email: "\(email)",
+                                businessAccount: true,
+                                userLocation: userLocation)
+                
+                saveUserToFirestore(user: newUser)
+                /*do {
+                    _ = try db.collection(usersCollection).addDocument(from: user)
+                } catch {
+                    print("Error in saving to DB")
+                }*/
             }
             
             print("emejlen: \(email)")
             print("lösenordet: \(password)")
             print("namn: \(name)")
-            
-            //Creating a user
-            
-            
-            //Om det är et företagskonto skall man lägga till sin location
-            
             
         }
         
@@ -97,5 +90,17 @@ struct Login {
         } catch  {
             print("Error in logging out")
         }
+    }
+    
+    func saveUserToFirestore(user: User){
+        do {
+            _ = try db.collection(usersCollection).addDocument(from: user)
+        } catch {
+            print("Error in saving to DB")
+        }
+    }
+    
+    func readUserFromFirestore(){
+        
     }
 }

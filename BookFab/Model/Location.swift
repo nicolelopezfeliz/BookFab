@@ -7,9 +7,11 @@
 
 import Foundation
 import CoreLocation
+import FirebaseFirestoreSwift
 
-struct Location: Identifiable {
-    let id = UUID()
+struct Location: Codable, Identifiable {
+    //@DocumentID var id : String?
+    var id = UUID()
     var name: String
     var latitude: Double
     var longitude: Double
