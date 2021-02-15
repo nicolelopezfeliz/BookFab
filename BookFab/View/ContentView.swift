@@ -97,7 +97,7 @@ struct ContentView: View {
                         .frame(width: 119, height: 40, alignment: .leading)
                     
                     Button(action: {
-                        print("CLICKED")
+                        //print("CLICKED")
                         activeScreen = .registerAccountScreen
                         //registerAccoutSheetShow = true
                             

@@ -32,6 +32,6 @@ class LocationModel: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //När det har skett en förändring i plats så kmr våran location ha förändrats
         location = locations.first?.coordinate
-        print("Location updated \(location)")
+        //print("Location updated \(location)")
     }
 }

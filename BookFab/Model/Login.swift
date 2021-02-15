@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 
 struct Login {
    // @State var isBusinessAccount = false
+    private var listOfLocations = [Location]()
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
@@ -49,7 +50,6 @@ struct Login {
     }
     
     func createAccount(email: String, password: String, name: String){
-        
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
             if let error = err {
                 print("Error in creating account")
@@ -60,19 +60,14 @@ struct Login {
                 print(result)
                 
                 
-                let userLocation = Location(name: "", latitude: 59.4281, longitude: 17.9509)
+                let userLocation = Location(name: "", latitude: 59.4269, longitude: 17.9520)
                 
                 let newUser = User(name: "\(name)",
                                 email: "\(email)",
                                 businessAccount: true,
                                 userLocation: userLocation)
                 
-                saveUserToFirestore(user: newUser)
-                /*do {
-                    _ = try db.collection(usersCollection).addDocument(from: user)
-                } catch {
-                    print("Error in saving to DB")
-                }*/
+                self.saveUserToFirestore(user: newUser)
             }
             
             print("emejlen: \(email)")
@@ -98,9 +93,5 @@ struct Login {
         } catch {
             print("Error in saving to DB")
         }
-    }
-    
-    func readUserFromFirestore(){
-        
     }
 }
