@@ -9,26 +9,27 @@ import Foundation
 import CoreLocation
 import FirebaseFirestoreSwift
 
-struct User : Codable, Identifiable {
+class User : Codable, Identifiable {
     
     @DocumentID var id : String?
     
     var name: String
     var email: String
-    //var location = Location(name: "", latitude: 0.0, longitude: 0.0)
     var businessAccount: Bool = false
     var userLocation: Location?
     
-    init(name: String, email: String, businessAccount: Bool, userLocation: Location) {
+    init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location) {
         self.name = name
         self.email = email
+       // self.productType = productType
+       // self.socialMedia = socialMedia
         self.businessAccount = businessAccount
         self.userLocation = userLocation
         
         setUserLocation()
     }
     
-    mutating func setUserLocation() {
+    func setUserLocation() {
         let locationManager = LocationModel()
         //let newPlace = Place(name: "Bike", latitude: 37.33233141, longitude: -122.03121816)
         //lägger till en pin där vi är just nu

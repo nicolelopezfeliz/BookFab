@@ -23,8 +23,11 @@
 		FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */; };
 		FC5B807D25CF5711009F2E92 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807C25CF5710009F2E92 /* MapView.swift */; };
 		FC5FF2F225C9D771000CFE92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */; };
+		FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC773BEE25DDAEC600223F8F /* BusinessImage.swift */; };
+		FC773BF425DDBCFA00223F8F /* BusinessUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC773BF325DDBCFA00223F8F /* BusinessUser.swift */; };
 		FC90621D25D08D2600699DC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90621C25D08D2600699DC6 /* User.swift */; };
 		FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90622125D1CCD800699DC6 /* LocationModel.swift */; };
+		FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */; };
 		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
 		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
@@ -75,8 +78,11 @@
 		FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountSheet.swift; sourceTree = "<group>"; };
 		FC5B807C25CF5710009F2E92 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FC773BEE25DDAEC600223F8F /* BusinessImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessImage.swift; sourceTree = "<group>"; };
+		FC773BF325DDBCFA00223F8F /* BusinessUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessUser.swift; sourceTree = "<group>"; };
 		FC90621C25D08D2600699DC6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FC90622125D1CCD800699DC6 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBusinessSheet.swift; sourceTree = "<group>"; };
 		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,6 +208,8 @@
 				FC4ECC7C25C2E9E2002C5622 /* ContentView.swift */,
 				FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */,
 				FC5B807C25CF5710009F2E92 /* MapView.swift */,
+				FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */,
+				FC773BEE25DDAEC600223F8F /* BusinessImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +222,7 @@
 				FC90621C25D08D2600699DC6 /* User.swift */,
 				FC90622125D1CCD800699DC6 /* LocationModel.swift */,
 				FC419EFF25D2C3E100708FEA /* Location.swift */,
+				FC773BF325DDBCFA00223F8F /* BusinessUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -470,12 +479,15 @@
 				FC5B807D25CF5711009F2E92 /* MapView.swift in Sources */,
 				FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */,
 				FC419F0025D2C3E100708FEA /* Location.swift in Sources */,
+				FC773BF425DDBCFA00223F8F /* BusinessUser.swift in Sources */,
 				FC5B805125CCA523009F2E92 /* Login.swift in Sources */,
 				FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */,
 				FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */,
 				FC90621D25D08D2600699DC6 /* User.swift in Sources */,
 				FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */,
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
+				FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */,
+				FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */,
 				FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

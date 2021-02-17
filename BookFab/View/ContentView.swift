@@ -25,6 +25,7 @@ struct ContentView: View {
     let registerTextBtn = "Registrera"
     let forgotPasswordText = "Glömt lösenord?"
     let resetPasswordBtn = "Återställ lösenord"
+    let appNameText = "Book Fab"
     
     @State var loginText = "Login"
     @State var emailText = "e-mail@example.com"
@@ -39,6 +40,11 @@ struct ContentView: View {
         
         NavigationView {
             VStack {
+                Text(appNameText)
+                    .font(.largeTitle)
+                    .padding()
+                    .foregroundColor(ColorManager.darkPink)
+                
                 Text(loginText)
                     .font(.title)
                     .fontWeight(.bold)

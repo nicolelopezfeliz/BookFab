@@ -64,6 +64,8 @@ struct Login {
                 
                 let newUser = User(name: "\(name)",
                                 email: "\(email)",
+                                productType: "Naglar",
+                                socialMedia: "@naglar.bylopez",
                                 businessAccount: true,
                                 userLocation: userLocation)
                 

@@ -12,7 +12,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 enum ScreenCoverActive: Identifiable {
-    case mapScreen, registerAccountScreen
+    case displayBusinessSheet, mapScreen, profileView
     
     var id: Int {
         hashValue
@@ -20,10 +20,16 @@ enum ScreenCoverActive: Identifiable {
 }
 
 struct MapView: View {
+    
+    init() {
+        UITabBar.appearance().barTintColor = .systemBackground
+        UINavigationBar.appearance().barTintColor = .systemBackground
+    }
+    
     var usersCollection = "locationTest"
     var locationModel = LocationModel()
     var db = Firestore.firestore()
-    @State var activeScreen: ActiveScreenCover?
+    @State var activeScreen: ScreenCoverActive?
     
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
@@ -38,18 +44,17 @@ struct MapView: View {
                                        longitude: 17.9512),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
-    @State var locations = [
-        Location(name: "", latitude: 59.4281, longitude: 17.9509),
-        Location(name: "", latitude: 59.4289, longitude: 17.9513),
-        Location(name: "", latitude: 59.4275, longitude: 17.9516),
-        Location(name: "", latitude: 59.4284, longitude: 17.9522)
-    ]
     @State private var listOfLocations = [User]()
     
-    //@Published private var listOfLocations = [Location]()
-
+    @State var pressedLocation: Location? = nil
+    @State var pressedUser: User? = nil
+    
+    @State var selectedIndex = 0
+    
+    let tabBarImageNames = ["mappin.and.ellipse", "magnifyingglass", "map", "person.fill", "gear"]
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Map(coordinateRegion: $region,
                 showsUserLocation: true,
                 annotationItems: listOfLocations) { location in
@@ -66,26 +71,85 @@ struct MapView: View {
                         .resizable()
                         .frame(width: 25, height: 35)
                         .onTapGesture(count: 1, perform: {
-                            print("Klick")
-                            activeScreen = .registerAccountScreen
-                                    })
-
+                            self.pressedLocation = location.userLocation!
+                            self.pressedUser = location
+                            print("Location name: \(location.userLocation!.id)")
+                            activeScreen = .displayBusinessSheet
+                        })
+                    
                 }
             }
+            
+            ZStack {
+                switch selectedIndex {
+                case 0:
+                    NavigationView {
+                        Text("Hello")
+                    }
+                
+                case 1:
+                    NavigationView {
+                        Text("Hello")
+                    }
+                    
+                default:
+                    NavigationView {
+                        Text("Remaining tabs")
+                    }
+                    
+                }
+                
+            }
+            Divider()
+                .padding(.bottom, 16)
+            
+            HStack {
+                ForEach(0..<5) {num in
+                    Button(action: {
+                        if num == 2 {
+                            activeScreen = .mapScreen
+                        }
+                        
+                        selectedIndex = num
+                    }, label: {
+                        Spacer()
+                        Image(systemName: tabBarImageNames[num])
+                            .font(.system(size: 25, weight: .bold))
+                            .foregroundColor(selectedIndex == num ? ColorManager.darkPink : .init(white: 0.8))
+                            .padding(.bottom, 24)
+                        Spacer()
+                    })
+                    
+                }
+            }
+            
             
         }.onAppear {
             //setRegion(coordinate)
             locationModel.askForPermission()
             readUserLocationFromFirestore()
+            
         }.sheet(item: $activeScreen) { item in
             switch item {
+            case .profileView:
+                MapView.init()
+            
             case .mapScreen:
                 MapView.init()
-            case .registerAccountScreen:
-                RegisterAccountSheet(eMailText: "hello det funkar")
+                
+            case .displayBusinessSheet:
+                if let pressedLocation = pressedLocation {
+                    DisplayBusinessSheet(location: pressedLocation, user: pressedUser!)
+                }
+                /*if let pressedLocation = pressedLocation {
+                    DisplayBusinessSheet(location: pressedLocation)
+                } else {
+                    print("pressed location har inget värde")
+                }*/
                 
             }
         }
+        .ignoresSafeArea()
         
     }
     
@@ -128,21 +192,21 @@ struct MapView: View {
     }
     
     /*func addPin() {
-        //let newPlace = Place(name: "Bike", latitude: 37.33233141, longitude: -122.03121816)
-        //lägger till en pin där vi är just nu
-        if let location = locationModel.location {
-            let newPlace = Location(name: "HERE", latitude: location.latitude, longitude: location.longitude)
-            locations.append(newPlace)
-        }
-    }*/
-
+     //let newPlace = Place(name: "Bike", latitude: 37.33233141, longitude: -122.03121816)
+     //lägger till en pin där vi är just nu
+     if let location = locationModel.location {
+     let newPlace = Location(name: "HERE", latitude: location.latitude, longitude: location.longitude)
+     locations.append(newPlace)
+     }
+     }*/
+    
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         
         region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 59.4285,
                                            longitude: 17.9512),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        )  
+        )
     }
 }
 
