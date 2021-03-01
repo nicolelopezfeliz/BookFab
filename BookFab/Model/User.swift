@@ -17,14 +17,16 @@ class User : Codable, Identifiable {
     var email: String
     var businessAccount: Bool = false
     var userLocation: Location?
+    var businessUser: BusinessUser? = nil 
     
-    init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location) {
+    init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location, businessUser: BusinessUser) {
         self.name = name
         self.email = email
        // self.productType = productType
        // self.socialMedia = socialMedia
         self.businessAccount = businessAccount
         self.userLocation = userLocation
+        self.businessUser = businessUser
         
         setUserLocation()
     }

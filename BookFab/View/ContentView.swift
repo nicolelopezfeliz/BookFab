@@ -26,13 +26,26 @@ struct ContentView: View {
     let forgotPasswordText = "Glömt lösenord?"
     let resetPasswordBtn = "Återställ lösenord"
     let appNameText = "Book Fab"
+    var textManager = TextManager()
     
     @State var loginText = "Login"
-    @State var emailText = "e-mail@example.com"
-    @State var passwordText = ""
+    @State var emailText = "admin09@example.com"
+    @State var passwordText = "123456"
     @State var registerAccoutSheetShow = true
     @State var mapScreenPresentet = true
     @State var activeScreen: ActiveScreenCover?
+    
+    @ObservedObject var userData = UserData()
+    
+    init(){
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                print("User is now logged in \(user.uid)")
+            } else {
+                print("No user signed in")
+            }
+        }
+    }
     
         
     var body: some View {
@@ -63,6 +76,10 @@ struct ContentView: View {
                     .padding()
                     .autocapitalization(.none)
                     .keyboardType(.emailAddress)
+                    .onTapGesture {
+                        
+                    }
+                    
                 
                 SecureField("Enter password", text: $passwordText)
                     .font(.body)
@@ -75,8 +92,10 @@ struct ContentView: View {
                     .padding()
                 
                 Button(action: {
-                    Login().loginUser(email: emailText, password: passwordText)
-                    activeScreen = .mapScreen
+                    Login().loginUser(email: emailText, password: passwordText, userData: userData) {
+                        activeScreen = .mapScreen
+                    }
+                    //activeScreen = .mapScreen
                     
                     //mapScreenPresentet = Login().checkIfUserLoggedIn()
                 }, label: {
@@ -148,7 +167,7 @@ struct ContentView: View {
         .fullScreenCover(item: $activeScreen) { item in
             switch item {
             case .mapScreen:
-                MapView.init()
+                MapView.init().environmentObject(userData)
             case .registerAccountScreen:
                 RegisterAccountSheet(eMailText: "\(emailText)")
                 

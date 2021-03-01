@@ -13,6 +13,8 @@ struct DisplayBusinessSheet: View {
     var location: Location
     var user: User
     
+    let notYetPostedInfo = "Information is under cunstroction"
+    
     
     
     var body: some View {
@@ -29,29 +31,38 @@ struct DisplayBusinessSheet: View {
                 Text("\(user.name)")
                     .foregroundColor(ColorManager.darkPink)
                     .fontWeight(.bold)
-                    .padding(.top, 150)
+                    .font(.system(size: 20))
+                    .padding()
                 
                 Text("Certifierad: ")
                     .font(.system(size: 18))
                     .foregroundColor(ColorManager.darkPink)
+                Text("\(user.businessUser?.certifiedIn ?? "\(notYetPostedInfo)")")
                     .padding()
                 
-                Text("Mina produkter:")
+                Text("Mina produkter: ")
                     .font(.system(size: 18))
                     .foregroundColor(ColorManager.darkPink)
+                Text("\(user.businessUser?.productType ?? "\(notYetPostedInfo)")")
                     .padding()
                 
-                Text("Lite om mig")
+                Text("Lite om mig: ")
                     .font(.system(size: 18))
                     .foregroundColor(ColorManager.darkPink)
+                Text("\(user.businessUser?.aboutMe ?? "\(notYetPostedInfo)")")
                     .padding()
+                
                 
                 Text("Instagram: ")
                     .font(.system(size: 18))
                     .foregroundColor(ColorManager.darkPink)
+                Text("\(user.businessUser?.socialMedia ?? "\(notYetPostedInfo)")")
                     .padding()
                 
-            }.padding()
+                
+            }
+            .padding(.top)
+            .frame(width: 360, height: .infinity, alignment: .leading)
         }
     }
 }
@@ -63,13 +74,20 @@ struct DisplayBusinessSheet_Previews: PreviewProvider {
             latitude: 0.0,
             longitude: 0.0)
         
+        let businessUser = BusinessUser(
+            certifiedIn: "",
+            aboutMe: "",
+            productType: "",
+            socialMedia: "")
+        
         let user = User(
             name: "",
             email: "",
             productType: "",
             socialMedia: "",
             businessAccount: true,
-            userLocation: location)
+            userLocation: location,
+            businessUser: businessUser)
         
         DisplayBusinessSheet(location: user.userLocation!, user: user)
     }

@@ -20,15 +20,18 @@ enum ScreenCoverActive: Identifiable {
 }
 
 struct MapView: View {
+    @EnvironmentObject var userData: UserData
     
     init() {
         UITabBar.appearance().barTintColor = .systemBackground
         UINavigationBar.appearance().barTintColor = .systemBackground
     }
     
-    var usersCollection = "locationTest"
+    var usersCollection = "users/admin/"
     var locationModel = LocationModel()
     var db = Firestore.firestore()
+    var auth = Firebase.Auth.auth()
+    
     @State var activeScreen: ScreenCoverActive?
     
     @State private var userTrackingMode: MapUserTrackingMode = .follow
@@ -51,11 +54,14 @@ struct MapView: View {
     
     @State var selectedIndex = 0
     
-    let tabBarImageNames = ["mappin.and.ellipse", "magnifyingglass", "map", "person.fill", "gear"]
+    @State var fullScreen = true
+    
+    let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     var body: some View {
         VStack(spacing: 0) {
-            Map(coordinateRegion: $region,
+            
+            /*Map(coordinateRegion: $region,
                 showsUserLocation: true,
                 annotationItems: listOfLocations) { location in
                 
@@ -78,23 +84,83 @@ struct MapView: View {
                         })
                     
                 }
+            }*/
+            /*
+            TabView {
+                Text("The First Tab")
+                    .tabItem {
+                        Image(systemName: "1.square.fill")
+                        Text("First")
+                    }
+                Text("Another Tab")
+                    .tabItem {
+                        Image(systemName: "2.square.fill")
+                        Text("Second")
+                    }
+                Text("The Last Tab")
+                    .tabItem {
+                        Image(systemName: "3.square.fill")
+                        Text("Third")
+                    }
             }
+            .font(.headline)*/
+            
             
             ZStack {
                 switch selectedIndex {
                 case 0:
                     NavigationView {
-                        Text("Hello")
+                        VStack{
+                            Map(coordinateRegion: $region,
+                                showsUserLocation: true,
+                                annotationItems: listOfLocations) { location in
+                                
+                                //För varje plats har vi en marker
+                                //MapPin(coordinate: location.coordinate)
+                                //Ett annat utseende än den övre
+                                //MapMarker(coordinate: location.coordinate)
+                                
+                                //eget utseende för vår marker
+                                //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
+                                MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
+                                    Image(systemName: "rhombus")
+                                        .resizable()
+                                        .frame(width: 25, height: 35)
+                                        .onTapGesture(count: 1, perform: {
+                                            self.pressedLocation = location.userLocation!
+                                            self.pressedUser = location
+                                            print("Location name: \(location.userLocation!.id)")
+                                            activeScreen = .displayBusinessSheet
+                                        })
+                                    
+                                }
+                            }.ignoresSafeArea()
+                        }
                     }
                 
                 case 1:
                     NavigationView {
-                        Text("Hello")
+                        Text("Page is under cunstruction")
                     }
-                    
+                case 2:
+                    NavigationView {
+                        Text("Page is under cunstruction")
+                    }
+                case 3:
+                    NavigationView {
+                        ProfileViewSheet()
+                            .navigationTitle("Din profil")
+                        //DisplayBusinessSheet(location: pressedLocation!, user: pressedUser!)
+                    }
+                
+                case 4:
+                    NavigationView {
+                        SettingsView()
+                            
+                    }.ignoresSafeArea()
                 default:
                     NavigationView {
-                        Text("Remaining tabs")
+                        Text("Page is under cunstruction")
                     }
                     
                 }
@@ -106,9 +172,10 @@ struct MapView: View {
             HStack {
                 ForEach(0..<5) {num in
                     Button(action: {
-                        if num == 2 {
-                            activeScreen = .mapScreen
-                        }
+                        /*if num == 2 {
+                            MapView()
+                            print("mapView")
+                        }*/
                         
                         selectedIndex = num
                     }, label: {
@@ -121,13 +188,70 @@ struct MapView: View {
                     })
                     
                 }
+                
+                VStack {
+                    Button(action: {
+                        if let businessDataUser = userData.currUserData {
+                            print("USER data: \(businessDataUser))")
+                        }
+                    }, label: {
+                        HStack {
+                            Text("NICOLINA")
+                                .padding()
+                        }
+                    })
+                    
+                    /*Button(action: {
+                        //print("USER data: \(userData.currUserData?.businessUser)")
+                    },​​​​​ label: {
+                        HStack {
+                            Text("NICOLINA")
+                                .padding()
+                        }
+                    }​​​​​)*/
+                }
+
+                
             }
-            
             
         }.onAppear {
             //setRegion(coordinate)
             locationModel.askForPermission()
             readUserLocationFromFirestore()
+            
+            if let currentUserData = userData.userDocRef {
+                
+                print("Current UserData: \(currentUserData)")
+                
+                currentUserData.addSnapshotListener{ documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("Error fetching document: \(error!)")
+                        return
+                    }
+                    guard let data = document.data() else {
+                        print("Document data was empty.")
+                        return
+                    }
+                    print("Current data: \(data)")
+                    print("Current UserData: \(currentUserData)")
+                    print("Current DocumentData: \(document.data())")
+                    //document.data()
+                    
+                    
+                    try! self.userData.currUserData = document.data(as: UserDataModel.self)
+                }
+                
+                
+                
+                /*self.userData.currUserData = document.data().map { queryDocumentSnapshot -> UserDataModel? in
+                   //    return try? queryDocumentSnapshot(as: UserDataModel.self)
+                     }*/
+                //try! document.data(as: UserDataModel)
+            }
+            
+            //print("USER data: \(userData.currUserData?.businessUser)")
+            
+            
             
         }.sheet(item: $activeScreen) { item in
             switch item {
@@ -155,7 +279,11 @@ struct MapView: View {
     
     func readUserLocationFromFirestore(){
         print("Nu kommer vi in i funktionen")
-        db.collection(usersCollection).addSnapshotListener() { (snapshot, err) in
+        
+        guard let currentUser = auth.currentUser else {print("Error in finding user"); return }
+        print("UID: \(currentUser.uid)")
+        
+        db.collection("admin").addSnapshotListener() { (snapshot, err) in
             if let err = err {
                 //print("Error in getting documents \(err)")
             } else {
