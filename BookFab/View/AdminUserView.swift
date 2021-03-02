@@ -10,6 +10,7 @@ import SwiftUI
 import MapKit
 
 struct AdminUserView: View {
+    let listOfUserNames: [String]
     
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
@@ -26,7 +27,7 @@ struct AdminUserView: View {
                     }
                 case 1:
                     NavigationView {
-                        SearchView()
+                        SearchView(listOfNames: listOfUserNames)
                         //Text("Page is under cunstruction")
                     }
                 case 2:
@@ -89,6 +90,9 @@ struct AdminUserView_Previews: PreviewProvider {
         
         var listOfLocations = [User]()
         
-        AdminUserView(mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
+        let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
+        
+        
+        AdminUserView(listOfUserNames: listOfNames,mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
     }
 }

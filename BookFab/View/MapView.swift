@@ -51,6 +51,7 @@ struct MapView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
     @State private var listOfLocations = [User]()
+    @State var listOfUserNames = [String]()
     
     @State var pressedLocation: Location? = nil
     @State var pressedUser: User? = nil
@@ -243,10 +244,10 @@ struct MapView: View {
         .fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .adminView:
-                AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                AdminUserView(listOfUserNames: listOfUserNames, mapView: MapNav(region: region, listOfLocations: listOfLocations))
             
             case .userView:
-                UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                UserView(listOfUserNames: listOfUserNames, mapView: MapNav(region: region, listOfLocations: listOfLocations))
             }
             
         }
@@ -282,6 +283,7 @@ struct MapView: View {
                         if let item = item{
                             //print("Item: \(item)")
                             listOfLocations.append(item)
+                            listOfUserNames.append(item.name)
                         } else {
                             print("Document does not exist")
                         }

@@ -101,7 +101,7 @@ extension View {
 import SwiftUI
 
 struct SearchView: View {
-    let array = ["Peter", "Paul", "Mary", "Anna-Lena", "George", "John", "Greg", "Thomas", "Robert", "Bernie", "Mike", "Benno", "Hugo", "Miles", "Michael", "Mikel", "Tim", "Tom", "Lottie", "Lorrie", "Barbara"]
+    let listOfNames: [String]
     @State private var searchText = ""
     @State private var showCancelBtn: Bool = false
 
@@ -145,7 +145,7 @@ struct SearchView: View {
 
                 List {
                     // Filtered list of names
-                    ForEach(array.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
+                    ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
                         searchText in Text(searchText)
                     }
                 }
@@ -160,11 +160,13 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
+        let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
+        
         Group {
-           ContentView()
+           SearchView(listOfNames: listOfNames)
               .environment(\.colorScheme, .light)
 
-           ContentView()
+           SearchView(listOfNames: listOfNames)
               .environment(\.colorScheme, .dark)
         }
     }
