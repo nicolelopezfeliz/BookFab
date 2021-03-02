@@ -26,7 +26,8 @@ struct UserView: View {
                     }
                 case 1:
                     NavigationView {
-                        Text("Page is under cunstruction")
+                        //Text("Page is under cunstruction")
+                        SearchView()
                     }
                 case 2:
                     NavigationView {

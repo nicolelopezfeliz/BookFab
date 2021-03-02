@@ -45,6 +45,11 @@ struct ContentView: View {
                 print("No user signed in")
             }
         }
+        
+        let queueReadUserLoc = DispatchQueue(label: "queueReadUserLoc", qos: .userInitiated)
+        queueReadUserLoc.async {
+            MapView().readUserLocationFromFirestore()
+        }
     }
     
         
@@ -96,7 +101,6 @@ struct ContentView: View {
                         activeScreen = .mapScreen
                         
                     }
-                    //activeScreen = .mapScreen
                     
                     //mapScreenPresentet = Login().checkIfUserLoggedIn()
                 }, label: {
@@ -160,9 +164,6 @@ struct ContentView: View {
             }
             
         }.onAppear() {
-            /*if Login().checkIfUserLoggedIn() == true {
-                activeScreen = .mapScreen
-            }*/
             Login().logOutUser()
         }
         .fullScreenCover(item: $activeScreen) { item in
@@ -174,8 +175,7 @@ struct ContentView: View {
                 
             }
         }
-    }    //ctrl + i = indentation
-    
+    }
 }
 
 

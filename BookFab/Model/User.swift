@@ -52,3 +52,14 @@ class User : Codable, Identifiable {
         }
     }
 }
+
+extension User: Hashable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.name == rhs.name && lhs.email == rhs.email
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(email)
+    }
+}

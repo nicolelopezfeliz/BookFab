@@ -26,7 +26,8 @@ struct AdminUserView: View {
                     }
                 case 1:
                     NavigationView {
-                        Text("Page is under cunstruction")
+                        SearchView()
+                        //Text("Page is under cunstruction")
                     }
                 case 2:
                     NavigationView {
