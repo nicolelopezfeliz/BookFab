@@ -14,13 +14,13 @@ struct BusinessUserData: Codable {
     var socialMedia: String
     
     enum CodingKeys: String, CodingKey {
-    case aboutMe
-    case certifiedIn
-    case productType
-    case socialMedia
+        case aboutMe
+        case certifiedIn
+        case productType
+        case socialMedia
     }
-
-
+    
+    
     
 }
 

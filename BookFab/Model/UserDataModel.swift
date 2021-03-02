@@ -6,22 +6,24 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct UserDataModel: Codable, Identifiable {
-    var id = UUID()
+    @DocumentID var id: String?
     
     var businessAccount: Bool?
-    var businessUser: [BusinessUserData]? = []
+    var businessUser: BusinessUserData?
     var email: String?
     var name: String?
-    var userLocation: [UserLocationData]? = []
+    var userLocation: UserLocationData? 
     
     enum CodingKeys: String, CodingKey {
-    case businessAccount
-    case businessUser
-    case email
-    case name
-    case userLocation
+        case id
+        case businessAccount
+        case businessUser
+        case email
+        case name
+        case userLocation
     }
-
+    
 }

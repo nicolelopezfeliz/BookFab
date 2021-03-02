@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     var listOfSettings = ["lock", "person.circle", "info.circle", "bell"]
-    var listOfSettingTitle = ["sekretess", "Konto", "Om", "Aviseringar" ]
+    var listOfSettingTitle = ["Sekretess", "Konto", "Om", "Aviseringar" ]
     
     var body: some View {
         ZStack {
@@ -34,9 +34,11 @@ struct SettingsView: View {
                 Button(action: {print("inloggningsuppgifter")
                     
                 }, label: {
-                    Text("inloggningsuppgifter")
+                    Text("Inloggningsuppgifter")
                 })
-                .padding()
+                
+                Spacer()
+                    .frame(height: 5)
                 
                 Button(action: {print("Logga ut")
                     

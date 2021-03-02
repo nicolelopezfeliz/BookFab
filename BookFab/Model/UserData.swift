@@ -11,4 +11,5 @@ import Firebase
 class UserData: ObservableObject {
     @Published var userDocRef: DocumentReference? = nil
     @Published var currUserData: UserDataModel? = UserDataModel()
+    @Published var isUserAdmin: Bool = false
 }

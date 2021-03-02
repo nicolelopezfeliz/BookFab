@@ -17,7 +17,15 @@ class User : Codable, Identifiable {
     var email: String
     var businessAccount: Bool = false
     var userLocation: Location?
-    var businessUser: BusinessUser? = nil 
+    var businessUser: BusinessUser? = nil
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case email
+        case businessAccount
+        case userLocation
+        case businessUser
+    }
     
     init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location, businessUser: BusinessUser) {
         self.name = name

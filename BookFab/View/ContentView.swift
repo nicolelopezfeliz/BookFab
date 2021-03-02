@@ -94,6 +94,7 @@ struct ContentView: View {
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText, userData: userData) {
                         activeScreen = .mapScreen
+                        
                     }
                     //activeScreen = .mapScreen
                     

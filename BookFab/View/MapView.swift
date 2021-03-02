@@ -19,6 +19,14 @@ enum ScreenCoverActive: Identifiable {
     }
 }
 
+enum ActiveFullScreen: Identifiable {
+    case adminView, userView
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct MapView: View {
     @EnvironmentObject var userData: UserData
     
@@ -33,15 +41,10 @@ struct MapView: View {
     var auth = Firebase.Auth.auth()
     
     @State var activeScreen: ScreenCoverActive?
+    @State var activeFullScreen: ActiveFullScreen?
     
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
-    //@Environment(\.presentationMode) var presentationMode
-    //var coordinate: CLLocationCoordinate2D
-    //@State private var region = MKCoordinateRegion()
-    
-    //Center är vart vi är
-    //Span är hur mycket vi är inzoomade
     @State var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 59.4285,
                                        longitude: 17.9512),
@@ -60,53 +63,7 @@ struct MapView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            
-            /*Map(coordinateRegion: $region,
-                showsUserLocation: true,
-                annotationItems: listOfLocations) { location in
-                
-                //För varje plats har vi en marker
-                //MapPin(coordinate: location.coordinate)
-                //Ett annat utseende än den övre
-                //MapMarker(coordinate: location.coordinate)
-                
-                //eget utseende för vår marker
-                //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
-                MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
-                    Image(systemName: "rhombus")
-                        .resizable()
-                        .frame(width: 25, height: 35)
-                        .onTapGesture(count: 1, perform: {
-                            self.pressedLocation = location.userLocation!
-                            self.pressedUser = location
-                            print("Location name: \(location.userLocation!.id)")
-                            activeScreen = .displayBusinessSheet
-                        })
-                    
-                }
-            }*/
-            /*
-            TabView {
-                Text("The First Tab")
-                    .tabItem {
-                        Image(systemName: "1.square.fill")
-                        Text("First")
-                    }
-                Text("Another Tab")
-                    .tabItem {
-                        Image(systemName: "2.square.fill")
-                        Text("Second")
-                    }
-                Text("The Last Tab")
-                    .tabItem {
-                        Image(systemName: "3.square.fill")
-                        Text("Third")
-                    }
-            }
-            .font(.headline)*/
-            
-            
-            ZStack {
+            /*ZStack {
                 switch selectedIndex {
                 case 0:
                     NavigationView {
@@ -154,10 +111,23 @@ struct MapView: View {
                     }
                 
                 case 4:
-                    NavigationView {
-                        SettingsView()
+                    if let businessDataUser = userData.currUserData {
+                        if userData.isUserAdmin == true {
+                            NavigationView{
+                                SettingsView()
+                                    .onAppear{
+                                        print("On A PEAR\(userData.isUserAdmin)")
+                                    }
+                            }.ignoresSafeArea()
                             
-                    }.ignoresSafeArea()
+                        } else {
+                            EmptyView()
+                                .onAppear{
+                                    print("On A PEAR\(userData.isUserAdmin)")
+                                }
+                        }
+                        
+                    }
                 default:
                     NavigationView {
                         Text("Page is under cunstruction")
@@ -212,18 +182,29 @@ struct MapView: View {
                 }
 
                 
-            }
+            }*/
             
         }.onAppear {
             //setRegion(coordinate)
             locationModel.askForPermission()
             readUserLocationFromFirestore()
+            print("On A PEAR\(userData.isUserAdmin)")
+            
+            if userData.isUserAdmin == true {
+                activeFullScreen = .adminView
+                //let adminView = AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                
+                //AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+            } else {
+                activeFullScreen = .userView
+                //UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+            }
             
             if let currentUserData = userData.userDocRef {
                 
-                print("Current UserData: \(currentUserData)")
+               // print("Current UserData: \(currentUserData)")
                 
-                currentUserData.addSnapshotListener{ documentSnapshot, error in
+            currentUserData.addSnapshotListener{ documentSnapshot, error in
                     guard let document = documentSnapshot else {
                         print("Error fetching document: \(error!)")
                         return
@@ -232,26 +213,18 @@ struct MapView: View {
                         print("Document data was empty.")
                         return
                     }
-                    print("Current data: \(data)")
-                    print("Current UserData: \(currentUserData)")
-                    print("Current DocumentData: \(document.data())")
-                    //document.data()
-                    
-                    
                     try! self.userData.currUserData = document.data(as: UserDataModel.self)
                 }
-                
-                
-                
-                /*self.userData.currUserData = document.data().map { queryDocumentSnapshot -> UserDataModel? in
-                   //    return try? queryDocumentSnapshot(as: UserDataModel.self)
-                     }*/
-                //try! document.data(as: UserDataModel)
             }
-            
-            //print("USER data: \(userData.currUserData?.businessUser)")
-            
-            
+            /*
+            if let businessDataUser = userData.currUserData {
+                if userData.isUserAdmin == true {
+                    AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                } else {
+                    UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                }
+                
+            }*/
             
         }.sheet(item: $activeScreen) { item in
             switch item {
@@ -265,17 +238,23 @@ struct MapView: View {
                 if let pressedLocation = pressedLocation {
                     DisplayBusinessSheet(location: pressedLocation, user: pressedUser!)
                 }
-                /*if let pressedLocation = pressedLocation {
-                    DisplayBusinessSheet(location: pressedLocation)
-                } else {
-                    print("pressed location har inget värde")
-                }*/
-                
             }
+        }
+        .fullScreenCover(item: $activeFullScreen) { item in
+            switch item {
+            case .adminView:
+                AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+            
+            case .userView:
+                UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+            }
+            
         }
         .ignoresSafeArea()
         
     }
+    
+    
     
     func readUserLocationFromFirestore(){
         print("Nu kommer vi in i funktionen")
@@ -336,6 +315,57 @@ struct MapView: View {
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
     }
+}
+
+struct MapNav: View {
+    @State var region: MKCoordinateRegion
+    @State var listOfLocations: [User]
+    @State var pressedLocation: Location? = nil
+    @State var pressedUser: User? = nil
+    @State var activeScreen: ScreenCoverActive?
+    
+    var body: some View {
+        VStack{
+            Map(coordinateRegion: $region,
+                showsUserLocation: true,
+                annotationItems: listOfLocations) { location in
+                
+                //För varje plats har vi en marker
+                //MapPin(coordinate: location.coordinate)
+                //Ett annat utseende än den övre
+                //MapMarker(coordinate: location.coordinate)
+                
+                //eget utseende för vår marker
+                //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
+                MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
+                    Image(systemName: "rhombus")
+                        .resizable()
+                        .frame(width: 25, height: 35)
+                        .onTapGesture(count: 1, perform: {
+                            self.pressedLocation = location.userLocation!
+                            self.pressedUser = location
+                            print("Location name: \(location.userLocation!.id)")
+                            activeScreen = .displayBusinessSheet
+                        })
+                    
+                }
+            }.ignoresSafeArea()
+        }.sheet(item: $activeScreen) { item in
+            switch item {
+            case .profileView:
+                MapView.init()
+            
+            case .mapScreen:
+                MapView.init()
+                
+            case .displayBusinessSheet:
+                if let pressedLocation = pressedLocation {
+                    DisplayBusinessSheet(location: pressedLocation, user: pressedUser!)
+                }
+            }
+        }
+    }
+    
 }
 
 struct MapView_Previews: PreviewProvider {

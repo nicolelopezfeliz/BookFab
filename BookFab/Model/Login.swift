@@ -12,9 +12,11 @@ import SwiftUI
 
 
 class Login : ObservableObject {
+    @State private var isUserAdmin = false
     
    // @State var isBusinessAccount = false
     private var listOfLocations = [Location]()
+
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
@@ -65,6 +67,7 @@ class Login : ObservableObject {
                     if let document = document, document.exists {
                         let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                         isAdmin = true
+                        userData.isUserAdmin = true
                         print("Is admin")
                         //print("Document data: \(dataDescription)")
                     } else {
@@ -81,7 +84,11 @@ class Login : ObservableObject {
                     }
                     userData.userDocRef = finalDocRef
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     closure()
+                    }
+                    
+                    //closure()
                 }
                 /*
                 var finalDocRef: DocumentReference
@@ -185,7 +192,7 @@ class Login : ObservableObject {
             } else {
                 //user registered successfully
                 print("Registered sucsessfully")
-                print(result)
+                //print(result)
                 
                 let userLocation = Location(name: "", latitude: 59.4269, longitude: 17.9520)
                 
@@ -226,9 +233,9 @@ class Login : ObservableObject {
                // self.saveUserToFirestore(user: newUser)
             }
             
-            print("emejlen: \(email)")
-            print("lösenordet: \(password)")
-            print("namn: \(name)")
+            //print("emejlen: \(email)")
+            //print("lösenordet: \(password)")
+            //print("namn: \(name)")
             
         }
         

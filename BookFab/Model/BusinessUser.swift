@@ -11,7 +11,7 @@ class BusinessUser : Codable, Identifiable {
     
     //@DocumentID var id : String?
     
-    var user: User?
+    //var user: User?
     var certifiedIn: String
     var aboutMe: String
     var productType: String

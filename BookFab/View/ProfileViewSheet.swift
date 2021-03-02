@@ -29,7 +29,7 @@ struct ProfileViewSheet: View {
     @State var displayCurrentUser: User? = nil
     @State private var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
-
+    
     
     
     var body: some View {
@@ -43,77 +43,49 @@ struct ProfileViewSheet: View {
             Spacer()
             
             VStack(alignment: .leading) {
-                
-               /* if let user = displayCurrentUser {
-                Text("\((user.name))")
-                    .foregroundColor(.gray)
-                    .fontWeight(.bold)
-                    .padding(.top, 150)
-                }*/
-                
-      
-                /*Text("Certifierad: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(ColorManager.darkPink)*/
-                
+                Text("Certifierad")
+                    .font(.system(size: 14))
+                    .bold()
+                    .foregroundColor(ColorManager.darkPink)
+                    .padding()
                 TextEditor(text: $content)
-                    .font(.body)
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .padding([.horizontal, .vertical], 4)
                     .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
                     .onTapGesture {
-                    clearText()
-                }
-                
-                Text("Mina produkter:")
-                    .font(.system(size: 18))
+                        clearText()
+                    }
+                Text("Mina produkter")
+                    .font(.system(size: 14))
+                    .bold()
                     .foregroundColor(ColorManager.darkPink)
                     .padding()
-                
                 TextEditor(text: $myProcuctsDescription)
-                    .font(.body)
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .padding()
                     .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
-
-                
                 Text("Lite om mig")
-                    .font(.system(size: 18))
+                    .font(.system(size: 14))
+                    .bold()
                     .foregroundColor(ColorManager.darkPink)
                     .padding()
-                
                 TextEditor(text: $aboutMe)
-                    .font(.body)
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .padding()
                     .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
-                
-                Text("Instagram: ")
-                    .font(.system(size: 18))
+                Text("Instagram")
+                    .font(.system(size: 14))
+                    .bold()
                     .foregroundColor(ColorManager.darkPink)
                     .padding()
-                
                 TextEditor(text: $mySocialMedia)
-                    .font(.body)
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .padding()
                     .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
                 
                 Button(action: {
                     let businessInfo = BusinessUser(
@@ -151,57 +123,57 @@ struct ProfileViewSheet: View {
         }.ignoresSafeArea()
     }
     /*
-    func getCurrentUserInfo() {
-        let user = Auth.auth().currentUser
-        
-        if let currentUser = user {
-            db.collection(usersCollection).addSnapshotListener { (snapshot, err ) in
-                if let err = err {
-                    print("Error in getting documents \(err)")
-                } else {
-                    let uid = user?.uid
-                    userUidString = user!.uid
-                    let userEmail = user?.email
-                    
-                    for document in snapshot!.documents {
-                        
-                        let result = Result {
-                            //Här omvandlar vi från dictionary till en item
-                            try document.data(as: User.self)
-                        }
-                        //Resultatet av omvandlingen bestämmer vad vi får ut
-                        switch result {
-                        case .success(let item):
-                            //Om omvandlingen är en sucsess får vi itemet
-                            //print("Omvandlingen va en sucsess")
-                            //Kollar om itemet är nil
-                            if let item = item {
-                                //print("Item: \(item)")
-                                displayCurrentUser = item
-                            } else {
-                                print("Document does not exist")
-                            }
-                        case .failure(let error):
-                            //är omvandlingen en faliure
-                            print("Error decoding item: \(error)")
-                        }
-                    }
-                    
-                    
-                    print("user email \(userEmail)")
-                }
-                
-            }}
-        
-    }*/
+     func getCurrentUserInfo() {
+     let user = Auth.auth().currentUser
+     
+     if let currentUser = user {
+     db.collection(usersCollection).addSnapshotListener { (snapshot, err ) in
+     if let err = err {
+     print("Error in getting documents \(err)")
+     } else {
+     let uid = user?.uid
+     userUidString = user!.uid
+     let userEmail = user?.email
+     
+     for document in snapshot!.documents {
+     
+     let result = Result {
+     //Här omvandlar vi från dictionary till en item
+     try document.data(as: User.self)
+     }
+     //Resultatet av omvandlingen bestämmer vad vi får ut
+     switch result {
+     case .success(let item):
+     //Om omvandlingen är en sucsess får vi itemet
+     //print("Omvandlingen va en sucsess")
+     //Kollar om itemet är nil
+     if let item = item {
+     //print("Item: \(item)")
+     displayCurrentUser = item
+     } else {
+     print("Document does not exist")
+     }
+     case .failure(let error):
+     //är omvandlingen en faliure
+     print("Error decoding item: \(error)")
+     }
+     }
+     
+     
+     print("user email \(userEmail)")
+     }
+     
+     }}
+     
+     }*/
     /*
-    func saveBusinessInfoToUser(userUid: String, businessInfo: BusinessUser){
-        do {
-            _ = try db.collection("users/admin/\(userUid)").addDocument(data: ["businessInfo" : "\(businessInfo)"]) //.addDocument(from: businessInfo)
-        } catch {
-            print("Error in saving to DB")
-        }
-    }*/
+     func saveBusinessInfoToUser(userUid: String, businessInfo: BusinessUser){
+     do {
+     _ = try db.collection("users/admin/\(userUid)").addDocument(data: ["businessInfo" : "\(businessInfo)"]) //.addDocument(from: businessInfo)
+     } catch {
+     print("Error in saving to DB")
+     }
+     }*/
     
     private func clearText() {
         if (businessUserInfo == nil) {
