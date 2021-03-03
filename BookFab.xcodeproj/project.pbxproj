@@ -15,6 +15,8 @@
 		FC0F64D725DF2F4900BFDE0B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F64D625DF2F4900BFDE0B /* SettingsView.swift */; };
 		FC0F64DC25DF30E300BFDE0B /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */; };
 		FC0F64E125DF33F500BFDE0B /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F64E025DF33F500BFDE0B /* AccountSettings.swift */; };
+		FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */; };
+		FC3EB99125EFA0B900025E89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EB99025EFA0B900025E89 /* CardView.swift */; };
 		FC419F0025D2C3E100708FEA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC419EFF25D2C3E100708FEA /* Location.swift */; };
 		FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */; };
 		FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7A25C2E9E2002C5622 /* SceneDelegate.swift */; };
@@ -77,6 +79,8 @@
 		FC0F64D625DF2F4900BFDE0B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		FC0F64E025DF33F500BFDE0B /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
+		FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
+		FC3EB99025EFA0B900025E89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FC419EFF25D2C3E100708FEA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FC4ECC7525C2E9E2002C5622 /* BookFab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookFab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 				FCFFC53125EDA7B000F8023C /* AdminUserView.swift */,
 				FCFFC53625EDA7C700F8023C /* UserView.swift */,
 				FCFFC53B25EE434100F8023C /* SearchView.swift */,
+				FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */,
+				FC3EB99025EFA0B900025E89 /* CardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 				FCFFC53225EDA7B000F8023C /* AdminUserView.swift in Sources */,
 				FC79C1DE25E8789500A9FDDC /* UserDataModel.swift in Sources */,
 				FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */,
+				FC3EB99125EFA0B900025E89 /* CardView.swift in Sources */,
 				FC0F64D725DF2F4900BFDE0B /* SettingsView.swift in Sources */,
 				FC9CC0C625E6E02D0021BE13 /* TextManager.swift in Sources */,
 				FC0F64D225DF118F00BFDE0B /* FirebaseModel.swift in Sources */,
@@ -536,6 +543,7 @@
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
 				FC79C1E825E87AFE00A9FDDC /* UserLocationData.swift in Sources */,
 				FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */,
+				FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */,
 				FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */,
 				FC79C1E325E87A5200A9FDDC /* BusinessUserData.swift in Sources */,
 				FC0F64CD25DEC3EC00BFDE0B /* ProfileViewSheet.swift in Sources */,

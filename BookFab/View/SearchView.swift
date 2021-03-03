@@ -102,6 +102,9 @@ import SwiftUI
 
 struct SearchView: View {
     let listOfNames: [String]
+    let listOfUsers = [User]()
+    
+    @State var pressedUserName = ""
     @State private var searchText = ""
     @State private var showCancelBtn: Bool = false
 
@@ -146,7 +149,14 @@ struct SearchView: View {
                 List {
                     // Filtered list of names
                     ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
-                        searchText in Text(searchText)
+                        searchText in
+                        
+                        NavigationLink(
+                            destination: SettingsView(),
+                            label: {
+                                Text(searchText)
+                            })
+                        
                     }
                 }
                 .navigationBarTitle(Text("Search"))

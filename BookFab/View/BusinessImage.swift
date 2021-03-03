@@ -13,7 +13,7 @@ struct BusinessImage: View {
     var body: some View {
         image
             .clipShape(Rectangle())
-            .frame(height: 300)
+            .frame(height: 200)
             .ignoresSafeArea()
     }
 }

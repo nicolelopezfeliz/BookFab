@@ -15,6 +15,7 @@ struct AdminUserView: View {
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     @State var mapView: MapNav
+    @State var currentUser: UserDataModel
     @State private var selectedIndex = 0
     
     var body: some View {
@@ -38,6 +39,7 @@ struct AdminUserView: View {
                     NavigationView {
                         ProfileViewSheet()
                             .navigationTitle("Din profil")
+                        
                         //DisplayBusinessSheet(location: pressedLocation!, user: pressedUser!)
                     }
                     
@@ -92,7 +94,23 @@ struct AdminUserView_Previews: PreviewProvider {
         
         let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
         
+        let businessUser = BusinessUserData(
+            aboutMe: "Älskar burgare",
+            certifiedIn: "Naglar",
+            productType: "Naglar, fransar och fillers",
+            socialMedia: "@nailsbyhannah")
         
-        AdminUserView(listOfUserNames: listOfNames,mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
+        let user = UserDataModel(
+            id: "",
+            businessAccount: true,
+            businessUser: businessUser,
+            email: "",
+            name: "")
+        
+        
+        AdminUserView(
+            listOfUserNames: listOfNames,
+            mapView: MapNav.init(region: region, listOfLocations: listOfLocations),
+            currentUser: user)
     }
 }

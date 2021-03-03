@@ -13,7 +13,7 @@ struct FirebaseModel {
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
     
-    func getCurrentUserInfo(userType: String, userUid: String) {
+    func getCurrentUserInfo(userType: String) {
         let user = Auth.auth().currentUser
         
         if let currentUser = user {
@@ -28,7 +28,6 @@ struct FirebaseModel {
                 }
                 
             }}
-        
     }
     
     func saveUserToFirestore(user: User, userType: String, userUid: String){

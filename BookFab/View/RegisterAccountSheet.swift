@@ -157,15 +157,15 @@ struct RegisterAccountSheet: View {
                 case .mapScreen:
                     MapView.init()
                 case .businessAccountScreen:
-                    ProfileViewSheet(
+                    CreateProfileView(
                         eMailText: eMailText,
                         passwordConfirmed: passwordConfirmed,
                         nameText: nameText,
                         businessAccount: businessAccount)
-                    //MapView.init()
-                    //DisplayBusinessSheet(location: <#T##Location#>, user: <#T##User#>)
-                    //RegisterAccountSheet(eMailText: "\(emailText)")
-                    
+                //MapView.init()
+                //DisplayBusinessSheet(location: <#T##Location#>, user: <#T##User#>)
+                //RegisterAccountSheet(eMailText: "\(emailText)")
+                
                 }
             }
         }

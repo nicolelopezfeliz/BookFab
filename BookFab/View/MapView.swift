@@ -60,6 +60,8 @@ struct MapView: View {
     
     @State var fullScreen = true
     
+    @State var currentUser: UserDataModel? = nil
+    
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     var body: some View {
@@ -193,11 +195,13 @@ struct MapView: View {
             
             if userData.isUserAdmin == true {
                 activeFullScreen = .adminView
+                currentUser = userData.currUserData
                 //let adminView = AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
                 
                 //AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
             } else {
                 activeFullScreen = .userView
+                FirebaseModel().getCurrentUserInfo(userType: "user")
                 //UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
             }
             
@@ -244,7 +248,18 @@ struct MapView: View {
         .fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .adminView:
-                AdminUserView(listOfUserNames: listOfUserNames, mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                if let currentUser = userData.currUserData {
+                AdminUserView(
+                    listOfUserNames: listOfUserNames,
+                    mapView: MapNav(
+                        region: region,
+                        listOfLocations: listOfLocations),
+                    currentUser: currentUser
+                    
+                )
+                }
+                
+                
             
             case .userView:
                 UserView(listOfUserNames: listOfUserNames, mapView: MapNav(region: region, listOfLocations: listOfLocations))

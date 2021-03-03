@@ -26,101 +26,35 @@ struct ProfileViewSheet: View {
     @State private var mySocialMedia = "ange länk till sociala medier"
     
     @State var userUidString: String = ""
-    @State var displayCurrentUser: User? = nil
+    @EnvironmentObject var currentProfileUser: UserData
     @State private var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
     
     
     
     var body: some View {
-        ScrollView {
-            BusinessImage(image: Image("nailimage"))
-                .ignoresSafeArea(edges: .top)
-                .padding(.bottom, 0)
-                .offset(y: -130)
+      
             
-            
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text("Certifierad")
-                    .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
-                TextEditor(text: $content)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding([.horizontal, .vertical], 4)
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .onTapGesture {
-                        clearText()
+            ScrollView {
+                VStack {
+                    BusinessImage(image: Image("nailimage"))
+                        .ignoresSafeArea(edges: .top)
+                        .padding(.bottom, 0)
+                        .offset(y: -130)
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading) {
+                        CardView()
+                            .background(Color(.blue))
                     }
-                Text("Mina produkter")
-                    .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
-                TextEditor(text: $myProcuctsDescription)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                Text("Lite om mig")
-                    .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
-                TextEditor(text: $aboutMe)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                Text("Instagram")
-                    .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
-                TextEditor(text: $mySocialMedia)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
+                    
+                }.frame(width: UIScreen.main.bounds.width)
                 
-                Button(action: {
-                    let businessInfo = BusinessUser(
-                        certifiedIn: content,
-                        aboutMe: aboutMe,
-                        productType: myProcuctsDescription,
-                        socialMedia: mySocialMedia)
-                    
-                    Login().createAccount(
-                        email: eMailText!,
-                        password: passwordConfirmed!,
-                        name: nameText!,
-                        businessAccount: businessAccount!,
-                        businessUserAssets: businessInfo
-                    )
-                    
-                    //saveBusinessInfoToUser(userUid: userUidString, businessInfo: businessInfo)
-                    
-                    print("User UID: \(userUidString)")
-                    
-                }, label: {
-                    Text("Continue")
-                        .bold()
-                        .foregroundColor(.blue)
-                    
-                })
-                
-                
-            }.padding(.top)
-            .frame(width: 360, height: 400, alignment: .leading)
-            .onAppear{
-                setContent()
-                //getCurrentUserInfo()
             }
-        }.ignoresSafeArea()
+            .foregroundColor(.gray)
+            
+        
     }
     /*
      func getCurrentUserInfo() {
@@ -190,11 +124,24 @@ struct ProfileViewSheet: View {
         
     }
 }
-
+/*
 struct ProfileViewSheet_Previews: PreviewProvider {
     static var previews: some View {
         //@Static let emailText = ""
         
-        ProfileViewSheet()
+        let businessUser = BusinessUserData(
+            aboutMe: "Älskar burgare",
+            certifiedIn: "Naglar",
+            productType: "Naglar, fransar och fillers",
+            socialMedia: "@nailsbyhannah")
+        
+        let user = UserDataModel(
+            id: "",
+            businessAccount: true,
+            businessUser: businessUser,
+            email: "",
+            name: "")
+        
+        ProfileViewSheet(currentProfileUser: user)
     }
-}
+}*/
