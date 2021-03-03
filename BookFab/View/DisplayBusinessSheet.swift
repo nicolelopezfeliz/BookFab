@@ -10,85 +10,59 @@ import SwiftUI
 
 struct DisplayBusinessSheet: View {
     //var businessName: String
-    var location: Location
-    var user: User
+    //var location: Location
+    @State var user: User
+    
+    private let certefiedTitle = "Certifierad"
+    private let myProductsTitle = "Mina Produkter"
+    private let aboutMeTitle = "Lite om mig"
+    private let socialMediaTitle = "Instagram"
     
     let notYetPostedInfo = "Information is under cunstroction"
     
+    let heightFourth = UIScreen.main.bounds.height/4
     
     
     var body: some View {
-        ScrollView {
-            BusinessImage(image: Image("nailimage"))
-                .ignoresSafeArea(edges: .top)
-                .padding(.bottom, -130)
-                .offset(y: -130)
-            
-            
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text("\(user.name)")
-                    .foregroundColor(ColorManager.darkPink)
-                    .fontWeight(.bold)
-                    .font(.system(size: 20))
-                    .padding()
+        
+        VStack(alignment: .leading){
+            ScrollView {
                 
-                Text("Certifierad: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(ColorManager.darkPink)
-                Text("\(user.businessUser?.certifiedIn ?? "\(notYetPostedInfo)")")
-                    .padding()
-                
-                Text("Mina produkter: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(ColorManager.darkPink)
-                Text("\(user.businessUser?.productType ?? "\(notYetPostedInfo)")")
-                    .padding()
-                
-                Text("Lite om mig: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(ColorManager.darkPink)
-                Text("\(user.businessUser?.aboutMe ?? "\(notYetPostedInfo)")")
-                    .padding()
-                
-                
-                Text("Instagram: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(ColorManager.darkPink)
-                Text("\(user.businessUser?.socialMedia ?? "\(notYetPostedInfo)")")
-                    .padding()
-                
-                
-            }
-            .padding(.top)
-            .frame(width: 360, height: .infinity, alignment: .leading)
-        }
-    }
-}
+                Image("nailimage")
+                    .resizable()
+                    .frame(height: heightFourth)
+                    .ignoresSafeArea(edges: .top)
 
-struct DisplayBusinessSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        let location = Location(
-            name: "",
-            latitude: 0.0,
-            longitude: 0.0)
-        
-        let businessUser = BusinessUser(
-            certifiedIn: "",
-            aboutMe: "",
-            productType: "",
-            socialMedia: "")
-        
-        let user = User(
-            name: "",
-            email: "",
-            productType: "",
-            socialMedia: "",
-            businessAccount: true,
-            userLocation: location,
-            businessUser: businessUser)
-        
-        DisplayBusinessSheet(location: user.userLocation!, user: user)
+                
+                if let businessUser = user.businessUser {
+                    Text("\(user.name)")
+                        .foregroundColor(ColorManager.darkPink)
+                        .fontWeight(.bold)
+                        .font(.system(size: 20))
+                        .padding()
+
+                    TitleText(
+                        title: certefiedTitle, textImage: Image(systemName: "link"),
+                        textContent: businessUser.certifiedIn)
+                        .padding(.bottom, 4)
+                    
+                    TitleText(
+                        title: myProductsTitle, textImage: Image(systemName: "wand.and.stars"),
+                        textContent: businessUser.productType)
+                        .padding(.bottom, 4)
+                    
+                    TitleText(
+                        title: aboutMeTitle, textImage: Image(systemName: "heart.text.square"),
+                        textContent: businessUser.aboutMe)
+                        .padding(.bottom, 4)
+                    
+                    TitleText(
+                        title: socialMediaTitle, textImage: Image(systemName: "link"),
+                        textContent: businessUser.socialMedia)
+                        .padding(.bottom, 4)
+                }
+                
+            }.frame(height: heightFourth * 3)
+        }
     }
 }

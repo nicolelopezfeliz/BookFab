@@ -148,6 +148,16 @@ struct SearchView: View {
 
                 List {
                     // Filtered list of names
+                    //SettingsRow(image: Image(systemName: "\(listOfSettings[num])"), rowText: "\(listOfSettingTitle[num])")
+                    ForEach(listOfUsers.indices, id:\.self) { index in
+                        NavigationLink(
+                            destination: DisplayBusinessSheet(user: listOfUsers[index]),
+                            label: {
+                                Text(searchText)
+                            })
+                    }
+                    
+                    
                     ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
                         searchText in
                         

@@ -16,7 +16,6 @@
 		FC0F64DC25DF30E300BFDE0B /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */; };
 		FC0F64E125DF33F500BFDE0B /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0F64E025DF33F500BFDE0B /* AccountSettings.swift */; };
 		FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */; };
-		FC3EB99125EFA0B900025E89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EB99025EFA0B900025E89 /* CardView.swift */; };
 		FC419F0025D2C3E100708FEA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC419EFF25D2C3E100708FEA /* Location.swift */; };
 		FC4ECC7925C2E9E2002C5622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */; };
 		FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4ECC7A25C2E9E2002C5622 /* SceneDelegate.swift */; };
@@ -42,6 +41,9 @@
 		FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */; };
 		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
 		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
+		FCE06EFF25F0405D00431EDB /* UnderConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */; };
+		FCE06F0C25F0481C00431EDB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */; };
+		FCE06F1125F04F9D00431EDB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F1025F04F9D00431EDB /* EditProfileView.swift */; };
 		FCFFC53225EDA7B000F8023C /* AdminUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFC53125EDA7B000F8023C /* AdminUserView.swift */; };
 		FCFFC53725EDA7C700F8023C /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFC53625EDA7C700F8023C /* UserView.swift */; };
 		FCFFC53C25EE434100F8023C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFC53B25EE434100F8023C /* SearchView.swift */; };
@@ -80,7 +82,6 @@
 		FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		FC0F64E025DF33F500BFDE0B /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
-		FC3EB99025EFA0B900025E89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FC419EFF25D2C3E100708FEA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FC4ECC7525C2E9E2002C5622 /* BookFab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookFab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4ECC7825C2E9E2002C5622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +113,9 @@
 		FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBusinessSheet.swift; sourceTree = "<group>"; };
 		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderConstructionView.swift; sourceTree = "<group>"; };
+		FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		FCE06F1025F04F9D00431EDB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FCFFC53125EDA7B000F8023C /* AdminUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUserView.swift; sourceTree = "<group>"; };
 		FCFFC53625EDA7C700F8023C /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		FCFFC53B25EE434100F8023C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -247,7 +251,8 @@
 				FCFFC53625EDA7C700F8023C /* UserView.swift */,
 				FCFFC53B25EE434100F8023C /* SearchView.swift */,
 				FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */,
-				FC3EB99025EFA0B900025E89 /* CardView.swift */,
+				FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */,
+				FCE06F1025F04F9D00431EDB /* EditProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				FC79C1DD25E8789500A9FDDC /* UserDataModel.swift */,
 				FC79C1E225E87A5200A9FDDC /* BusinessUserData.swift */,
 				FC79C1E725E87AFE00A9FDDC /* UserLocationData.swift */,
+				FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 				FCFFC53725EDA7C700F8023C /* UserView.swift in Sources */,
 				FC419F0025D2C3E100708FEA /* Location.swift in Sources */,
 				FC773BF425DDBCFA00223F8F /* BusinessUser.swift in Sources */,
+				FCE06F0C25F0481C00431EDB /* SettingsViewModel.swift in Sources */,
 				FC5B805125CCA523009F2E92 /* Login.swift in Sources */,
 				FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */,
 				FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */,
@@ -535,12 +542,12 @@
 				FCFFC53225EDA7B000F8023C /* AdminUserView.swift in Sources */,
 				FC79C1DE25E8789500A9FDDC /* UserDataModel.swift in Sources */,
 				FC4ECC7B25C2E9E2002C5622 /* SceneDelegate.swift in Sources */,
-				FC3EB99125EFA0B900025E89 /* CardView.swift in Sources */,
 				FC0F64D725DF2F4900BFDE0B /* SettingsView.swift in Sources */,
 				FC9CC0C625E6E02D0021BE13 /* TextManager.swift in Sources */,
 				FC0F64D225DF118F00BFDE0B /* FirebaseModel.swift in Sources */,
 				FC0F64DC25DF30E300BFDE0B /* SettingsRow.swift in Sources */,
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
+				FCE06F1125F04F9D00431EDB /* EditProfileView.swift in Sources */,
 				FC79C1E825E87AFE00A9FDDC /* UserLocationData.swift in Sources */,
 				FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */,
 				FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */,
@@ -549,6 +556,7 @@
 				FC0F64CD25DEC3EC00BFDE0B /* ProfileViewSheet.swift in Sources */,
 				FC79C1D925E8725100A9FDDC /* UserData.swift in Sources */,
 				FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */,
+				FCE06EFF25F0405D00431EDB /* UnderConstructionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

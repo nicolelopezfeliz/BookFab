@@ -33,7 +33,7 @@ struct AdminUserView: View {
                     }
                 case 2:
                     NavigationView {
-                        Text("Page is under cunstruction")
+                        UnderConstructionView()
                     }
                 case 3:
                     NavigationView {
@@ -56,23 +56,18 @@ struct AdminUserView: View {
                 
             }
             Divider()
-                .padding(.bottom, 16)
+                .padding(.bottom, 10)
             
             HStack {
                 ForEach(0..<5) {num in
                     Button(action: {
-                        /*if num == 2 {
-                         MapView()
-                         print("mapView")
-                         }*/
-                        
                         selectedIndex = num
                     }, label: {
                         Spacer()
                         Image(systemName: tabBarImageNames[num])
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(selectedIndex == num ? ColorManager.darkPink : .init(white: 0.8))
-                            .padding(.bottom, 24)
+                            .padding(.bottom, 8)
                         Spacer()
                     })
                 }

@@ -12,7 +12,15 @@ import Firebase
 import MapKit
 
 enum ActiveScreenCover: Identifiable {
-    case mapScreen, registerAccountScreen
+    case mapScreen
+    
+    var id: Int {
+        hashValue
+    }
+}
+
+enum ActiveSheetCover: Identifiable {
+    case registerAccountScreen
     
     var id: Int {
         hashValue
@@ -33,7 +41,9 @@ struct ContentView: View {
     @State var passwordText = "123456"
     @State var registerAccoutSheetShow = true
     @State var mapScreenPresentet = true
-    @State var activeScreen: ActiveScreenCover?
+    @State var activeFullScreen: ActiveScreenCover?
+    @State var activeSheet: ActiveSheetCover?
+    @State var showAlert = true
     
     @ObservedObject var userData = UserData()
     
@@ -98,11 +108,9 @@ struct ContentView: View {
                 
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText, userData: userData) {
-                        activeScreen = .mapScreen
+                        activeFullScreen = .mapScreen
                         
-                    }
-                    
-                    //mapScreenPresentet = Login().checkIfUserLoggedIn()
+                    } alertClosure: {  }
                 }, label: {
                     Text(loginText)
                         .font(.title3)
@@ -113,13 +121,16 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding()
                         .cornerRadius(5.0)
-                })/*.alert(isPresented: $showAlert, content: { () -> alert in
-                 alert = UIAlertController(
-                 title: "Skapa konto",
-                 message: "Kontot existerar inte, vill du skapa ett konto?",
-                 preferredStyle: .alert)
-                 })*/
-                //
+                    
+                })
+                
+                /*.alert(isPresented: $showAlert, content: { () -> alert in
+                    alert = UIAlertController(
+                        title: "Skapa konto",
+                        message: "Kontot existerar inte, vill du skapa ett konto?",
+                        preferredStyle: .alert)
+                })*/
+                
                 HStack {
                     Text(registerAccountText)
                         .font(.system(size: 13))
@@ -128,7 +139,7 @@ struct ContentView: View {
                     
                     Button(action: {
                         //print("CLICKED")
-                        activeScreen = .registerAccountScreen
+                        activeSheet = .registerAccountScreen
                         //registerAccoutSheetShow = true
                             
                         
@@ -166,15 +177,19 @@ struct ContentView: View {
         }.onAppear() {
             Login().logOutUser()
         }
-        .fullScreenCover(item: $activeScreen) { item in
+        .fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .mapScreen:
                 MapView.init().environmentObject(userData)
-            case .registerAccountScreen:
-                RegisterAccountSheet(eMailText: "\(emailText)")
-                
             }
         }
+        .sheet(item: $activeSheet) { item in
+            switch item {
+            case .registerAccountScreen:
+                RegisterAccountSheet(eMailText: "\(emailText)")
+            }
+        }
+        
     }
 }
 

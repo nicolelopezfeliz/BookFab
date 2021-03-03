@@ -13,74 +13,66 @@ struct CardView: View {
     @EnvironmentObject var user: UserData
     let image = Image(systemName: "heart.text.square")
     
-    let certefiedTitle = "Certifierad"
-    let myProductsTitle = "Mina Produkter"
-    let aboutMeTitle = "Lite om mig"
-    let socialMediaTitle = "Imstagram"
+    var title: String
+    var textContent: String
+    
+    /*
+     let certefiedTitle: String
+     let myProductsTitle: String
+     let aboutMeTitle: String
+     let socialMediaTitle: String*/
     
     var body: some View {
-        VStack() {
-            //if let user = user {
-            if let businessUser = user.currUserData?.businessUser {
-                
-                TitleTextCards(
-                    title: certefiedTitle,
-                    textContent: businessUser.certifiedIn,
-                    textImage: image)
-                
-                TitleTextCards(
-                    title: myProductsTitle,
-                    textContent: businessUser.productType,
-                    textImage: image)
-                
-                TitleTextCards(
-                    title: aboutMeTitle,
-                    textContent: businessUser.aboutMe,
-                    textImage: image)
-                
-                TitleTextCards(
-                    title: socialMediaTitle,
-                    textContent: businessUser.socialMedia,
-                    textImage: image)
-            }
+        ZStack() {
+            TitleTextCards(
+                title: title,
+                textImage: image,
+                textContent: textContent
+            )
             
-            // }
-        }.onAppear{
-            print("Card View User \(user.currUserData)")
         }
+        
     }
 }
 
 struct TitleTextCards: View {
     var title: String
-    @State var textContent: String
     var textImage: Image
-    
+    @State var textContent: String
+     
     var body: some View {
-        VStack {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.black)
-        }.frame(width: UIScreen.main.bounds.width)
-        
-        Spacer()
-            
-        HStack {
-            textImage
-            Spacer()
-            
-            Text(textContent)
-                .font(.system(size: 14))
-                .padding(.trailing, 20)
-                .foregroundColor(.black)
-        }
-            .onAppear{
-                print("Text content \(textContent)")
+         
+        VStack(alignment: .leading) {
+             
+            VStack {
+                 
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.pink)
+             
             }
-            
-        
+         
+            HStack {
+                 
+                textImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 12, height: 12)
+                 
+                Text(textContent)
+                    .font(.system(size: 12))
+                    .foregroundColor(.black)
+                    .padding(10)
+                 
+            }
+             
+        }
+        .padding(.init(top: 15, leading: 10, bottom: 15, trailing: 10))
+        .frame(maxWidth: .infinity, alignment: .leading)
+         
     }
 }
+
 /*
  struct CardView_Previews: PreviewProvider {
  static var previews: some View {

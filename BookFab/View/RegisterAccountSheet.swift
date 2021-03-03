@@ -37,7 +37,7 @@ struct RegisterAccountSheet: View {
     
     var body: some View {
         
-        NavigationView {
+        ScrollView {
             
             VStack {
                 Text("Registrera konto")
@@ -70,7 +70,7 @@ struct RegisterAccountSheet: View {
                     .autocapitalization(.none)
                     .keyboardType(.emailAddress)
                 
-                
+                /*
                 SecureField("Enter password", text: $password)
                     .font(.body)
                     .foregroundColor(.gray)
@@ -79,9 +79,9 @@ struct RegisterAccountSheet: View {
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(ColorManager.lightPink, lineWidth: 2)
                     )
-                    .padding()
+                    .padding()*/
                 
-                SecureField("Confirm password", text: $passwordConfirmed)
+                SecureField("Enter Password", text: $passwordConfirmed)
                     .font(.body)
                     .foregroundColor(.gray)
                     .frame(width: 200, height: 40, alignment: .leading)

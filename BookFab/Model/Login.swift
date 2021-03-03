@@ -13,20 +13,15 @@ import SwiftUI
 
 class Login : ObservableObject {
     @State private var isUserAdmin = false
-    
-   // @State var isBusinessAccount = false
-    private var listOfLocations = [Location]()
+    @State var alertIsPresented = true
 
+    private var listOfLocations = [Location]()
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
     var locationModel = LocationModel()
     var firebaseModel = FirebaseModel()
-    
-    //var isAdmin: Bool = false
-    
-    //var userUid: String
-    
+
     func checkIfUserLoggedIn() -> Bool {
         if Firebase.Auth.auth().currentUser != nil {
             print("DU är inloggad sen tidigare")
@@ -39,12 +34,13 @@ class Login : ObservableObject {
         return false
     }
     
-    func loginUser(email: String, password: String, userData: UserData, closure: @escaping () -> ()){
+    func loginUser(email: String, password: String, userData: UserData, closure: @escaping () -> (), alertClosure: @escaping () -> ()){
         var isAdmin: Bool = false
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { result, err in
             
             guard err == nil else {
                 print("No account with tis e-mail")
+                self.handleError(err!, alertClosure: alertClosure)      // use the handleError method
                 //If we cant sign in user we show alert
                 //Show allert to create account
                 return
@@ -87,93 +83,9 @@ class Login : ObservableObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     closure()
                     }
-                    
-                    //closure()
                 }
-                /*
-                var finalDocRef: DocumentReference
-                print("isAdmin: \(isAdmin)")
-                if isAdmin {
-                    finalDocRef = self.db.collection("admin").document(userUid)
-                } else {
-                    finalDocRef = self.db.collection("user").document(userUid)
-                }
-                userData.userDocRef = finalDocRef
-                
-                closure()*/
-
-                
-                
-                /*db.reference().child("admin/\(userUid)").observeSingleEvent(of: .value, with: { snapshot in
-                    print("Letar i vår databas efter en viss användare")
-                    
-                    if let snapshotValue = snapshot.value as? String {
-                        switch snapshotValue {
-                        // If our user is admin...
-                        case "admin":
-                            print("User admin")
-                            print("logged in som admin")
-                        // ...redirect to the admin page
-                        /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "adminVC")
-                         self.present(vc!, animated: true, completion: nil)*/
-                        // If out user is a regular user...
-                        case "user":
-                            print("User user")
-                            print("Logged in som user")
-                        // ...redirect to the user page
-                        /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "userVC")
-                         self.present(vc!, animated: true, completion: nil)*/
-                        // If the type wasn't found...
-                        default:
-                            // ...print an error
-                            print("Error: Couldn't find type for user \(userUid)")
-                        }
-                    }
-                    
-                })*/
             }
-            
         })
-        
-        //var ref: DatabaseReference!
-        // Sign in to Firebase
-        //FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { (authDataResult: AuthDataResult?, error) in
-            //(user, error) in
-            // If there's no errors
-            /*if error == nil {
-                if let authDataResult = authDataResult {
-                    self.userUid = authDataResult.user.uid
-                    
-                    // Get the type from the database. It's path is users/<userId>/type.
-                    // Notice "observeSingleEvent", so we don't register for getting an update every time it changes.
-                    Database.database().reference().child("users/\(userUid)/type").observeSingleEvent(of: .value, with: {
-                        (snapshot) in
-                        
-                        switch snapshot.value as! String {
-                        // If our user is admin...
-                        case "admin":
-                            print("User admin")
-                            // ...redirect to the admin page
-                            /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "adminVC")
-                            self.present(vc!, animated: true, completion: nil)*/
-                        // If out user is a regular user...
-                        case "user":
-                            print("User user")
-                            // ...redirect to the user page
-                            /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "userVC")
-                            self.present(vc!, animated: true, completion: nil)*/
-                        // If the type wasn't found...
-                        default:
-                            // ...print an error
-                            print("Error: Couldn't find type for user \(userUid)")
-                        }
-                    })
-                    // authDataResult.user.email for the email address in firebase
-                }
-                
-            }*/
-        //})
-        
     }
     
     func resetPassword(){
@@ -181,10 +93,6 @@ class Login : ObservableObject {
     }
     
     func createAccount(email: String, password: String, name: String, businessAccount: Bool, businessUserAssets: BusinessUser?){
-        
-        //let values = ["name": name, "email": email]
-        //self.ref.child("users").child(user.uid).setValue(values)
-        
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
             if let error = err {
                 print("Error in creating account")
@@ -219,23 +127,7 @@ class Login : ObservableObject {
                     
                     }
                 }
-                
-                /*
-                let userLocation = Location(name: "", latitude: 59.4269, longitude: 17.9520)
-                
-                let newUser = User(name: "\(name)",
-                                email: "\(email)",
-                                productType: "Naglar",
-                                socialMedia: "@naglar.bylopez",
-                                businessAccount: businessAccount,
-                                userLocation: userLocation)*/
-                
-               // self.saveUserToFirestore(user: newUser)
             }
-            
-            //print("emejlen: \(email)")
-            //print("lösenordet: \(password)")
-            //print("namn: \(name)")
             
         }
         
@@ -255,6 +147,45 @@ class Login : ObservableObject {
             _ = try db.collection("\(userType)/\(userUid)").addDocument(from: user)
         } catch {
             print("Error in saving to DB")
+        }
+    }
+}
+
+extension AuthErrorCode {
+    var errorMessage: String {
+        switch self {
+        case .emailAlreadyInUse:
+            return "The email is already in use with another account"
+        case .userNotFound:
+            return "Account not found for the specified user. Please check and try again"
+        case .userDisabled:
+            return "Your account has been disabled. Please contact support."
+        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+            return "Please enter a valid email"
+        case .networkError:
+            return "Network error. Please try again."
+        case .weakPassword:
+            return "Your password is too weak. The password must be 6 characters long or more."
+        case .wrongPassword:
+            return "Your password is incorrect. Please try again or use 'Forgot password' to reset your password"
+        default:
+            return "Unknown error occurred"
+        }
+    }
+}
+
+extension Login {
+    func handleError(_ error: Error, alertClosure: @escaping () -> ()) {
+        if let errorCode = AuthErrorCode(rawValue: error._code) {
+            print(errorCode.errorMessage)
+            let alert = UIAlertController(title: "Error", message: errorCode.errorMessage, preferredStyle: .alert)
+
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(okAction)
+            
+            //self.present(alert, animated: true, completion: nil)
+
         }
     }
 }

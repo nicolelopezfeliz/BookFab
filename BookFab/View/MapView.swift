@@ -191,7 +191,7 @@ struct MapView: View {
             //setRegion(coordinate)
             locationModel.askForPermission()
             readUserLocationFromFirestore()
-            print("On A PEAR\(userData.isUserAdmin)")
+            //print("On A PEAR\(userData.isUserAdmin)")
             
             if userData.isUserAdmin == true {
                 activeFullScreen = .adminView
@@ -241,7 +241,7 @@ struct MapView: View {
                 
             case .displayBusinessSheet:
                 if let pressedLocation = pressedLocation {
-                    DisplayBusinessSheet(location: pressedLocation, user: pressedUser!)
+                    DisplayBusinessSheet(user: pressedUser!)
                 }
             }
         }
@@ -377,7 +377,7 @@ struct MapNav: View {
                 
             case .displayBusinessSheet:
                 if let pressedLocation = pressedLocation {
-                    DisplayBusinessSheet(location: pressedLocation, user: pressedUser!)
+                    DisplayBusinessSheet(user: pressedUser!)
                 }
             }
         }
