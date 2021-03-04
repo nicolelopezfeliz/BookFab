@@ -11,7 +11,9 @@ import MapKit
 
 struct AdminUserView: View {
     //let listOfUserNames: [String]
-    @ObservedObject var firebaseMdel = FirebaseModel()
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
+    @EnvironmentObject var userData: UserData
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     @State var mapView: MapNav

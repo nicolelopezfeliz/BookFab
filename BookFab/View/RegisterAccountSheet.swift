@@ -20,8 +20,9 @@ enum ActiveScreenCoverR: Identifiable {
 
 struct RegisterAccountSheet: View {
     //var db = Firestore.firestore()
-    @ObservedObject var firebaseModel = FirebaseModel()
-    @ObservedObject var userData = UserData()
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
+    @EnvironmentObject var userData: UserData
     
     var locationModel = LocationModel()
     @State var fullScreenCover = false

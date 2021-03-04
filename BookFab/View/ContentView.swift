@@ -179,7 +179,7 @@ struct ContentView: View {
         .sheet(item: $regAccountSheet) { item in
             switch item {
             case .registerAccountScreen:
-                RegisterAccountSheet(eMailText: "\(emailText)")
+                RegisterAccountSheet(eMailText: "\(emailText)").environmentObject(userData).environmentObject(firebaseModel)
             }
             
         }

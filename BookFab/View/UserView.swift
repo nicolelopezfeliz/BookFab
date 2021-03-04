@@ -11,6 +11,9 @@ import MapKit
 
 struct UserView: View {
     //let listOfUserNames: [String]
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
+    @EnvironmentObject var userData: UserData
     
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
     

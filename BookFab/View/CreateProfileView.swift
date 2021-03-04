@@ -28,8 +28,9 @@ enum ActiveScreenCover: Identifiable {
 }
 
 struct CreateProfileView: View {
-    @ObservedObject var userData = UserData()
-    @ObservedObject var firebaseModel = FirebaseModel()
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
+    @EnvironmentObject var userData: UserData
     
     @State var eMailText: String? = nil
     @State var passwordConfirmed: String? = nil
