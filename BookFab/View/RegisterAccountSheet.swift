@@ -56,7 +56,7 @@ struct RegisterAccountSheet: View {
                 
                 TextEditor(text: $nameText)
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
@@ -67,7 +67,7 @@ struct RegisterAccountSheet: View {
                 
                 TextEditor(text: $eMailText)
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
@@ -90,7 +90,7 @@ struct RegisterAccountSheet: View {
                 
                 SecureField("Enter Password", text: $passwordConfirmed)
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
@@ -145,7 +145,7 @@ struct RegisterAccountSheet: View {
                     
                 }, label: {
                     Text(registerBtnText)
-                        .font(.title3)
+                        .font(.title)
                         .frame(width: 160,
                                height: 40,
                                alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)

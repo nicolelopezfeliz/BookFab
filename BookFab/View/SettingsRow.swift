@@ -20,6 +20,7 @@ struct SettingsRow: View {
                 .frame(width: 25, height: 25)
             
             Text("\(rowText)")
+                .foregroundColor(ColorManager.darkGray)
             
             Spacer()
             

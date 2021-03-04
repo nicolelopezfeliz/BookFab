@@ -28,6 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        let viewWithCustomAppearance = UIView()
+        viewWithCustomAppearance.overrideUserInterfaceStyle = .unspecified
+        // this view (and its subviews) follow the appearance of this view superview
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

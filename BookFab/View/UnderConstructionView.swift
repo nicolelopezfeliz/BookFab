@@ -12,6 +12,7 @@ struct UnderConstructionView: View {
     var body: some View {
         NavigationView {
             Text("Page is under cunstruction")
+                .foregroundColor(ColorManager.darkPink)
         }
     }
 }

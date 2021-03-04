@@ -154,60 +154,6 @@ struct MapView: View {
         
     }
     
-    
-    /*
-    func readUserLocationFromFirestore(){
-        print("Nu kommer vi in i funktionen")
-        
-        guard let currentUser = auth.currentUser else {print("Error in finding user"); return }
-        print("UID: \(currentUser.uid)")
-        
-        db.collection("admin").addSnapshotListener() { (snapshot, err) in
-            if let err = err {
-                //print("Error in getting documents \(err)")
-            } else {
-                listOfLocations.removeAll()
-                for document in snapshot!.documents {
-                    
-                    let result = Result {
-                        //Här omvandlar vi från dictionary till en item
-                        try document.data(as: User.self) 
-                    }
-                    //Resultatet av omvandlingen bestämmer vad vi får ut
-                    switch result {
-                    case .success(let item):
-                        //Om omvandlingen är en sucsess får vi itemet
-                        //print("Omvandlingen va en sucsess")
-                        //Kollar om itemet är nil
-                        if let item = item{
-                            //print("Item: \(item)")
-                            listOfLocations.append(item)
-                            listOfUserNames.append(item.name)
-                        } else {
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        //är omvandlingen en faliure
-                        print("Error decoding item: \(error)")
-                    }
-                }
-            }
-            
-            for user in listOfLocations {
-                print("ANVÄNDARE: \(user)")
-            }
-        }
-    }*/
-    
-    /*func addPin() {
-     //let newPlace = Place(name: "Bike", latitude: 37.33233141, longitude: -122.03121816)
-     //lägger till en pin där vi är just nu
-     if let location = locationModel.location {
-     let newPlace = Location(name: "HERE", latitude: location.latitude, longitude: location.longitude)
-     locations.append(newPlace)
-     }
-     }*/
-    
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         
         region = MKCoordinateRegion(
@@ -231,18 +177,13 @@ struct MapNav: View {
                 showsUserLocation: true,
                 annotationItems: listOfLocations) { location in
                 
-                
-                //För varje plats har vi en marker
-                //MapPin(coordinate: location.coordinate)
-                //Ett annat utseende än den övre
-                //MapMarker(coordinate: location.coordinate)
-                
-                //eget utseende för vår marker
-                //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
+                //Every place has a marker
+                //anchorPoint is where we attatch the coordinates to the annotation
                 MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
-                    Image(systemName: "rhombus")
+                    Image(systemName: "mappin")
                         .resizable()
-                        .frame(width: 25, height: 35)
+                        .foregroundColor(ColorManager.darkPink)
+                        .frame(width: 11, height: 30)
                         .onTapGesture(count: 1, perform: {
                             self.pressedLocation = location.userLocation!
                             self.pressedUser = location

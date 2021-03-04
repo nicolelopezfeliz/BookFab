@@ -12,5 +12,6 @@ struct ColorManager {
     //I use them by calling: ColorManager.darkPink/.lightPink
     static let lightPink = Color("LightPink")
     static let darkPink = Color("DarkPink")
+    static let darkGray = Color("DarkGray")
 
 }

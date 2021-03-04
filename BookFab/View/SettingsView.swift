@@ -40,6 +40,7 @@ struct SettingsView: View {
                     }
                 }
             } .navigationBarTitle("Inställningar")
+            .foregroundColor(ColorManager.darkGray)
             .navigationBarItems(trailing: NavigationLink(
                                     destination: SettingsView(),
                                     label: {

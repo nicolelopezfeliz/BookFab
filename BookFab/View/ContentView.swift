@@ -77,7 +77,7 @@ struct ContentView: View {
                 
                 TextEditor(text: $emailText)
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
@@ -93,7 +93,7 @@ struct ContentView: View {
                 
                 SecureField("Enter password", text: $passwordText)
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
@@ -108,7 +108,7 @@ struct ContentView: View {
                     } alertClosure: {  }
                 }, label: {
                     Text(loginText)
-                        .font(.title3)
+                        .font(.title)
                         .frame(width: 160,
                                height: 40,
                                alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -185,6 +185,7 @@ struct ContentView: View {
         }
         .onAppear() {
             Login().logOutUser()
+            firebaseModel.readUserLocationFromFirestore()
         }
     }
 }

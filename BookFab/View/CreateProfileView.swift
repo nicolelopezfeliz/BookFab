@@ -81,7 +81,7 @@ struct CreateProfileView: View {
                 
                 TextEditor(text: $content)
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(ColorManager.darkGray)
                     .padding(10)
                 
                 CreateProfileTitles(
@@ -89,7 +89,7 @@ struct CreateProfileView: View {
                     textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $myProcuctsDescription)
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(ColorManager.darkGray)
                     .padding(10)
                 
                 CreateProfileTitles(
@@ -97,7 +97,7 @@ struct CreateProfileView: View {
                     textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $aboutMe)
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(ColorManager.darkGray)
                     .padding(10)
                 
                 CreateProfileTitles(
@@ -105,7 +105,7 @@ struct CreateProfileView: View {
                     textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $mySocialMedia)
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(ColorManager.darkGray)
                     .padding(10)
                 
                 
@@ -155,58 +155,6 @@ struct CreateProfileView: View {
             //getCurrentUserInfo()
         }
     }
-    /*
-     func getCurrentUserInfo() {
-     let user = Auth.auth().currentUser
-     
-     if let currentUser = user {
-     db.collection(usersCollection).addSnapshotListener { (snapshot, err ) in
-     if let err = err {
-     print("Error in getting documents \(err)")
-     } else {
-     let uid = user?.uid
-     userUidString = user!.uid
-     let userEmail = user?.email
-     
-     for document in snapshot!.documents {
-     
-     let result = Result {
-     //Här omvandlar vi från dictionary till en item
-     try document.data(as: User.self)
-     }
-     //Resultatet av omvandlingen bestämmer vad vi får ut
-     switch result {
-     case .success(let item):
-     //Om omvandlingen är en sucsess får vi itemet
-     //print("Omvandlingen va en sucsess")
-     //Kollar om itemet är nil
-     if let item = item {
-     //print("Item: \(item)")
-     displayCurrentUser = item
-     } else {
-     print("Document does not exist")
-     }
-     case .failure(let error):
-     //är omvandlingen en faliure
-     print("Error decoding item: \(error)")
-     }
-     }
-     
-     
-     print("user email \(userEmail)")
-     }
-     
-     }}
-     
-     }*/
-    /*
-     func saveBusinessInfoToUser(userUid: String, businessInfo: BusinessUser){
-     do {
-     _ = try db.collection("users/admin/\(userUid)").addDocument(data: ["businessInfo" : "\(businessInfo)"]) //.addDocument(from: businessInfo)
-     } catch {
-     print("Error in saving to DB")
-     }
-     }*/
     
     private func clearText() {
         if (businessUserInfo == nil) {

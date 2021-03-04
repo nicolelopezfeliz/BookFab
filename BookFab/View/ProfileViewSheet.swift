@@ -129,7 +129,7 @@ struct TitleText: View {
                 
                 Text(textContent)
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(ColorManager.darkGray)
                     .padding(10)
                 
             }
