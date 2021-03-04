@@ -17,12 +17,31 @@ import Foundation
 import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
+import MapKit
+
+enum ActiveScreenCover: Identifiable {
+    case adminUserView
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 struct CreateProfileView: View {
+    @ObservedObject var userData = UserData()
+    @ObservedObject var firebaseModel = FirebaseModel()
+    
     @State var eMailText: String? = nil
     @State var passwordConfirmed: String? = nil
     @State var nameText: String? = nil
     @State var businessAccount: Bool? = nil
+    
+    @State var activeFullScreen: ActiveScreenCover?
+    
+    @State var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 59.4285,
+                                       longitude: 17.9512),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
@@ -35,65 +54,59 @@ struct CreateProfileView: View {
     
     @State var userUidString: String = ""
     @State var displayCurrentUser: User? = nil
-    @State private var content: String = ""
+    @State var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
     
-    
+    let heightFourth = UIScreen.main.bounds.height/4
+    private let certefiedTitle = "Certifierad"
+    private let myProductsTitle = "Mina Produkter"
+    private let aboutMeTitle = "Lite om mig"
+    private let socialMediaTitle = "Instagram"
+    private let editProfileText = "Vill du editera din profil? Gå till din profil under \"Inställningar\""
+    private let image = Image(systemName: "heart.text.square")
     
     var body: some View {
-        ScrollView {
-            BusinessImage(image: Image("nailimage"))
-                .ignoresSafeArea(edges: .top)
-                .padding(.bottom, 0)
-                .offset(y: -130)
+        VStack(alignment: .leading){
             
-            
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text("Certifierad")
-                    .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
+            ScrollView {
+                Image("nailimage")
+                    .resizable()
+                    .frame(height: heightFourth)
+                    .ignoresSafeArea(edges: .top)
+                
+                CreateProfileTitles(
+                    title: certefiedTitle,
+                    textImage: Image(systemName: "moon.stars"))
+                
                 TextEditor(text: $content)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding([.horizontal, .vertical], 4)
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                    .onTapGesture {
-                        clearText()
-                    }
-                Text("Mina produkter")
                     .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
+                    .foregroundColor(.black)
+                    .padding(10)
+                
+                CreateProfileTitles(
+                    title: myProductsTitle,
+                    textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $myProcuctsDescription)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                Text("Lite om mig")
                     .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
+                    .foregroundColor(.black)
+                    .padding(10)
+                
+                CreateProfileTitles(
+                    title: aboutMeTitle,
+                    textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $aboutMe)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
-                Text("Instagram")
                     .font(.system(size: 14))
-                    .bold()
-                    .foregroundColor(ColorManager.darkPink)
-                    .padding()
+                    .foregroundColor(.black)
+                    .padding(10)
+                
+                CreateProfileTitles(
+                    title: socialMediaTitle,
+                    textImage: Image(systemName: "moon.stars"))
                 TextEditor(text: $mySocialMedia)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
-                    .frame(width: .infinity, height: .infinity, alignment: .leading)
+                    .font(.system(size: 14))
+                    .foregroundColor(.black)
+                    .padding(10)
+                
                 
                 Button(action: {
                     let businessInfo = BusinessUser(
@@ -111,6 +124,7 @@ struct CreateProfileView: View {
                     )
                     
                     //saveBusinessInfoToUser(userUid: userUidString, businessInfo: businessInfo)
+                    activeFullScreen = .adminUserView
                     
                     print("User UID: \(userUidString)")
                     
@@ -122,13 +136,23 @@ struct CreateProfileView: View {
                 })
                 
                 
-            }.padding(.top)
-            .frame(width: 360, height: 400, alignment: .leading)
-            .onAppear{
-                setContent()
-                //getCurrentUserInfo()
+                
+            }.frame(height: heightFourth * 3)
+        }.fullScreenCover(item: $activeFullScreen) { item in
+            switch item {
+            case .adminUserView:
+                AdminUserView(
+                    mapView: MapNav(
+                        region: region,
+                        listOfLocations: firebaseModel.listOfLocations!),
+                    currentUser: userData.currUserData!).environmentObject(userData).environmentObject(firebaseModel)
             }
-        }.ignoresSafeArea()
+        }
+        .onAppear{
+            setContent()
+            firebaseModel.readUserLocationFromFirestore()
+            //getCurrentUserInfo()
+        }
     }
     /*
      func getCurrentUserInfo() {
@@ -204,5 +228,43 @@ struct CreateProfileView_Previews: PreviewProvider {
         //@Static let emailText = ""
         
         CreateProfileView()
+    }
+}
+
+struct CreateProfileTitles: View {
+    var title: String
+    var textImage: Image
+    //@State var textContent: String
+    
+    var body: some View {
+        
+        VStack(alignment: .leading) {
+            
+            VStack {
+                
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(ColorManager.darkPink)
+                
+            }
+            
+            HStack {
+                
+                textImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 12, height: 12)
+                
+                /*TextEditor(text: $textContent)
+                    .font(.system(size: 14))
+                    .foregroundColor(.black)
+                    .padding(10)*/
+                
+            }
+            
+        }
+        .padding(.init(top: 15, leading: 10, bottom: 15, trailing: 10))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
     }
 }

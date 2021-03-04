@@ -101,8 +101,9 @@ extension View {
 import SwiftUI
 
 struct SearchView: View {
-    let listOfNames: [String]
-    let listOfUsers = [User]()
+    //let listOfNames: [String]
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    //let listOfUsers = [User]()
     
     @State var pressedUserName = ""
     @State private var searchText = ""
@@ -149,25 +150,25 @@ struct SearchView: View {
                 List {
                     // Filtered list of names
                     //SettingsRow(image: Image(systemName: "\(listOfSettings[num])"), rowText: "\(listOfSettingTitle[num])")
-                    ForEach(listOfUsers.indices, id:\.self) { index in
+                    ForEach(firebaseModel.listOfLocations!.indices, id:\.self) { index in
                         NavigationLink(
-                            destination: DisplayBusinessSheet(user: listOfUsers[index]),
+                            destination: DisplayBusinessSheet(user: firebaseModel.listOfLocations![index]),
                             label: {
-                                Text(searchText)
+                                Text(firebaseModel.listOfLocations![index].name)
                             })
                     }
                     
                     
-                    ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
+                    /*ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
                         searchText in
                         
                         NavigationLink(
-                            destination: SettingsView(),
+                            destination: DisplayBusinessSheet(user: <#T##User#>),
                             label: {
                                 Text(searchText)
                             })
                         
-                    }
+                    }*/
                 }
                 .navigationBarTitle(Text("Search"))
                 .resignKeyboardOnDragGesture()
@@ -183,10 +184,10 @@ struct SearchView_Previews: PreviewProvider {
         let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
         
         Group {
-           SearchView(listOfNames: listOfNames)
+           SearchView()
               .environment(\.colorScheme, .light)
 
-           SearchView(listOfNames: listOfNames)
+           SearchView()
               .environment(\.colorScheme, .dark)
         }
     }

@@ -10,7 +10,7 @@ import SwiftUI
 import MapKit
 
 struct UserView: View {
-    let listOfUserNames: [String]
+    //let listOfUserNames: [String]
     
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
     
@@ -28,7 +28,7 @@ struct UserView: View {
                 case 1:
                     NavigationView {
                         //Text("Page is under cunstruction")
-                        SearchView(listOfNames: listOfUserNames)
+                        SearchView()
                     }
                 case 2:
                     NavigationView {
@@ -85,6 +85,6 @@ struct UserView_Previews: PreviewProvider {
         
         let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
         
-        UserView(listOfUserNames: listOfNames, mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
+        UserView(mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
     }
 }

@@ -8,36 +8,42 @@
 import Foundation
 import Firebase
 import SwiftUI
+import MapKit
+
+enum ActiveScreenCoverR: Identifiable {
+    case businessAccountScreen, userView
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 struct RegisterAccountSheet: View {
     //var db = Firestore.firestore()
+    @ObservedObject var firebaseModel = FirebaseModel()
+    @ObservedObject var userData = UserData()
     
     var locationModel = LocationModel()
     @State var fullScreenCover = false
+    @State var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 59.4285,
+                                       longitude: 17.9512),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
     @State var nameText = "Name"
     @State var eMailText: String
     @State var password = ""
     @State var passwordConfirmed = ""
     @State var businessAccount = false
-    @State var activeScreen: ActiveScreenCover?
+    @State var activeScreen: ActiveScreenCoverR?
     
     let registerBtnText = "Registrera"
     let usersCollection = "users"
     let businessAccountText = "Vill du registrera ett företagskonto?"
     
-    enum ActiveScreenCover: Identifiable {
-        case businessAccountScreen, mapScreen
-        
-        var id: Int {
-            hashValue
-        }
-    }
-    
-    
     var body: some View {
         
-        ScrollView {
+        NavigationView {
             
             VStack {
                 Text("Registrera konto")
@@ -132,7 +138,7 @@ struct RegisterAccountSheet: View {
                             businessAccount: businessAccount,
                             businessUserAssets: businessUser
                         )
-                        activeScreen = .mapScreen
+                        activeScreen = .userView
                     }
                     
                     
@@ -152,16 +158,20 @@ struct RegisterAccountSheet: View {
                 
             }.onAppear(){
                 locationModel.askForPermission()
+                firebaseModel.readUserLocationFromFirestore()
             }.fullScreenCover(item: $activeScreen) { item in
                 switch item {
-                case .mapScreen:
-                    MapView.init()
+                case .userView:
+                    UserView(
+                        mapView: MapNav(
+                        region: region,
+                        listOfLocations: firebaseModel.listOfLocations!)).environmentObject(userData).environmentObject(firebaseModel)
                 case .businessAccountScreen:
                     CreateProfileView(
                         eMailText: eMailText,
                         passwordConfirmed: passwordConfirmed,
                         nameText: nameText,
-                        businessAccount: businessAccount)
+                        businessAccount: businessAccount).environmentObject(userData).environmentObject(firebaseModel)
                 //MapView.init()
                 //DisplayBusinessSheet(location: <#T##Location#>, user: <#T##User#>)
                 //RegisterAccountSheet(eMailText: "\(emailText)")
@@ -187,14 +197,3 @@ struct RegisterAccountSheet: View {
         }
     }
 }
-
-struct RegisterAccountSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        @Static let emailText = ""
-        
-        RegisterAccountSheet(eMailText: emailText)
-    }
-}
-
-
-

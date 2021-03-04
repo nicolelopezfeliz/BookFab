@@ -11,21 +11,21 @@ import SwiftUI
 import Firebase
 import MapKit
 
-enum ActiveScreenCover: Identifiable {
-    case mapScreen
-    
-    var id: Int {
-        hashValue
-    }
-}
+enum ActiveScreenCoverC: Identifiable {
+     case mapScreen, registerAccountScreen
 
-enum ActiveSheetCover: Identifiable {
-    case registerAccountScreen
-    
-    var id: Int {
-        hashValue
-    }
-}
+     var id: Int {
+         hashValue
+     }
+ }
+
+enum RegAccountSheet: Identifiable {
+     case registerAccountScreen
+
+     var id: Int {
+         hashValue
+     }
+ }
 
 struct ContentView: View {
     
@@ -34,18 +34,17 @@ struct ContentView: View {
     let forgotPasswordText = "Glömt lösenord?"
     let resetPasswordBtn = "Återställ lösenord"
     let appNameText = "Book Fab"
-    var textManager = TextManager()
+    //var textManager = TextManager()
     
     @State var loginText = "Login"
     @State var emailText = "admin09@example.com"
     @State var passwordText = "123456"
-    @State var registerAccoutSheetShow = true
-    @State var mapScreenPresentet = true
-    @State var activeFullScreen: ActiveScreenCover?
-    @State var activeSheet: ActiveSheetCover?
-    @State var showAlert = true
+    @State var activeFullScreen: ActiveScreenCoverC?
+    @State var regAccountSheet: RegAccountSheet?
+    //@State var showAlert = true
     
     @ObservedObject var userData = UserData()
+    @ObservedObject var firebaseModel = FirebaseModel()
     
     init(){
         Auth.auth().addStateDidChangeListener { (auth, user) in
@@ -55,11 +54,7 @@ struct ContentView: View {
                 print("No user signed in")
             }
         }
-        
-        let queueReadUserLoc = DispatchQueue(label: "queueReadUserLoc", qos: .userInitiated)
-        queueReadUserLoc.async {
-            MapView().readUserLocationFromFirestore()
-        }
+        firebaseModel.readUserLocationFromFirestore()
     }
     
         
@@ -138,9 +133,9 @@ struct ContentView: View {
                         .frame(width: 119, height: 40, alignment: .leading)
                     
                     Button(action: {
-                        //print("CLICKED")
-                        activeSheet = .registerAccountScreen
-                        //registerAccoutSheetShow = true
+                        //activeFullScreen = .registerAccountScreen
+                        regAccountSheet = .registerAccountScreen
+                        
                             
                         
                     }, label: {
@@ -172,24 +167,25 @@ struct ContentView: View {
                 
                 
                 
-            }
-            
-        }.onAppear() {
-            Login().logOutUser()
-        }
-        .fullScreenCover(item: $activeFullScreen) { item in
-            switch item {
-            case .mapScreen:
-                MapView.init().environmentObject(userData)
+            }.fullScreenCover(item: $activeFullScreen) { item in
+                switch item {
+                case .mapScreen:
+                    MapView().environmentObject(userData).environmentObject(firebaseModel)
+                case .registerAccountScreen:
+                    RegisterAccountSheet(eMailText: "\(emailText)").environmentObject(userData).environmentObject(firebaseModel)
+                }
             }
         }
-        .sheet(item: $activeSheet) { item in
+        .sheet(item: $regAccountSheet) { item in
             switch item {
             case .registerAccountScreen:
                 RegisterAccountSheet(eMailText: "\(emailText)")
             }
+            
         }
-        
+        .onAppear() {
+            Login().logOutUser()
+        }
     }
 }
 

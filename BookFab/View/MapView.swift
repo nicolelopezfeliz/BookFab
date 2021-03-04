@@ -28,6 +28,8 @@ enum ActiveFullScreen: Identifiable {
 }
 
 struct MapView: View {
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
     @EnvironmentObject var userData: UserData
     
     init() {
@@ -50,8 +52,8 @@ struct MapView: View {
                                        longitude: 17.9512),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
-    @State private var listOfLocations = [User]()
-    @State var listOfUserNames = [String]()
+    //@State private var listOfLocations = [User]()
+    //@State var listOfUserNames = [String]()
     
     @State var pressedLocation: Location? = nil
     @State var pressedUser: User? = nil
@@ -65,132 +67,15 @@ struct MapView: View {
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     var body: some View {
+        
         VStack(spacing: 0) {
-            /*ZStack {
-                switch selectedIndex {
-                case 0:
-                    NavigationView {
-                        VStack{
-                            Map(coordinateRegion: $region,
-                                showsUserLocation: true,
-                                annotationItems: listOfLocations) { location in
-                                
-                                //För varje plats har vi en marker
-                                //MapPin(coordinate: location.coordinate)
-                                //Ett annat utseende än den övre
-                                //MapMarker(coordinate: location.coordinate)
-                                
-                                //eget utseende för vår marker
-                                //anchorPoint är vart vi fäster coordinaterna på dem som finns placeras längst ner i mitten
-                                MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
-                                    Image(systemName: "rhombus")
-                                        .resizable()
-                                        .frame(width: 25, height: 35)
-                                        .onTapGesture(count: 1, perform: {
-                                            self.pressedLocation = location.userLocation!
-                                            self.pressedUser = location
-                                            print("Location name: \(location.userLocation!.id)")
-                                            activeScreen = .displayBusinessSheet
-                                        })
-                                    
-                                }
-                            }.ignoresSafeArea()
-                        }
-                    }
-                
-                case 1:
-                    NavigationView {
-                        Text("Page is under cunstruction")
-                    }
-                case 2:
-                    NavigationView {
-                        Text("Page is under cunstruction")
-                    }
-                case 3:
-                    NavigationView {
-                        ProfileViewSheet()
-                            .navigationTitle("Din profil")
-                        //DisplayBusinessSheet(location: pressedLocation!, user: pressedUser!)
-                    }
-                
-                case 4:
-                    if let businessDataUser = userData.currUserData {
-                        if userData.isUserAdmin == true {
-                            NavigationView{
-                                SettingsView()
-                                    .onAppear{
-                                        print("On A PEAR\(userData.isUserAdmin)")
-                                    }
-                            }.ignoresSafeArea()
-                            
-                        } else {
-                            EmptyView()
-                                .onAppear{
-                                    print("On A PEAR\(userData.isUserAdmin)")
-                                }
-                        }
-                        
-                    }
-                default:
-                    NavigationView {
-                        Text("Page is under cunstruction")
-                    }
-                    
-                }
-                
-            }
-            Divider()
-                .padding(.bottom, 16)
-            
-            HStack {
-                ForEach(0..<5) {num in
-                    Button(action: {
-                        /*if num == 2 {
-                            MapView()
-                            print("mapView")
-                        }*/
-                        
-                        selectedIndex = num
-                    }, label: {
-                        Spacer()
-                        Image(systemName: tabBarImageNames[num])
-                            .font(.system(size: 25, weight: .bold))
-                            .foregroundColor(selectedIndex == num ? ColorManager.darkPink : .init(white: 0.8))
-                            .padding(.bottom, 24)
-                        Spacer()
-                    })
-                    
-                }
-                
-                VStack {
-                    Button(action: {
-                        if let businessDataUser = userData.currUserData {
-                            print("USER data: \(businessDataUser))")
-                        }
-                    }, label: {
-                        HStack {
-                            Text("NICOLINA")
-                                .padding()
-                        }
-                    })
-                    
-                    /*Button(action: {
-                        //print("USER data: \(userData.currUserData?.businessUser)")
-                    },​​​​​ label: {
-                        HStack {
-                            Text("NICOLINA")
-                                .padding()
-                        }
-                    }​​​​​)*/
-                }
-
-                
-            }*/
             
         }.onAppear {
             //setRegion(coordinate)
             locationModel.askForPermission()
-            readUserLocationFromFirestore()
+            //readUserLocationFromFirestore()
+            
+            //firebaseMdel.readUserLocationFromFirestore()
             //print("On A PEAR\(userData.isUserAdmin)")
             
             if userData.isUserAdmin == true {
@@ -234,10 +119,10 @@ struct MapView: View {
         }.sheet(item: $activeScreen) { item in
             switch item {
             case .profileView:
-                MapView.init()
+                MapView()
             
             case .mapScreen:
-                MapView.init()
+                MapView()
                 
             case .displayBusinessSheet:
                 if let pressedLocation = pressedLocation {
@@ -250,10 +135,9 @@ struct MapView: View {
             case .adminView:
                 if let currentUser = userData.currUserData {
                 AdminUserView(
-                    listOfUserNames: listOfUserNames,
                     mapView: MapNav(
                         region: region,
-                        listOfLocations: listOfLocations),
+                        listOfLocations: firebaseModel.listOfLocations!),
                     currentUser: currentUser
                     
                 )
@@ -262,7 +146,7 @@ struct MapView: View {
                 
             
             case .userView:
-                UserView(listOfUserNames: listOfUserNames, mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                UserView(mapView: MapNav(region: region, listOfLocations: firebaseModel.listOfLocations!))
             }
             
         }
@@ -271,7 +155,7 @@ struct MapView: View {
     }
     
     
-    
+    /*
     func readUserLocationFromFirestore(){
         print("Nu kommer vi in i funktionen")
         
@@ -313,7 +197,7 @@ struct MapView: View {
                 print("ANVÄNDARE: \(user)")
             }
         }
-    }
+    }*/
     
     /*func addPin() {
      //let newPlace = Place(name: "Bike", latitude: 37.33233141, longitude: -122.03121816)
@@ -346,6 +230,7 @@ struct MapNav: View {
             Map(coordinateRegion: $region,
                 showsUserLocation: true,
                 annotationItems: listOfLocations) { location in
+                
                 
                 //För varje plats har vi en marker
                 //MapPin(coordinate: location.coordinate)
@@ -380,6 +265,9 @@ struct MapNav: View {
                     DisplayBusinessSheet(user: pressedUser!)
                 }
             }
+        }
+        .onAppear{
+            print("LOCATIONS: \(listOfLocations.count)")
         }
     }
     

@@ -102,7 +102,7 @@ class Login : ObservableObject {
                 print("Registered sucsessfully")
                 //print(result)
                 
-                let userLocation = Location(name: "", latitude: 59.4269, longitude: 17.9520)
+                let userLocation = Location(name: "", latitude: 59.4263, longitude: 17.9120)
                 
                 let newUser = User(name: "\(name)",
                                 email: "\(email)",

@@ -10,8 +10,8 @@ import SwiftUI
 import MapKit
 
 struct AdminUserView: View {
-    let listOfUserNames: [String]
-    
+    //let listOfUserNames: [String]
+    @ObservedObject var firebaseMdel = FirebaseModel()
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
     
     @State var mapView: MapNav
@@ -28,7 +28,7 @@ struct AdminUserView: View {
                     }
                 case 1:
                     NavigationView {
-                        SearchView(listOfNames: listOfUserNames)
+                        SearchView()
                         //Text("Page is under cunstruction")
                     }
                 case 2:
@@ -73,6 +73,8 @@ struct AdminUserView: View {
                 }
                 
             }
+        }.onAppear{
+            print("Admin User View map person list: \(mapView.listOfLocations.count)")
         }
         
     }
@@ -104,7 +106,6 @@ struct AdminUserView_Previews: PreviewProvider {
         
         
         AdminUserView(
-            listOfUserNames: listOfNames,
             mapView: MapNav.init(region: region, listOfLocations: listOfLocations),
             currentUser: user)
     }
