@@ -127,6 +127,7 @@ struct MapNav: View {
     @EnvironmentObject var userData: UserData
     
     @State var region: MKCoordinateRegion
+    @State var businessSheetPresented = false
     @State var pressedLocation: Location? = nil
     @State var pressedUser: User? = nil
     @State var activeScreen: ScreenCoverActive?
@@ -148,29 +149,27 @@ struct MapNav: View {
                             .onTapGesture(count: 1, perform: {
                                 self.pressedLocation = location.userLocation!
                                 self.pressedUser = location
+                                
                                 print("Location name: \(location.userLocation!.id)")
-                                activeScreen = .displayBusinessSheet
+                                print("Pressed Location name: \(pressedLocation)")
+                                print("Pressed USer Name \(pressedUser!.name)")
+                                print("Pressed USer Name \(pressedUser!)")
+                                
+                                
+                                businessSheetPresented = true
                             })
                         
                     }
                 }.ignoresSafeArea()
             }
-        }.sheet(item: $activeScreen) { item in
-            switch item {
-            case .profileView:
-                MapView()
-            
-            case .mapScreen:
-                MapView()
-                
-            case .displayBusinessSheet:
-                if let pressedUser = pressedUser {
-                    DisplayBusinessSheet(user: pressedUser)
-                }
+        }.sheet(isPresented: $businessSheetPresented) {
+            if let pressedUser = pressedUser {
+                DisplayBusinessSheet(user: pressedUser)
             }
         }
         .onAppear{
             print("LOCATIONS: \(firebaseModel.listOfLocations!.count)")
+            
         }
     }
     

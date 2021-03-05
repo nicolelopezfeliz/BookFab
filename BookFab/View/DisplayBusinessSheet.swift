@@ -61,6 +61,12 @@ struct DisplayBusinessSheet: View {
                 }
                 
             }.frame(height: heightFourth * 3)
+        }.onAppear{
+            print("Display Business User Name: \(user.name)")
+            print("Display Business User Certefied: \(user.businessUser!.certifiedIn)")
+            print("Display Business User Product type: \(user.businessUser!.productType)")
+            print("Display Business User About me: \(user.businessUser!.aboutMe)")
+            print("Display Business User Social media: \(user.businessUser!.socialMedia)")
         }
     }
 }
