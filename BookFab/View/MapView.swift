@@ -11,14 +11,6 @@ import MapKit
 import Firebase
 import FirebaseFirestoreSwift
 
-enum ScreenCoverActive: Identifiable {
-    case displayBusinessSheet, mapScreen, profileView
-    
-    var id: Int {
-        hashValue
-    }
-}
-
 enum ActiveFullScreen: Identifiable {
     case adminView, userView
     
@@ -31,7 +23,6 @@ struct MapView: View {
     @EnvironmentObject var firebaseModel: FirebaseModel
     @EnvironmentObject var userData: UserData
     
-    @State var activeScreen: ScreenCoverActive?
     @State var activeFullScreen: ActiveFullScreen?
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     @State var pressedLocation: Location? = nil
@@ -57,52 +48,19 @@ struct MapView: View {
         VStack(spacing: 0) {
             
         }.onAppear {
+            
             locationModel.askForPermission()
+            deterAdminOrUser()
+            addUserCollectionListener()
             
-            if userData.isUserAdmin == true {
-                activeFullScreen = .adminView
-                currentUser = userData.currUserData
-            } else {
-                activeFullScreen = .userView
-                firebaseModel.getCurrentUserInfo(userType: "user")
-            }
-            
-            if let currentUserData = userData.userDocRef {
-                
-            currentUserData.addSnapshotListener{ documentSnapshot, error in
-                    guard let document = documentSnapshot else {
-                        print("Error fetching document: \(error!)")
-                        return
-                    }
-                    guard let data = document.data() else {
-                        print("Document data was empty.")
-                        return
-                    }
-                    try! self.userData.currUserData = document.data(as: UserDataModel.self)
-                }
-            }
-            
-        }.sheet(item: $activeScreen) { item in
-            switch item {
-            case .profileView:
-                MapView()
-            
-            case .mapScreen:
-                MapView()
-                
-            case .displayBusinessSheet:
-                if let pressedUser = pressedUser {
-                    DisplayBusinessSheet(user: pressedUser)
-                }
-            }
         }
         .fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .adminView:
                 if let currentUser = userData.currUserData {
-                AdminUserView()
+                    AdminUserView()
                 }
-
+                
             case .userView:
                 UserView()
             }
@@ -112,14 +70,42 @@ struct MapView: View {
         
     }
     
-    /*private func setRegion(_ coordinate: CLLocationCoordinate2D) {
+    private func deterAdminOrUser(){
+        if userData.isUserAdmin == true {
+            activeFullScreen = .adminView
+            currentUser = userData.currUserData
+        } else {
+            activeFullScreen = .userView
+            firebaseModel.getCurrentUserInfo(userType: "user")
+        }
+    }
+    
+    private func addUserCollectionListener(){
         
-        region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 59.4285,
-                                           longitude: 17.9512),
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        )
-    }*/
+        if let currentUserData = userData.userDocRef {
+            
+            currentUserData.addSnapshotListener{ documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                try! self.userData.currUserData = document.data(as: UserDataModel.self)
+            }
+        }
+    }
+    
+    /*private func setRegion(_ coordinate: CLLocationCoordinate2D) {
+     
+     region = MKCoordinateRegion(
+     center: CLLocationCoordinate2D(latitude: 59.4285,
+     longitude: 17.9512),
+     span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+     )
+     }*/
 }
 
 struct MapNav: View {
@@ -130,7 +116,6 @@ struct MapNav: View {
     @State var businessSheetPresented = false
     @State var pressedLocation: Location? = nil
     @State var pressedUser: User? = nil
-    @State var activeScreen: ScreenCoverActive?
     
     var body: some View {
         VStack{
