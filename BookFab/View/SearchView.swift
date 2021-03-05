@@ -54,13 +54,15 @@ struct SearchView: View {
                 List {
                     // Filtered list of names
                     //SettingsRow(image: Image(systemName: "\(listOfSettings[num])"), rowText: "\(listOfSettingTitle[num])")
-                    ForEach(firebaseModel.listOfLocations!.indices, id:\.self) { index in
-                        NavigationLink(
-                            destination: DisplayBusinessSheet(user: firebaseModel.listOfLocations![index]),
-                            label: {
-                                Text(firebaseModel.listOfLocations![index].name)
-                            })
-                            .foregroundColor(ColorManager.darkGray)
+                    if let listOfLocations = firebaseModel.listOfLocations {
+                        ForEach(listOfLocations.indices, id:\.self) { index in
+                            NavigationLink(
+                                destination: DisplayBusinessSheet(user: listOfLocations[index]),
+                                label: {
+                                    Text(listOfLocations[index].name)
+                                })
+                                .foregroundColor(ColorManager.darkGray)
+                        }
                     }
                     
                     

@@ -168,22 +168,21 @@ struct ContentView: View {
             }.fullScreenCover(item: $activeFullScreen) { item in
                 switch item {
                 case .mapScreen:
-                    MapView()//.environmentObject(userData).environmentObject(firebaseModel)
+                    MapView()
                 case .registerAccountScreen:
-                    RegisterAccountSheet(eMailText: "\(emailText)")//.environmentObject(userData).environmentObject(firebaseModel)
+                    RegisterAccountSheet(eMailText: "\(emailText)")
                 }
             }
         }
         .sheet(item: $regAccountSheet) { item in
             switch item {
             case .registerAccountScreen:
-                RegisterAccountSheet(eMailText: "\(emailText)")//.environmentObject(userData).environmentObject(firebaseModel)
+                RegisterAccountSheet(eMailText: "\(emailText)")
             }
             
         }
         .onAppear() {
             Login().logOutUser()
-            //firebaseModel.readUserLocationFromFirestore()
         }
     }
 }

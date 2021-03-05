@@ -91,8 +91,8 @@ struct MapView: View {
                 MapView()
                 
             case .displayBusinessSheet:
-                if let pressedLocation = pressedLocation {
-                    DisplayBusinessSheet(user: pressedUser!)
+                if let pressedUser = pressedUser {
+                    DisplayBusinessSheet(user: pressedUser)
                 }
             }
         }
@@ -124,7 +124,6 @@ struct MapView: View {
 
 struct MapNav: View {
     @EnvironmentObject var firebaseModel: FirebaseModel
-    
     @EnvironmentObject var userData: UserData
     
     @State var region: MKCoordinateRegion
@@ -134,26 +133,28 @@ struct MapNav: View {
     
     var body: some View {
         VStack{
-            Map(coordinateRegion: $region,
-                showsUserLocation: true,
-                annotationItems: firebaseModel.listOfLocations!) { location in
-                
-                //Every place has a marker
-                //anchorPoint is where we attatch the coordinates to the annotation
-                MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
-                    Image(systemName: "mappin")
-                        .resizable()
-                        .foregroundColor(ColorManager.darkPink)
-                        .frame(width: 11, height: 30)
-                        .onTapGesture(count: 1, perform: {
-                            self.pressedLocation = location.userLocation!
-                            self.pressedUser = location
-                            print("Location name: \(location.userLocation!.id)")
-                            activeScreen = .displayBusinessSheet
-                        })
+            if let firebaseListOfLocations = firebaseModel.listOfLocations {
+                Map(coordinateRegion: $region,
+                    showsUserLocation: true,
+                    annotationItems: firebaseListOfLocations) { location in
                     
-                }
-            }.ignoresSafeArea()
+                    //Every place has a marker
+                    //anchorPoint is where we attatch the coordinates to the annotation
+                    MapAnnotation(coordinate: location.userLocation!.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
+                        Image(systemName: "mappin")
+                            .resizable()
+                            .foregroundColor(ColorManager.darkPink)
+                            .frame(width: 11, height: 30)
+                            .onTapGesture(count: 1, perform: {
+                                self.pressedLocation = location.userLocation!
+                                self.pressedUser = location
+                                print("Location name: \(location.userLocation!.id)")
+                                activeScreen = .displayBusinessSheet
+                            })
+                        
+                    }
+                }.ignoresSafeArea()
+            }
         }.sheet(item: $activeScreen) { item in
             switch item {
             case .profileView:
@@ -163,8 +164,8 @@ struct MapNav: View {
                 MapView()
                 
             case .displayBusinessSheet:
-                if let pressedLocation = pressedLocation {
-                    DisplayBusinessSheet(user: pressedUser!)
+                if let pressedUser = pressedUser {
+                    DisplayBusinessSheet(user: pressedUser)
                 }
             }
         }

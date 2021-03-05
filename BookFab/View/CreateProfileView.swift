@@ -45,7 +45,6 @@ struct CreateProfileView: View {
                                        longitude: 17.9513),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     @State var userUidString: String = ""
-    @State var displayCurrentUser: User? = nil
     @State var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
     
@@ -111,13 +110,16 @@ struct CreateProfileView: View {
                         productType: myProcuctsDescription,
                         socialMedia: mySocialMedia)
                     
-                    Login().createAccount(
-                        email: eMailText!,
-                        password: passwordConfirmed!,
-                        name: nameText!,
-                        businessAccount: businessAccount!,
-                        businessUserAssets: businessInfo
-                    )
+                    if let email = eMailText, let passwordConfirmed = passwordConfirmed,
+                       let nameText = nameText, let businessAccount = businessAccount {
+                        Login().createAccount(
+                            email: email,
+                            password: passwordConfirmed,
+                            name: nameText,
+                            businessAccount: businessAccount,
+                            businessUserAssets: businessInfo
+                        )
+                    }
                     
                     //saveBusinessInfoToUser(userUid: userUidString, businessInfo: businessInfo)
                     activeFullScreen = .adminUserView
@@ -195,11 +197,6 @@ struct CreateProfileTitles: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 12, height: 12)
-                
-                /*TextEditor(text: $textContent)
-                    .font(.system(size: 14))
-                    .foregroundColor(.black)
-                    .padding(10)*/
                 
             }
             

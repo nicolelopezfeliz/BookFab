@@ -249,16 +249,14 @@
 				FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */,
 				FC5B807C25CF5710009F2E92 /* MapView.swift */,
 				FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */,
-				FC773BEE25DDAEC600223F8F /* BusinessImage.swift */,
 				FC0F64CC25DEC3EC00BFDE0B /* ProfileViewSheet.swift */,
 				FC0F64D625DF2F4900BFDE0B /* SettingsView.swift */,
-				FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */,
 				FCFFC53125EDA7B000F8023C /* AdminUserView.swift */,
 				FCFFC53625EDA7C700F8023C /* UserView.swift */,
 				FCFFC53B25EE434100F8023C /* SearchView.swift */,
 				FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */,
-				FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */,
 				FCE06F1025F04F9D00431EDB /* EditProfileView.swift */,
+				FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -297,6 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				FCE799A425F29329005C1AE5 /* TitleText.swift */,
+				FC0F64DB25DF30E300BFDE0B /* SettingsRow.swift */,
+				FC773BEE25DDAEC600223F8F /* BusinessImage.swift */,
 			);
 			path = ViewAssets;
 			sourceTree = "<group>";
