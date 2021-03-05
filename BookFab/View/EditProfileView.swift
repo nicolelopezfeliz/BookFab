@@ -19,18 +19,17 @@ import Firebase
 import FirebaseFirestoreSwift
 
 
-private let linkImage = "link"
-
-
-private let certefiedTitle = "Certifierad"
-private let myProductsTitle = "Mina Produkter"
-private let aboutMeTitle = "Lite om mig"
-private let socialMediaTitle = "Instagram"
-private let editProfileText = "Vill du editera din profil? Gå till din profil under \"Inställningar\""
-private let image = Image(systemName: "heart.text.square")
-
-
 struct EditProfileView: View {
+    
+    @EnvironmentObject var currentProfileUser: UserData
+    
+    @State private var myProcuctsDescription = "Ange en beskrivning på dina produkter"
+    @State private var aboutMe = "Ange en kort beskrivning om dig"
+    @State private var mySocialMedia = "Ange länk till sociala medier"
+    @State var userUidString: String = ""
+    @State private var content: String = ""
+    @State var businessUserInfo: BusinessUser? = nil
+    
     /*
     @State var eMailText: String? = nil
     @State var passwordConfirmed: String? = nil
@@ -39,18 +38,19 @@ struct EditProfileView: View {
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
+
+    let heightFourth = UIScreen.main.bounds.height/4
     
     private let defaultContent = "Ange din vad du är certifierad i..."
-    @State private var myProcuctsDescription = "Ange en beskrivning på dina produkter"
-    @State private var aboutMe = "Ange en kort beskrivning om dig"
-    @State private var mySocialMedia = "Ange länk till sociala medier"
-    
-    @State var userUidString: String = ""
-    @EnvironmentObject var currentProfileUser: UserData
-    @State private var content: String = ""
-    @State var businessUserInfo: BusinessUser? = nil
-    
-    let heightFourth = UIScreen.main.bounds.height/4
+    private let linkImage = "link"
+    private let certefiedTitle = "Certifierad"
+    private let myProductsTitle = "Mina Produkter"
+    private let aboutMeTitle = "Lite om mig"
+    private let socialMediaTitle = "Instagram"
+    private let editProfileText = "Vill du editera din profil? Gå till din profil under \"Inställningar\""
+    private let image = Image(systemName: "heart.text.square")
+    private let editTextBtn = "Editera profilen"
+
     
     var body: some View {
         
@@ -61,8 +61,16 @@ struct EditProfileView: View {
                 .frame(height: heightFourth)
                 .ignoresSafeArea(edges: .top)
             
-            ScrollView {
+            Button(action: {
+                print("Editera profilen ")
                 
+                
+            }, label: {
+                Text(editTextBtn)
+            })
+            
+            ScrollView {
+
                 if let businessUser = currentProfileUser.currUserData?.businessUser {
                     Text("\((currentProfileUser.currUserData?.name)!)")
                         .foregroundColor(ColorManager.darkPink)

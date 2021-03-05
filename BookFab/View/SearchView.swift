@@ -7,10 +7,8 @@
 import SwiftUI
 
 struct SearchView: View {
-    //let listOfNames: [String]
     @EnvironmentObject var firebaseModel: FirebaseModel
-    //let listOfUsers = [User]()
-    
+
     @State var pressedUserName = ""
     @State private var searchText = ""
     @State private var showCancelBtn: Bool = false

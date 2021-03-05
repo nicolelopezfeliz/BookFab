@@ -29,70 +29,45 @@ enum ActiveFullScreen: Identifiable {
 
 struct MapView: View {
     @EnvironmentObject var firebaseModel: FirebaseModel
-    
     @EnvironmentObject var userData: UserData
     
-    init() {
-        UITabBar.appearance().barTintColor = .systemBackground
-        UINavigationBar.appearance().barTintColor = .systemBackground
-    }
+    @State var activeScreen: ScreenCoverActive?
+    @State var activeFullScreen: ActiveFullScreen?
+    @State private var userTrackingMode: MapUserTrackingMode = .follow
+    @State var pressedLocation: Location? = nil
+    @State var pressedUser: User? = nil
+    @State var selectedIndex = 0
+    @State var fullScreen = true
+    @State var currentUser: UserDataModel? = nil
     
     var usersCollection = "users/admin/"
     var locationModel = LocationModel()
     var db = Firestore.firestore()
     var auth = Firebase.Auth.auth()
     
-    @State var activeScreen: ScreenCoverActive?
-    @State var activeFullScreen: ActiveFullScreen?
-    
-    @State private var userTrackingMode: MapUserTrackingMode = .follow
-    
-    @State var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 59.4285,
-                                       longitude: 17.9512),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-    
-    //@State private var listOfLocations = [User]()
-    //@State var listOfUserNames = [String]()
-    
-    @State var pressedLocation: Location? = nil
-    @State var pressedUser: User? = nil
-    
-    @State var selectedIndex = 0
-    
-    @State var fullScreen = true
-    
-    @State var currentUser: UserDataModel? = nil
-    
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "person", "gear"]
+    
+    init() {
+        UITabBar.appearance().barTintColor = .systemBackground
+        UINavigationBar.appearance().barTintColor = .systemBackground
+    }
     
     var body: some View {
         
         VStack(spacing: 0) {
             
         }.onAppear {
-            //setRegion(coordinate)
             locationModel.askForPermission()
-            //readUserLocationFromFirestore()
-            
-            //firebaseMdel.readUserLocationFromFirestore()
-            //print("On A PEAR\(userData.isUserAdmin)")
             
             if userData.isUserAdmin == true {
                 activeFullScreen = .adminView
                 currentUser = userData.currUserData
-                //let adminView = AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
-                
-                //AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
             } else {
                 activeFullScreen = .userView
-                FirebaseModel().getCurrentUserInfo(userType: "user")
-                //UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
+                firebaseModel.getCurrentUserInfo(userType: "user")
             }
             
             if let currentUserData = userData.userDocRef {
-                
-               // print("Current UserData: \(currentUserData)")
                 
             currentUserData.addSnapshotListener{ documentSnapshot, error in
                     guard let document = documentSnapshot else {
@@ -106,15 +81,6 @@ struct MapView: View {
                     try! self.userData.currUserData = document.data(as: UserDataModel.self)
                 }
             }
-            /*
-            if let businessDataUser = userData.currUserData {
-                if userData.isUserAdmin == true {
-                    AdminUserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
-                } else {
-                    UserView(mapView: MapNav(region: region, listOfLocations: listOfLocations))
-                }
-                
-            }*/
             
         }.sheet(item: $activeScreen) { item in
             switch item {
@@ -134,19 +100,11 @@ struct MapView: View {
             switch item {
             case .adminView:
                 if let currentUser = userData.currUserData {
-                AdminUserView(
-                    mapView: MapNav(
-                        region: region,
-                        listOfLocations: firebaseModel.listOfLocations!),
-                    currentUser: currentUser
-                    
-                )
+                AdminUserView()
                 }
-                
-                
-            
+
             case .userView:
-                UserView(mapView: MapNav(region: region, listOfLocations: firebaseModel.listOfLocations!))
+                UserView()
             }
             
         }
@@ -154,19 +112,22 @@ struct MapView: View {
         
     }
     
-    private func setRegion(_ coordinate: CLLocationCoordinate2D) {
+    /*private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         
         region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 59.4285,
                                            longitude: 17.9512),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
-    }
+    }*/
 }
 
 struct MapNav: View {
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    
+    @EnvironmentObject var userData: UserData
+    
     @State var region: MKCoordinateRegion
-    @State var listOfLocations: [User]
     @State var pressedLocation: Location? = nil
     @State var pressedUser: User? = nil
     @State var activeScreen: ScreenCoverActive?
@@ -175,7 +136,7 @@ struct MapNav: View {
         VStack{
             Map(coordinateRegion: $region,
                 showsUserLocation: true,
-                annotationItems: listOfLocations) { location in
+                annotationItems: firebaseModel.listOfLocations!) { location in
                 
                 //Every place has a marker
                 //anchorPoint is where we attatch the coordinates to the annotation
@@ -196,10 +157,10 @@ struct MapNav: View {
         }.sheet(item: $activeScreen) { item in
             switch item {
             case .profileView:
-                MapView.init()
+                MapView()
             
             case .mapScreen:
-                MapView.init()
+                MapView()
                 
             case .displayBusinessSheet:
                 if let pressedLocation = pressedLocation {
@@ -208,7 +169,7 @@ struct MapNav: View {
             }
         }
         .onAppear{
-            print("LOCATIONS: \(listOfLocations.count)")
+            print("LOCATIONS: \(firebaseModel.listOfLocations!.count)")
         }
     }
     

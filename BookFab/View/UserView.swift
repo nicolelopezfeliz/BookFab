@@ -10,15 +10,17 @@ import SwiftUI
 import MapKit
 
 struct UserView: View {
-    //let listOfUserNames: [String]
     @EnvironmentObject var firebaseModel: FirebaseModel
-    
     @EnvironmentObject var userData: UserData
     
-    let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
-    
-    @State var mapView: MapNav
     @State private var selectedIndex = 0
+    @State var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 59.4285,
+                                       longitude: 17.9512),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    
+    
+    let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,7 +28,7 @@ struct UserView: View {
                 switch selectedIndex {
                 case 0:
                     NavigationView {
-                        mapView
+                        MapNav(region: region)
                     }
                 case 1:
                     NavigationView {
@@ -74,20 +76,5 @@ struct UserView: View {
             }
         }
         
-    }
-}
-
-struct UserView_Previews: PreviewProvider {
-    static var previews: some View {
-        var region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 59.4285,
-                                           longitude: 17.9512),
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
-        var listOfLocations = [User]()
-        
-        let listOfNames = ["Nicole", "Sara", "Joakim", "Paul", "Brian", "Brielle", "Anna-lynn"]
-        
-        UserView(mapView: MapNav.init(region: region, listOfLocations: listOfLocations))
     }
 }

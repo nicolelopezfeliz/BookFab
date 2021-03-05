@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '14.3'
 
 target 'BookFab' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -9,9 +9,14 @@ target 'BookFab' do
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Analytics'
-pod 'FirebaseFirestoreSwift'
+pod 'FirebaseFirestoreSwift', '~> 7.0-beta'
 pod 'Firebase/Storage'
 pod 'Firebase/Database'
+pod 'FirebaseUI'
+pod 'FirebaseUI/Google'
+pod 'Firebase/Storage'
+pod 'SDWebImageSwiftUI'
+pod 'Prettier.swift'
 
   target 'BookFabTests' do
     inherit! :search_paths

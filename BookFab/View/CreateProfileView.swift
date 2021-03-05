@@ -29,36 +29,31 @@ enum ActiveScreenCover: Identifiable {
 
 struct CreateProfileView: View {
     @EnvironmentObject var firebaseModel: FirebaseModel
-    
     @EnvironmentObject var userData: UserData
+    
+    @State private var myProcuctsDescription = "Ange en beskrivning på dina produkter"
+    @State private var aboutMe = "Ange en kort beskrivning om dig"
+    @State private var mySocialMedia = "ange länk till sociala medier"
     
     @State var eMailText: String? = nil
     @State var passwordConfirmed: String? = nil
     @State var nameText: String? = nil
     @State var businessAccount: Bool? = nil
-    
     @State var activeFullScreen: ActiveScreenCover?
-    
     @State var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 59.4285,
-                                       longitude: 17.9512),
+        center: CLLocationCoordinate2D(latitude: 59.4286,
+                                       longitude: 17.9513),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-    
-    var usersCollection = "locationTest"
-    var db = Firestore.firestore()
-    
-    
-    private let defaultContent = "Ange din vad du är certifierad i..."
-    @State private var myProcuctsDescription = "Ange en beskrivning på dina produkter"
-    @State private var aboutMe = "Ange en kort beskrivning om dig"
-    @State private var mySocialMedia = "ange länk till sociala medier"
-    
     @State var userUidString: String = ""
     @State var displayCurrentUser: User? = nil
     @State var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
     
+    var usersCollection = "locationTest"
+    var db = Firestore.firestore()
+        
     let heightFourth = UIScreen.main.bounds.height/4
+    private let defaultContent = "Ange din vad du är certifierad i..."
     private let certefiedTitle = "Certifierad"
     private let myProductsTitle = "Mina Produkter"
     private let aboutMeTitle = "Lite om mig"
@@ -142,11 +137,8 @@ struct CreateProfileView: View {
         }.fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .adminUserView:
-                AdminUserView(
-                    mapView: MapNav(
-                        region: region,
-                        listOfLocations: firebaseModel.listOfLocations!),
-                    currentUser: userData.currUserData!).environmentObject(userData).environmentObject(firebaseModel)
+                AdminUserView()
+            //.environmentObject(userData).environmentObject(firebaseModel)
             }
         }
         .onAppear{

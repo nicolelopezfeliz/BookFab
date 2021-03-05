@@ -11,38 +11,30 @@ import Firebase
 import FirebaseFirestoreSwift
 
 
-private let linkImage = "link"
-
-
-private let certefiedTitle = "Certifierad"
-private let myProductsTitle = "Mina Produkter"
-private let aboutMeTitle = "Lite om mig"
-private let socialMediaTitle = "Instagram"
-private let editProfileText = "Vill du editera din profil? Gå till din profil under \"Inställningar\""
-private let image = Image(systemName: "heart.text.square")
-
 
 struct ProfileViewSheet: View {
-    /*
-    @State var eMailText: String? = nil
-    @State var passwordConfirmed: String? = nil
-    @State var nameText: String? = nil
-    @State var businessAccount: Bool? = nil*/
+    @EnvironmentObject var currentProfileUser: UserData
     
-    var usersCollection = "locationTest"
-    var db = Firestore.firestore()
-    
-    private let defaultContent = "Ange din vad du är certifierad i..."
     @State private var myProcuctsDescription = "Ange en beskrivning på dina produkter"
     @State private var aboutMe = "Ange en kort beskrivning om dig"
     @State private var mySocialMedia = "Ange länk till sociala medier"
-    
     @State var userUidString: String = ""
-    @EnvironmentObject var currentProfileUser: UserData
     @State private var content: String = ""
     @State var businessUserInfo: BusinessUser? = nil
+
+    var usersCollection = "locationTest"
+    var db = Firestore.firestore()
     
     let heightFourth = UIScreen.main.bounds.height/4
+    
+    private let linkImage = "link"
+    private let certefiedTitle = "Certifierad"
+    private let myProductsTitle = "Mina Produkter"
+    private let aboutMeTitle = "Lite om mig"
+    private let socialMediaTitle = "Instagram"
+    private let defaultContent = "Ange din vad du är certifierad i..."
+    private let editProfileText = "Vill du editera din profil? Gå till din profil under \"Inställningar\""
+    private let image = Image(systemName: "heart.text.square")
     
     var body: some View {
         
@@ -99,44 +91,6 @@ struct ProfileViewSheet: View {
         } else {
             content = defaultContent
         }
-        
-    }
-}
-
-struct TitleText: View {
-    var title: String
-    var textImage: Image
-    @State var textContent: String
-    
-    var body: some View {
-        
-        VStack(alignment: .leading) {
-            
-            VStack {
-                
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(ColorManager.darkPink)
-                
-            }
-            
-            HStack {
-                
-                textImage
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 12, height: 12)
-                
-                Text(textContent)
-                    .font(.system(size: 14))
-                    .foregroundColor(ColorManager.darkGray)
-                    .padding(10)
-                
-            }
-            
-        }
-        .padding(.init(top: 15, leading: 10, bottom: 15, trailing: 10))
-        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
 }

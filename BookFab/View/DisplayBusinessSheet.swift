@@ -9,8 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DisplayBusinessSheet: View {
-    //var businessName: String
-    //var location: Location
+    
     @State var user: User
     
     private let certefiedTitle = "Certifierad"
@@ -19,7 +18,6 @@ struct DisplayBusinessSheet: View {
     private let socialMediaTitle = "Instagram"
     
     let notYetPostedInfo = "Information is under cunstroction"
-    
     let heightFourth = UIScreen.main.bounds.height/4
     
     

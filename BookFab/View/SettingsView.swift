@@ -19,20 +19,17 @@ enum ActiveScreen: Identifiable {
 struct SettingsView: View {
     @State var activeScreen: ActiveScreen?
     
-    var listOfSettingss = [
+    var listOfSettings = [
         SettingsViewModel(title: "Sekretess", imageName: "lock"),
         SettingsViewModel(title: "Konto", imageName: "person.circle"),
         SettingsViewModel(title: "Om", imageName: "info.circle"),
         SettingsViewModel(title: "Aviseringar", imageName: "bell")
     ]
-    var listOfSettings = ["lock", "person.circle", "info.circle", "bell"]
-    var listOfDestinations = [UnderConstructionView(), ProfileViewSheet(), UnderConstructionView(), UnderConstructionView()] as [Any]
-    var listOfSettingTitle = ["Sekretess", "Konto", "Om", "Aviseringar" ]
     
     var body: some View {
         
         ZStack {
-            List(listOfSettingss) { setting in
+            List(listOfSettings) { setting in
                 NavigationLink(destination: EditProfileView()) {
                     
                     HStack {
@@ -80,11 +77,4 @@ struct SettingsView: View {
 
     }
     
-}
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        //@Static let emailText = ""
-        
-        SettingsView()
-    }
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Firebase
 import SwiftUI
 import MapKit
 
@@ -19,12 +18,7 @@ enum ActiveScreenCoverR: Identifiable {
 }
 
 struct RegisterAccountSheet: View {
-    //var db = Firestore.firestore()
-    @EnvironmentObject var firebaseModel: FirebaseModel
     
-    @EnvironmentObject var userData: UserData
-    
-    var locationModel = LocationModel()
     @State var fullScreenCover = false
     @State var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 59.4285,
@@ -38,8 +32,12 @@ struct RegisterAccountSheet: View {
     @State var businessAccount = false
     @State var activeScreen: ActiveScreenCoverR?
     
+    var locationModel = LocationModel()
+    
     let registerBtnText = "Registrera"
+    let registerAccountText = "Registrera konto"
     let usersCollection = "users"
+    let enterPasswordText = "Enter password"
     let businessAccountText = "Vill du registrera ett företagskonto?"
     
     var body: some View {
@@ -47,7 +45,7 @@ struct RegisterAccountSheet: View {
         NavigationView {
             
             VStack {
-                Text("Registrera konto")
+                Text(registerAccountText)
                     .font(.title)
                     .fontWeight(.bold)
                     .frame(width: 300, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .leading)
@@ -88,7 +86,7 @@ struct RegisterAccountSheet: View {
                     )
                     .padding()*/
                 
-                SecureField("Enter Password", text: $passwordConfirmed)
+                SecureField(enterPasswordText, text: $passwordConfirmed)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
@@ -116,13 +114,6 @@ struct RegisterAccountSheet: View {
                 }
                 
                 Button(action: {
-                    /*Login().createAccount(
-                        email: eMailText,
-                        password: passwordConfirmed,
-                        name: nameText,
-                        businessAccount: businessAccount
-                    )*/
-                    
                     if businessAccount == true {
                         activeScreen = .businessAccountScreen
                     } else {
@@ -159,24 +150,17 @@ struct RegisterAccountSheet: View {
                 
             }.onAppear(){
                 locationModel.askForPermission()
-                firebaseModel.readUserLocationFromFirestore()
+                
             }.fullScreenCover(item: $activeScreen) { item in
                 switch item {
                 case .userView:
-                    UserView(
-                        mapView: MapNav(
-                        region: region,
-                        listOfLocations: firebaseModel.listOfLocations!)).environmentObject(userData).environmentObject(firebaseModel)
+                    UserView()
                 case .businessAccountScreen:
                     CreateProfileView(
                         eMailText: eMailText,
                         passwordConfirmed: passwordConfirmed,
                         nameText: nameText,
-                        businessAccount: businessAccount).environmentObject(userData).environmentObject(firebaseModel)
-                //MapView.init()
-                //DisplayBusinessSheet(location: <#T##Location#>, user: <#T##User#>)
-                //RegisterAccountSheet(eMailText: "\(emailText)")
-                
+                        businessAccount: businessAccount)
                 }
             }
         }

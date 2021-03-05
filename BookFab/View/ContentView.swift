@@ -10,6 +10,7 @@
 import SwiftUI
 import Firebase
 import MapKit
+import FirebaseFirestoreSwift
 
 enum ActiveScreenCoverC: Identifiable {
      case mapScreen, registerAccountScreen
@@ -29,23 +30,21 @@ enum RegAccountSheet: Identifiable {
 
 struct ContentView: View {
     
-    let registerAccountText = "Har du inget konto?"
-    let registerTextBtn = "Registrera"
-    let forgotPasswordText = "Glömt lösenord?"
-    let resetPasswordBtn = "Återställ lösenord"
-    let appNameText = "Book Fab"
-    //var textManager = TextManager()
+    @EnvironmentObject var userData: UserData
     
     @State var loginText = "Login"
     @State var emailText = "admin09@example.com"
     @State var passwordText = "123456"
     @State var activeFullScreen: ActiveScreenCoverC?
     @State var regAccountSheet: RegAccountSheet?
-    //@State var showAlert = true
     
-    @ObservedObject var userData = UserData()
-    @ObservedObject var firebaseModel = FirebaseModel()
-    
+    let registerAccountText = "Har du inget konto?"
+    let registerTextBtn = "Registrera"
+    let forgotPasswordText = "Glömt lösenord?"
+    let resetPasswordBtn = "Återställ lösenord"
+    let appNameText = "Book Fab"
+    let enterPasswordText = "Enter password"
+  
     init(){
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
@@ -54,7 +53,6 @@ struct ContentView: View {
                 print("No user signed in")
             }
         }
-        firebaseModel.readUserLocationFromFirestore()
     }
     
         
@@ -91,7 +89,7 @@ struct ContentView: View {
                     }
                     
                 
-                SecureField("Enter password", text: $passwordText)
+                SecureField(enterPasswordText, text: $passwordText)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: 200, height: 40, alignment: .leading)
@@ -170,22 +168,22 @@ struct ContentView: View {
             }.fullScreenCover(item: $activeFullScreen) { item in
                 switch item {
                 case .mapScreen:
-                    MapView().environmentObject(userData).environmentObject(firebaseModel)
+                    MapView()//.environmentObject(userData).environmentObject(firebaseModel)
                 case .registerAccountScreen:
-                    RegisterAccountSheet(eMailText: "\(emailText)").environmentObject(userData).environmentObject(firebaseModel)
+                    RegisterAccountSheet(eMailText: "\(emailText)")//.environmentObject(userData).environmentObject(firebaseModel)
                 }
             }
         }
         .sheet(item: $regAccountSheet) { item in
             switch item {
             case .registerAccountScreen:
-                RegisterAccountSheet(eMailText: "\(emailText)").environmentObject(userData).environmentObject(firebaseModel)
+                RegisterAccountSheet(eMailText: "\(emailText)")//.environmentObject(userData).environmentObject(firebaseModel)
             }
             
         }
         .onAppear() {
             Login().logOutUser()
-            firebaseModel.readUserLocationFromFirestore()
+            //firebaseModel.readUserLocationFromFirestore()
         }
     }
 }

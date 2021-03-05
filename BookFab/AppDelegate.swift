@@ -4,18 +4,15 @@
 //
 //  Created by Nicole Lopez feliz on 2021-01-28.
 //
-
+/*
 import UIKit
 import Firebase
 
-@main
+//@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
         return true
     }
 
@@ -35,4 +32,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
+*/
