@@ -27,7 +27,7 @@ struct AdminUserView: View {
                 switch selectedIndex {
                 case 0:
                     NavigationView {
-                        MapNav(region: region)
+                        MapView(region: region)
                     }
                 case 1:
                     NavigationView {

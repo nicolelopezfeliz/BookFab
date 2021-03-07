@@ -13,7 +13,7 @@ import MapKit
 import FirebaseFirestoreSwift
 
 enum ActiveScreenCoverC: Identifiable {
-     case mapScreen, registerAccountScreen
+     case registerAccountScreen, adminView, userView
 
      var id: Int {
          hashValue
@@ -101,9 +101,13 @@ struct ContentView: View {
                 
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText, userData: userData) {
-                        activeFullScreen = .mapScreen
+                        activeFullScreen = .userView
                         
-                    } alertClosure: {  }
+                    }
+                    adminFullScreenClosure: {
+                        activeFullScreen = .adminView
+                    }
+                    
                 }, label: {
                     Text(loginText)
                         .font(.title)
@@ -167,10 +171,14 @@ struct ContentView: View {
                 
             }.fullScreenCover(item: $activeFullScreen) { item in
                 switch item {
-                case .mapScreen:
-                    MapView()
                 case .registerAccountScreen:
                     RegisterAccountSheet(eMailText: "\(emailText)")
+                case .adminView:
+                    if let currentUser = userData.currUserData {
+                        AdminUserView()
+                    }
+                case .userView:
+                    UserView()
                 }
             }
         }

@@ -21,6 +21,7 @@ struct UserView: View {
     
     
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
+
     
     var body: some View {
         VStack(spacing: 0) {
@@ -28,7 +29,7 @@ struct UserView: View {
                 switch selectedIndex {
                 case 0:
                     NavigationView {
-                        MapNav(region: region)
+                        MapView(region: region)
                     }
                 case 1:
                     NavigationView {

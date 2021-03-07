@@ -17,7 +17,7 @@ class FirebaseModel: ObservableObject {
     var db = Firestore.firestore()
     var auth = Firebase.Auth.auth()
     
-    
+    /*
     func getCurrentUserInfo(userType: String) {
         let user = Auth.auth().currentUser
         
@@ -33,7 +33,7 @@ class FirebaseModel: ObservableObject {
                 }
                 
             }}
-    }
+    }*/
     func readUserLocationFromFirestore(){
         print("Nu kommer vi in i funktionen")
         

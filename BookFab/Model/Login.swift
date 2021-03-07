@@ -12,6 +12,9 @@ import SwiftUI
 
 
 class Login : ObservableObject {
+    @EnvironmentObject var firebaseModel: FirebaseModel
+    @EnvironmentObject var userData: UserData
+    
     @State private var isUserAdmin = false
     @State var alertIsPresented = true
 
@@ -20,7 +23,7 @@ class Login : ObservableObject {
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
     var locationModel = LocationModel()
-    var firebaseModel = FirebaseModel()
+    
 
     func checkIfUserLoggedIn() -> Bool {
         if Firebase.Auth.auth().currentUser != nil {
@@ -34,13 +37,13 @@ class Login : ObservableObject {
         return false
     }
     
-    func loginUser(email: String, password: String, userData: UserData, closure: @escaping () -> (), alertClosure: @escaping () -> ()){
+    func loginUser(email: String, password: String, userData: UserData, userFullScreenClosure: @escaping () -> (), adminFullScreenClosure: @escaping () -> ()){
         var isAdmin: Bool = false
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { result, err in
             
             guard err == nil else {
                 print("No account with tis e-mail")
-                self.handleError(err!, alertClosure: alertClosure)      // use the handleError method
+                //self.handleError(err!, alertClosure: alertClosure)      // use the handleError method
                 //If we cant sign in user we show alert
                 //Show allert to create account
                 return
@@ -81,12 +84,35 @@ class Login : ObservableObject {
                     userData.userDocRef = finalDocRef
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    closure()
+                        if isAdmin {
+                            adminFullScreenClosure()
+                        } else {
+                            userFullScreenClosure()
+                        }
+                        
+                        
+                        
+                    //closure()
                     }
                 }
             }
         })
     }
+   /*
+    private func deterAdminOrUser(fullScreenClosure: @escaping () -> ()){
+        if userData.isUserAdmin == true {
+            //Skicka med i closure vilken vy som ska visas
+            //activeFullScreen = .adminView
+            //currentUser = userData.currUserData
+            fullScreenClosure()
+            
+        } else {
+            //Skicka med i closure vilken vy som ska visas
+            //activeFullScreen = .userView
+            fullScreenClosure()
+            //firebaseModel.getCurrentUserInfo(userType: "user")
+        }
+    }*/
     
     func resetPassword(){
         
