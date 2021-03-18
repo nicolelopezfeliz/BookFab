@@ -46,7 +46,7 @@ struct CreateProfileView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     @State var userUidString: String = ""
     @State var content: String = ""
-    @State var businessUserInfo: BusinessUser? = nil
+    @State var businessUserInfo: BusinessUserData? = nil
     
     var usersCollection = "locationTest"
     var db = Firestore.firestore()
@@ -104,9 +104,9 @@ struct CreateProfileView: View {
                 
                 
                 Button(action: {
-                    let businessInfo = BusinessUser(
-                        certifiedIn: content,
+                    let businessInfo = BusinessUserData(
                         aboutMe: aboutMe,
+                        certifiedIn: content,
                         productType: myProcuctsDescription,
                         socialMedia: mySocialMedia)
                     

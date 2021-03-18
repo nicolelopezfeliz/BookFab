@@ -28,7 +28,7 @@ struct EditProfileView: View {
     @State private var mySocialMedia = "Ange länk till sociala medier"
     @State var userUidString: String = ""
     @State private var content: String = ""
-    @State var businessUserInfo: BusinessUser? = nil
+    @State var businessUserInfo: BusinessUserData? = nil
     
     /*
     @State var eMailText: String? = nil

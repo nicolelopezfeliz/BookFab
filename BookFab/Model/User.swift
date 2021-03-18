@@ -17,7 +17,7 @@ class User : Codable, Identifiable {
     var email: String
     var businessAccount: Bool = false
     var userLocation: Location?
-    var businessUser: BusinessUser? = nil
+    var businessUser: BusinessUserData? = nil
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -27,7 +27,7 @@ class User : Codable, Identifiable {
         case businessUser
     }
     
-    init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location, businessUser: BusinessUser) {
+    init(name: String, email: String, productType: String, socialMedia: String, businessAccount: Bool, userLocation: Location, businessUser: BusinessUserData) {
         self.name = name
         self.email = email
        // self.productType = productType

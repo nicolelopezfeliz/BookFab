@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct BusinessUserData: Codable {
+struct BusinessUserData: Codable, Identifiable {
+    let id = UUID()
+    
     var aboutMe: String
     var certifiedIn: String
     var productType: String

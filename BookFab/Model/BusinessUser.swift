@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BusinessUser : Codable, Identifiable {
+/*class BusinessUser : Codable, Identifiable {
     
     //@DocumentID var id : String?
     
@@ -24,4 +24,4 @@ class BusinessUser : Codable, Identifiable {
         self.socialMedia = socialMedia
         
     }
-}
+}*/

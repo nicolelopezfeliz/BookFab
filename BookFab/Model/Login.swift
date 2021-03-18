@@ -118,7 +118,7 @@ class Login : ObservableObject {
         
     }
     
-    func createAccount(email: String, password: String, name: String, businessAccount: Bool, businessUserAssets: BusinessUser?){
+    func createAccount(email: String, password: String, name: String, businessAccount: Bool, businessUserAssets: BusinessUserData?){
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
             if let error = err {
                 print("Error in creating account")

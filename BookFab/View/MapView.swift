@@ -24,6 +24,7 @@ struct MapView: View {
     var locationModel = LocationModel()
     
     var body: some View {
+        
         VStack{
             if let firebaseListOfLocations = firebaseModel.listOfLocations {
                 Map(coordinateRegion: $region,
@@ -53,17 +54,23 @@ struct MapView: View {
                     }
                 }.ignoresSafeArea()
             }
-        }.sheet(isPresented: $businessSheetPresented) {
+        }.sheet(item: $pressedUser) { user in
+            DisplayBusinessSheet(user: user)
+            
+        }
+        
+        /*.sheet(isPresented: $businessSheetPresented) {
             if let pressedUser = pressedUser {
                 DisplayBusinessSheet(user: pressedUser)
             }
-        }
+        }*/
         .onAppear{
             locationModel.askForPermission()
             addUserCollectionListener()
             print("LOCATIONS: \(firebaseModel.listOfLocations!.count)")
             
         }
+        
     }
     
     private func addUserCollectionListener(){

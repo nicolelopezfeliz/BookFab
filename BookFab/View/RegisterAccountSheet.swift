@@ -117,9 +117,9 @@ struct RegisterAccountSheet: View {
                     if businessAccount == true {
                         activeScreen = .businessAccountScreen
                     } else {
-                        let businessUser = BusinessUser(
-                            certifiedIn: "",
+                        let businessUser = BusinessUserData(
                             aboutMe: "",
+                            certifiedIn: "",
                             productType: "",
                             socialMedia: "")
                         
