@@ -102,7 +102,6 @@ struct ContentView: View {
                 Button(action: {
                     Login().loginUser(email: emailText, password: passwordText, userData: userData) {
                         activeFullScreen = .userView
-                        
                     }
                     adminFullScreenClosure: {
                         activeFullScreen = .adminView
@@ -175,10 +174,12 @@ struct ContentView: View {
                     RegisterAccountSheet(eMailText: "\(emailText)")
                 case .adminView:
                     if let currentUser = userData.currUserData {
-                        AdminUserView()
+                        //AdminUserView()
+                        AdminOrUserView(isAdminOrUser: .businessUser)
                     }
                 case .userView:
-                    UserView()
+                    //UserView()
+                    AdminOrUserView(isAdminOrUser: .customerUser)
                 }
             }
         }
