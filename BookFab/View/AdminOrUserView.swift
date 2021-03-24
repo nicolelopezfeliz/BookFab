@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 enum UserType: Identifiable {
     case businessUser, customerUser
@@ -20,16 +21,15 @@ struct AdminOrUserView: View {
     @State private var selectedMenuIndex = 0
     @State var isAdminOrUser: UserType
     
+    @State var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 59.4285,
+                                       longitude: 17.9512),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    
     var body: some View {
-        VStack(alignment: .trailing) {
-            VStack {
-                HStack {
-                    Button(action: {
-                        //changeUserTypeOnClick()
-                    }, label: {
-                        Text("Swap business/customer")
-                    })
-                }
+        VStack(spacing: 0) {
+            VStack() {
+                
                 
                 switch isAdminOrUser {
                 
@@ -37,7 +37,7 @@ struct AdminOrUserView: View {
                     
                     switch selectedMenuIndex {
                     case 0:
-                        Text("Map BusinessUser")
+                        MapView(region: region)
                     case 1:
                         Text("Search BusinessUser")
                     case 2:
@@ -71,16 +71,14 @@ struct AdminOrUserView: View {
             
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 75)
-            .background(Color(.white))
             
             HStack(alignment: .bottom) {
                 if isAdminOrUser == UserType.customerUser {
                     TabBarUser(selectedMenuIndex: $selectedMenuIndex)
                 } else if isAdminOrUser == UserType.businessUser {
-                    TabBarUser(selectedMenuIndex: $selectedMenuIndex)
+                    TabBarAdmin(selectedMenuIndex: $selectedMenuIndex)
                 }
             }
-            .background(Color(.white))
         }
         .frame(width: UIScreen.main.bounds.width, height: 50)
     }
@@ -95,45 +93,32 @@ struct AdminOrUserView: View {
     }
 }
 
-struct UnderConstructionVieww: View {
-    var body: some View {
-        HStack {
-            Text("Page is under construction")
-                .foregroundColor(.black)
-        }
-    }
-}
-
 struct TabBarUser: View {
     
     let tabBarImageNames = ["map", "magnifyingglass", "bookmark", "gear"]
     @Binding var selectedMenuIndex: Int
     
     var body: some View {
+        Divider()
+            .padding(.bottom, 10)
         
-        HStack(spacing: 20) {
-            
-            ForEach(0 ..< 4) { num in
-                
+        HStack {
+            ForEach(0..<4) {num in
                 Button(action: {
-                    
                     selectedMenuIndex = num
                     print(selectedMenuIndex)
-                    
                 }, label: {
-                    
+                    Spacer()
                     Image(systemName: tabBarImageNames[num])
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
-                    
+                        .font(.system(size: 25, weight: .bold))
+                        .foregroundColor(selectedMenuIndex == num ? ColorManager.darkPink : .init(white: 0.8))
+                        .padding(.bottom, 24)
+                    Spacer()
                 })
             }
-            
         }
         .frame(width: UIScreen.main.bounds.width)
-        .padding(.init(top: 0, leading: 0, bottom: 15, trailing: 0))
-        
+        .padding(.init(top: 10, leading: 0, bottom: 40, trailing: 0))
     }
 }
 
@@ -143,29 +128,34 @@ struct TabBarAdmin: View {
     @Binding var selectedMenuIndex: Int
     
     var body: some View {
-        
-        HStack(spacing: 20) {
-            
-            ForEach(0 ..< 5) { num in
-                
+        Divider()
+            .padding(.bottom, 10)
+        HStack {
+            ForEach(0..<5) {num in
                 Button(action: {
-                    
                     selectedMenuIndex = num
                     print(selectedMenuIndex)
-                    
                 }, label: {
-                    
+                    Spacer()
                     Image(systemName: tabBarImageNames[num])
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
-                    
+                        .font(.system(size: 25, weight: .bold))
+                        .foregroundColor(selectedMenuIndex == num ? ColorManager.darkPink : .init(white: 0.8))
+                        .padding(.bottom, 8)
+                    Spacer()
                 })
             }
             
         }
         .frame(width: UIScreen.main.bounds.width)
-        .padding(.init(top: 0, leading: 0, bottom: 15, trailing: 0))
-        
+        .padding(.init(top: 10, leading: 0, bottom: 40, trailing: 0))
+    }
+}
+
+struct UnderConstructionVieww: View {
+    var body: some View {
+        HStack {
+            Text("Page is under construction")
+                .foregroundColor(.black)
+        }
     }
 }
