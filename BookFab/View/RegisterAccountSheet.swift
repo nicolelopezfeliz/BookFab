@@ -154,7 +154,7 @@ struct RegisterAccountSheet: View {
             }.fullScreenCover(item: $activeScreen) { item in
                 switch item {
                 case .userView:
-                    UserView()
+                    AdminOrUserView(isAdminOrUser: .customerUser)
                 case .businessAccountScreen:
                     CreateProfileView(
                         eMailText: eMailText,

@@ -39,13 +39,15 @@ struct AdminOrUserView: View {
                     case 0:
                         MapView(region: region)
                     case 1:
-                        Text("Search BusinessUser")
+                        SearchView()
                     case 2:
                         UnderConstructionView()
                     case 3:
-                        Text("Profile BusinessUser")
+                        ProfileViewSheet()
+                            .navigationTitle("Din profil")
+                            .foregroundColor(ColorManager.darkGray)
                     case 4:
-                        Text("Settings BusinessUser")
+                        SettingsView()
                     default:
                         UnderConstructionView()
                     }
@@ -151,7 +153,7 @@ struct TabBarAdmin: View {
     }
 }
 
-struct UnderConstructionVieww: View {
+struct UnderConstructionView: View {
     var body: some View {
         HStack {
             Text("Page is under construction")

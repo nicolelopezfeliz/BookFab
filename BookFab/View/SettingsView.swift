@@ -27,54 +27,53 @@ struct SettingsView: View {
     ]
     
     var body: some View {
-        
-        ZStack {
-            List(listOfSettings) { setting in
-                NavigationLink(destination: EditProfileView()) {
-                    
-                    HStack {
-                        SettingsRow(image: Image(systemName: setting.imageName) , rowText: setting.title)
+        NavigationView {
+            ZStack {
+                List(listOfSettings) { setting in
+                    NavigationLink(destination: EditProfileView()) {
+                        
+                        HStack {
+                            SettingsRow(image: Image(systemName: setting.imageName) , rowText: setting.title)
+                        }
                     }
+                } .navigationBarTitle("Inställningar")
+                .foregroundColor(ColorManager.darkGray)
+                .navigationBarItems(trailing: NavigationLink(
+                                        destination: SettingsView(),
+                                        label: {
+                                            Image(systemName: "person.circle")
+                                        }))
+                
+                
+                VStack(alignment: .leading) {
+                    
+                    Button(action: {print("inloggningsuppgifter")
+                        
+                    }, label: {
+                        Text("Inloggningsuppgifter")
+                    })
+                    
+                    Spacer()
+                        .frame(height: 5)
+                    
+                    Button(action: {
+                        print("Logga ut")
+                        Login().logOutUser()
+                        activeScreen = .contentView
+                        
+                        
+                    }, label: {
+                        Text("Logga ut")
+                    })
+                    
+                } .frame(width: 350, height: 300, alignment: .leading)
+            }.fullScreenCover(item: $activeScreen) { item in
+                switch item {
+                case .contentView:
+                    ContentView()
+                    
                 }
-            } .navigationBarTitle("Inställningar")
-            .foregroundColor(ColorManager.darkGray)
-            .navigationBarItems(trailing: NavigationLink(
-                                    destination: SettingsView(),
-                                    label: {
-                                        Image(systemName: "person.circle")
-                                    }))
-            
-            
-            VStack(alignment: .leading) {
-                
-                Button(action: {print("inloggningsuppgifter")
-                    
-                }, label: {
-                    Text("Inloggningsuppgifter")
-                })
-                
-                Spacer()
-                    .frame(height: 5)
-                
-                Button(action: {
-                    print("Logga ut")
-                    Login().logOutUser()
-                    activeScreen = .contentView
-                    
-                    
-                }, label: {
-                    Text("Logga ut")
-                })
-                
-            } .frame(width: 350, height: 300, alignment: .leading)
-        }.fullScreenCover(item: $activeScreen) { item in
-            switch item {
-            case .contentView:
-                ContentView()
-                
             }
         }
-
     }
-    
 }

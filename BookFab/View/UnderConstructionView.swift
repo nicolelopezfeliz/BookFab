@@ -5,7 +5,7 @@
 //  Created by Nicole Lopez feliz on 2021-03-03.
 //
 
-import Foundation
+/*import Foundation
 import SwiftUI
 
 struct UnderConstructionView: View {
@@ -15,4 +15,4 @@ struct UnderConstructionView: View {
                 .foregroundColor(ColorManager.darkPink)
         }
     }
-}
+}*/

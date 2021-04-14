@@ -139,7 +139,7 @@ struct CreateProfileView: View {
         }.fullScreenCover(item: $activeFullScreen) { item in
             switch item {
             case .adminUserView:
-                AdminUserView()
+                AdminOrUserView(isAdminOrUser: .businessUser)
             //.environmentObject(userData).environmentObject(firebaseModel)
             }
         }

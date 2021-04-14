@@ -42,7 +42,6 @@
 		FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */; };
 		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
 		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
-		FCE06EFF25F0405D00431EDB /* UnderConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */; };
 		FCE06F0C25F0481C00431EDB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */; };
 		FCE06F1125F04F9D00431EDB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F1025F04F9D00431EDB /* EditProfileView.swift */; };
 		FCE799A525F29329005C1AE5 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE799A425F29329005C1AE5 /* TitleText.swift */; };
@@ -117,7 +116,6 @@
 		FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBusinessSheet.swift; sourceTree = "<group>"; };
 		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
-		FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderConstructionView.swift; sourceTree = "<group>"; };
 		FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FCE06F1025F04F9D00431EDB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FCE799A425F29329005C1AE5 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 				FCFFC53B25EE434100F8023C /* SearchView.swift */,
 				FC3EB98B25EF9F4700025E89 /* CreateProfileView.swift */,
 				FCE06F1025F04F9D00431EDB /* EditProfileView.swift */,
-				FCE06EFE25F0405D00431EDB /* UnderConstructionView.swift */,
 				FCE799AC25F74EB3005C1AE5 /* AdminOrUserView.swift */,
 			);
 			path = View;
@@ -612,7 +609,6 @@
 				FC0F64CD25DEC3EC00BFDE0B /* ProfileViewSheet.swift in Sources */,
 				FC79C1D925E8725100A9FDDC /* UserData.swift in Sources */,
 				FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */,
-				FCE06EFF25F0405D00431EDB /* UnderConstructionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

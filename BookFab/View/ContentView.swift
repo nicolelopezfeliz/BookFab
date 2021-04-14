@@ -105,6 +105,7 @@ struct ContentView: View {
                     }
                     adminFullScreenClosure: {
                         activeFullScreen = .adminView
+                        
                     }
                     
                 }, label: {

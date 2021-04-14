@@ -8,26 +8,26 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject var firebaseModel: FirebaseModel
-
+    
     @State var pressedUserName = ""
     @State private var searchText = ""
     @State private var showCancelBtn: Bool = false
-
+    
     var body: some View {
-
         
+        NavigationView {
             VStack {
                 // Search view
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
-
+                        
                         TextField("search", text: $searchText, onEditingChanged: { isEditing in
                             self.showCancelBtn = true
                         }, onCommit: {
                             print("onCommit")
                         }).foregroundColor(.primary)
-
+                        
                         Button(action: {
                             self.searchText = ""
                         }) {
@@ -38,19 +38,19 @@ struct SearchView: View {
                     .foregroundColor(.secondary)
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
-
+                    
                     if showCancelBtn  {
                         Button("Cancel") {
-                                UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                                self.searchText = ""
-                                self.showCancelBtn = false
+                            UIApplication.shared.endEditing(true) // this must be placed before the other commands here
+                            self.searchText = ""
+                            self.showCancelBtn = false
                         }
                         .foregroundColor(Color(.systemBlue))
                     }
                 }
                 .padding(.horizontal)
                 .navigationBarHidden(showCancelBtn) // .animation(.default) // animation does not work properly
-
+                
                 List {
                     // Filtered list of names
                     //SettingsRow(image: Image(systemName: "\(listOfSettings[num])"), rowText: "\(listOfSettingTitle[num])")
@@ -67,21 +67,21 @@ struct SearchView: View {
                     
                     
                     /*ForEach(listOfNames.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
-                        searchText in
-                        
-                        NavigationLink(
-                            destination: DisplayBusinessSheet(user: <#T##User#>),
-                            label: {
-                                Text(searchText)
-                            })
-                        
-                    }*/
+                     searchText in
+                     
+                     NavigationLink(
+                     destination: DisplayBusinessSheet(user: <#T##User#>),
+                     label: {
+                     Text(searchText)
+                     })
+                     
+                     }*/
                 }
                 .navigationBarTitle(Text("Search"))
                 .resignKeyboardOnDragGesture()
             }
         }
-    
+    }
 }
 
 extension UIApplication {
