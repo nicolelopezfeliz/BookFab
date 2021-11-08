@@ -41,6 +41,7 @@ struct ContentView: View {
     @State var textEditorWidth = UIScreen.main.bounds.width / 1.4
     @State var textEditorHeight = UIScreen.main.bounds.height / 20
     
+    let mailDefaultPlaceholder = "e-mail@example.com"
     let registerAccountText = "Har du inget konto?"
     let registerTextBtn = "Registrera"
     let forgotPasswordText = "Glömt lösenord?"
@@ -78,7 +79,21 @@ struct ContentView: View {
                         .padding(.bottom)
                         .foregroundColor(ColorManager.darkPink)
                     
-                    TextEditor(text: $emailText)
+                    TextField(mailDefaultPlaceholder, text: $emailText)
+                        .font(.body)
+                        .foregroundColor(ColorManager.darkGray)
+                        .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(ColorManager.lightPink, lineWidth: 2)
+                        )
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .onTapGesture {
+                            
+                        }
+                    
+                    /*TextEditor(text: $emailText)
                         .font(.body)
                         .foregroundColor(ColorManager.darkGray)
                         .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -91,7 +106,7 @@ struct ContentView: View {
                         .keyboardType(.emailAddress)
                         .onTapGesture {
                             
-                        }
+                        }*/
                     
                     
                     SecureField(enterPasswordText, text: $passwordText)

@@ -25,7 +25,7 @@ struct RegisterAccountSheet: View {
                                        longitude: 17.9512),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
-    @State var nameText = "Name"
+    @State var nameText = ""
     @State var eMailText: String
     @State var password = ""
     @State var passwordConfirmed = ""
@@ -37,6 +37,8 @@ struct RegisterAccountSheet: View {
     
     var locationModel = LocationModel()
     
+    let nameDefaultText = "name"
+    let mailDefaultPlaceholder = "e-mail@example.com"
     let registerBtnText = "Registrera"
     let registerAccountText = "Registrera konto"
     let usersCollection = "users"
@@ -55,7 +57,7 @@ struct RegisterAccountSheet: View {
                     .padding()
                     .foregroundColor(ColorManager.darkPink)
                 
-                TextEditor(text: $nameText)
+                TextField(nameDefaultText, text: $nameText)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -69,7 +71,7 @@ struct RegisterAccountSheet: View {
                         
                     }
                 
-                TextEditor(text: $eMailText)
+                TextField(mailDefaultPlaceholder, text: $eMailText)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -160,6 +162,7 @@ struct RegisterAccountSheet: View {
                 
             }.onAppear(){
                 locationModel.askForPermission()
+                self.setPlaceholder()
                 
             }.fullScreenCover(item: $activeScreen) { item in
                 switch item {
@@ -175,6 +178,12 @@ struct RegisterAccountSheet: View {
             }
         }.onTapGesture {
             endTextEditing()
+        }
+    }
+    
+    private func setPlaceholder () {
+        if eMailText == " " || eMailText == "  " || eMailText.isEmpty {
+            eMailText = ""
         }
     }
     
