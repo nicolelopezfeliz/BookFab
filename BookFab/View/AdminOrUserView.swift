@@ -29,8 +29,6 @@ struct AdminOrUserView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack() {
-                
-                
                 switch isAdminOrUser {
                 
                 case .businessUser:

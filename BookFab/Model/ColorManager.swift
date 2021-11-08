@@ -13,5 +13,6 @@ struct ColorManager {
     static let lightPink = Color("LightPink")
     static let darkPink = Color("DarkPink")
     static let darkGray = Color("DarkGray")
+    static let buttonText = Color("ButtonText")
 
 }

@@ -1,0 +1,6 @@
+framework module Prettier_swift {
+  umbrella header "Prettier.swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

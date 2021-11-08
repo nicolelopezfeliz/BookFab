@@ -42,6 +42,8 @@
 		FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */; };
 		FCC73AF525C87EA40058129E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC73AF425C87EA40058129E /* Colors.xcassets */; };
 		FCC73AFA25C880D10058129E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73AF925C880D10058129E /* ColorManager.swift */; };
+		FCE0467827369AC70091E2A7 /* PartedTitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE0467727369AC70091E2A7 /* PartedTitleText.swift */; };
+		FCE0467A27370DF30091E2A7 /* PartedTextBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE0467927370DF20091E2A7 /* PartedTextBtn.swift */; };
 		FCE06F0C25F0481C00431EDB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */; };
 		FCE06F1125F04F9D00431EDB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE06F1025F04F9D00431EDB /* EditProfileView.swift */; };
 		FCE799A525F29329005C1AE5 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE799A425F29329005C1AE5 /* TitleText.swift */; };
@@ -116,6 +118,8 @@
 		FCA837BD25DB323A00349D8B /* DisplayBusinessSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBusinessSheet.swift; sourceTree = "<group>"; };
 		FCC73AF425C87EA40058129E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCC73AF925C880D10058129E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		FCE0467727369AC70091E2A7 /* PartedTitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartedTitleText.swift; sourceTree = "<group>"; };
+		FCE0467927370DF20091E2A7 /* PartedTextBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartedTextBtn.swift; sourceTree = "<group>"; };
 		FCE06F0B25F0481C00431EDB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FCE06F1025F04F9D00431EDB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FCE799A425F29329005C1AE5 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 		FCC73B0125C880DE0058129E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FCE0467627369A8B0091E2A7 /* ViewComponents */,
 				FC4ECC7C25C2E9E2002C5622 /* ContentView.swift */,
 				FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */,
 				FC5B807C25CF5710009F2E92 /* MapView.swift */,
@@ -289,6 +294,15 @@
 				FCC73AF425C87EA40058129E /* Colors.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		FCE0467627369A8B0091E2A7 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				FCE0467727369AC70091E2A7 /* PartedTitleText.swift */,
+				FCE0467927370DF20091E2A7 /* PartedTextBtn.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		FCE799A325F292DE005C1AE5 /* ViewAssets */ = {
@@ -587,6 +601,7 @@
 				FC5B805125CCA523009F2E92 /* Login.swift in Sources */,
 				FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */,
 				FC90622225D1CCD800699DC6 /* LocationModel.swift in Sources */,
+				FCE0467827369AC70091E2A7 /* PartedTitleText.swift in Sources */,
 				FCFFC53C25EE434100F8023C /* SearchView.swift in Sources */,
 				FC90621D25D08D2600699DC6 /* User.swift in Sources */,
 				FC0F64E125DF33F500BFDE0B /* AccountSettings.swift in Sources */,
@@ -601,6 +616,7 @@
 				FC4ECC7D25C2E9E2002C5622 /* ContentView.swift in Sources */,
 				FCE06F1125F04F9D00431EDB /* EditProfileView.swift in Sources */,
 				FC79C1E825E87AFE00A9FDDC /* UserLocationData.swift in Sources */,
+				FCE0467A27370DF30091E2A7 /* PartedTextBtn.swift in Sources */,
 				FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */,
 				FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */,
 				FCE799AD25F74EB3005C1AE5 /* AdminOrUserView.swift in Sources */,
@@ -779,6 +795,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BookFab/Preview Content\"";
+				DEVELOPMENT_TEAM = GR9Z84SRSL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BookFab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -800,6 +817,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BookFab/Preview Content\"";
+				DEVELOPMENT_TEAM = GR9Z84SRSL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BookFab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

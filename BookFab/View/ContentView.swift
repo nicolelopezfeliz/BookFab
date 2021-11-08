@@ -13,20 +13,20 @@ import MapKit
 import FirebaseFirestoreSwift
 
 enum ActiveScreenCoverC: Identifiable {
-     case registerAccountScreen, adminView, userView
-
-     var id: Int {
-         hashValue
-     }
- }
+    case registerAccountScreen, adminView, userView
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 enum RegAccountSheet: Identifiable {
-     case registerAccountScreen
-
-     var id: Int {
-         hashValue
-     }
- }
+    case registerAccountScreen
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 struct ContentView: View {
     
@@ -38,13 +38,16 @@ struct ContentView: View {
     @State var activeFullScreen: ActiveScreenCoverC?
     @State var regAccountSheet: RegAccountSheet?
     
+    @State var textEditorWidth = UIScreen.main.bounds.width / 1.4
+    @State var textEditorHeight = UIScreen.main.bounds.height / 20
+    
     let registerAccountText = "Har du inget konto?"
     let registerTextBtn = "Registrera"
     let forgotPasswordText = "Glömt lösenord?"
     let resetPasswordBtn = "Återställ lösenord"
     let appNameText = "Book Fab"
     let enterPasswordText = "Enter password"
-  
+    
     init(){
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
@@ -55,119 +58,96 @@ struct ContentView: View {
         }
     }
     
-        
+    
     var body: some View {
         
         
         NavigationView {
             VStack {
-                Text(appNameText)
-                    .font(.largeTitle)
-                    .padding()
-                    .foregroundColor(ColorManager.darkPink)
                 
-                Text(loginText)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .frame(width: 300, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    .padding()
-                    .foregroundColor(ColorManager.darkPink)
+                PartedTitleText(title: appNameText)
                 
-                TextEditor(text: $emailText)
-                    .font(.body)
-                    .foregroundColor(ColorManager.darkGray)
-                    .frame(width: 200, height: 40, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
-                    .padding()
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .onTapGesture {
-                        
-                    }
+                Spacer()
+                
+                VStack {
                     
-                
-                SecureField(enterPasswordText, text: $passwordText)
-                    .font(.body)
-                    .foregroundColor(ColorManager.darkGray)
-                    .frame(width: 200, height: 40, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(ColorManager.lightPink, lineWidth: 2)
-                    )
-                    .padding()
-                
-                Button(action: {
-                    Login().loginUser(email: emailText, password: passwordText, userData: userData) {
-                        activeFullScreen = .userView
-                    }
+                    Text(loginText)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .frame(width: 300, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .leading)
+                        .padding(.bottom)
+                        .foregroundColor(ColorManager.darkPink)
+                    
+                    TextEditor(text: $emailText)
+                        .font(.body)
+                        .foregroundColor(ColorManager.darkGray)
+                        .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(ColorManager.lightPink, lineWidth: 2)
+                        )
+                        //.padding()
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .onTapGesture {
+                            
+                        }
+                    
+                    
+                    SecureField(enterPasswordText, text: $passwordText)
+                        .font(.body)
+                        .foregroundColor(ColorManager.darkGray)
+                        .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(ColorManager.lightPink, lineWidth: 2)
+                        )
+                        .padding()
+                    
+                    Button(action: {
+                        Login().loginUser(email: emailText, password: passwordText, userData: userData) {
+                            activeFullScreen = .userView
+                        }
                     adminFullScreenClosure: {
                         activeFullScreen = .adminView
                         
                     }
-                    
-                }, label: {
-                    Text(loginText)
-                        .font(.title)
-                        .frame(width: 160,
-                               height: 40,
-                               alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .background(ColorManager.darkPink)
-                        .foregroundColor(.white)
-                        .padding()
-                        .cornerRadius(5.0)
-                    
-                })
-                
-                /*.alert(isPresented: $showAlert, content: { () -> alert in
-                    alert = UIAlertController(
-                        title: "Skapa konto",
-                        message: "Kontot existerar inte, vill du skapa ett konto?",
-                        preferredStyle: .alert)
-                })*/
-                
-                HStack {
-                    Text(registerAccountText)
-                        .font(.system(size: 13))
-                        .foregroundColor(ColorManager.darkPink)
-                        .frame(width: 119, height: 40, alignment: .leading)
-                    
-                    Button(action: {
-                        //activeFullScreen = .registerAccountScreen
-                        regAccountSheet = .registerAccountScreen
-                        
-                            
                         
                     }, label: {
-                        Text(registerTextBtn)
-                            .bold()
-                            .foregroundColor(ColorManager.darkPink)
+                        Text(loginText)
+                            .font(.title)
+                            .frame(width: 160,
+                                   height: 40,
+                                   alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .background(ColorManager.darkPink)
+                            .foregroundColor(ColorManager.buttonText)
+                            .padding()
+                            .cornerRadius(5.0)
                         
                     })
+                        .padding(.bottom)
+                        .cornerRadius(6)
                     
                 }
-                
-                HStack {
-                    Text(forgotPasswordText)
-                        .font(.system(size: 13))
-                        .foregroundColor(ColorManager.darkPink)
-                        .frame(width: 130, height: 40, alignment: .trailing)
-                    
-                    Button(action: {
-                        Login().resetPassword()
-                        
-                    }, label: {
-                        Text(resetPasswordBtn)
-                            .bold()
-                            .foregroundColor(ColorManager.darkPink)
-                    })
-                }
+                .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                /*.background(
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(Color.white)
+                        .shadow(color: .gray, radius: 2, x: 0, y: 2))*/
                 
                 Spacer()
                 
+                PartedTextBtn(
+                    infoText: registerAccountText,
+                    btnText: registerTextBtn,
+                    function: { regAccountSheet = .registerAccountScreen })
                 
+                PartedTextBtn(
+                    infoText: forgotPasswordText,
+                    btnText: resetPasswordBtn,
+                    function: { Login().resetPassword() })
+                
+                Spacer()
                 
             }.fullScreenCover(item: $activeFullScreen) { item in
                 switch item {
@@ -194,10 +174,18 @@ struct ContentView: View {
         .onAppear() {
             Login().logOutUser()
         }
+        .onTapGesture {
+            self.endTextEditing()
+        }
     }
 }
 
-
+extension View {
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

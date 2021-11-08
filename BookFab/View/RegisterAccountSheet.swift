@@ -32,6 +32,9 @@ struct RegisterAccountSheet: View {
     @State var businessAccount = false
     @State var activeScreen: ActiveScreenCoverR?
     
+    @State var textEditorWidth = UIScreen.main.bounds.width / 1.4
+    @State var textEditorHeight = UIScreen.main.bounds.height / 20
+    
     var locationModel = LocationModel()
     
     let registerBtnText = "Registrera"
@@ -55,18 +58,21 @@ struct RegisterAccountSheet: View {
                 TextEditor(text: $nameText)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
-                    .frame(width: 200, height: 40, alignment: .leading)
+                    .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(ColorManager.lightPink, lineWidth: 2)
                     )
                     .padding()
                     .autocapitalization(.none)
+                    .onTapGesture {
+                        
+                    }
                 
                 TextEditor(text: $eMailText)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
-                    .frame(width: 200, height: 40, alignment: .leading)
+                    .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(ColorManager.lightPink, lineWidth: 2)
@@ -74,6 +80,9 @@ struct RegisterAccountSheet: View {
                     .padding()
                     .autocapitalization(.none)
                     .keyboardType(.emailAddress)
+                    .onTapGesture {
+                        
+                    }
                 
                 /*
                 SecureField("Enter password", text: $password)
@@ -89,7 +98,7 @@ struct RegisterAccountSheet: View {
                 SecureField(enterPasswordText, text: $passwordConfirmed)
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
-                    .frame(width: 200, height: 40, alignment: .leading)
+                    .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(ColorManager.lightPink, lineWidth: 2)
@@ -141,10 +150,11 @@ struct RegisterAccountSheet: View {
                                height: 40,
                                alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .background(ColorManager.darkPink)
-                        .foregroundColor(.white)
+                        .foregroundColor(ColorManager.buttonText)
                         .padding()
                         .cornerRadius(5.0)
                 })
+                    .cornerRadius(6)
                 
                 Spacer()
                 
@@ -163,6 +173,8 @@ struct RegisterAccountSheet: View {
                         businessAccount: businessAccount)
                 }
             }
+        }.onTapGesture {
+            endTextEditing()
         }
     }
     
