@@ -43,7 +43,6 @@ class Login : ObservableObject {
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { result, err in
             
             guard err == nil else {
-                print("No account with tis e-mail")
                 //self.handleError(err!, alertClosure: alertClosure)      // use the handleError method
                 //If we cant sign in user we show alert
                 //Show allert to create account
@@ -52,31 +51,24 @@ class Login : ObservableObject {
             
             //Här vill vi komma till nästa vy
             //closure()
-            print("Inloggning, sucsess, du är inloggad")
             
             if let result = result {
-                //print("Kommer in i result if-satsen")
                 let userUid = result.user.uid
                 //db.collection(usersCollection).addSnapshotListener { (snapshot, err ) in
-                
                 
                 //db.collection("users/type/\(userUid)")
                 let docRef = self.db.collection("admin").document(userUid)
                 
                 docRef.getDocument { (document, error) in
+                    print("TAG documment ", document)
                     if let document = document, document.exists {
                         let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                         isAdmin = true
                         userData.isUserAdmin = true
-                        print("Is admin")
-                        //print("Document data: \(dataDescription)")
                     } else {
                         //let docRefUser = db.collection("user").document(userUid)
-                        print("Is user")
-                        print("Document does not exist")
                     }
                     var finalDocRef: DocumentReference
-                    print("isAdmin: \(isAdmin)")
                     if isAdmin {
                         finalDocRef = self.db.collection("admin").document(userUid)
                     } else {

@@ -79,7 +79,7 @@ struct ContentView: View {
                         .padding(.bottom)
                         .foregroundColor(ColorManager.darkPink)
                     
-                    TextField(mailDefaultPlaceholder, text: $emailText)
+                    TextField(mailDefaultPlaceholder, text: $emailText).modifier(ClearButton(text: $emailText))
                         .font(.body)
                         .foregroundColor(ColorManager.darkGray)
                         .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -89,9 +89,7 @@ struct ContentView: View {
                         )
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
-                        .onTapGesture {
-                            
-                        }
+                        
                     
                     /*TextEditor(text: $emailText)
                         .font(.body)
@@ -109,7 +107,7 @@ struct ContentView: View {
                         }*/
                     
                     
-                    SecureField(enterPasswordText, text: $passwordText)
+                    SecureField(enterPasswordText, text: $passwordText).modifier(ClearButton(text: $passwordText))
                         .font(.body)
                         .foregroundColor(ColorManager.darkGray)
                         .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -144,7 +142,8 @@ struct ContentView: View {
                         .cornerRadius(6)
                     
                 }
-                .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                .background(Color("tabShadow").offset(x: 0, y: -0.5))
+                //.shadow(color: .gray, radius: 2, x: 0, y: 2)
                 /*.background(
                     RoundedRectangle(cornerRadius: 5)
                         .fill(Color.white)
@@ -190,7 +189,7 @@ struct ContentView: View {
             Login().logOutUser()
         }
         .onTapGesture {
-            self.endTextEditing()
+            //self.endTextEditing()
         }
     }
 }
@@ -199,11 +198,5 @@ extension View {
     func endTextEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                         to: nil, from: nil, for: nil)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

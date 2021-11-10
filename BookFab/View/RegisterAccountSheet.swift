@@ -57,7 +57,7 @@ struct RegisterAccountSheet: View {
                     .padding()
                     .foregroundColor(ColorManager.darkPink)
                 
-                TextField(nameDefaultText, text: $nameText)
+                TextField(nameDefaultText, text: $nameText).modifier(ClearButton(text: $nameText))
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -71,7 +71,7 @@ struct RegisterAccountSheet: View {
                         
                     }
                 
-                TextField(mailDefaultPlaceholder, text: $eMailText)
+                TextField(mailDefaultPlaceholder, text: $eMailText).modifier(ClearButton(text: $eMailText))
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -87,7 +87,7 @@ struct RegisterAccountSheet: View {
                     }
                 
                 /*
-                SecureField("Enter password", text: $password)
+                SecureField("Enter password", text: $password).modifier(ClearButton(text: $password))
                     .font(.body)
                     .foregroundColor(.gray)
                     .frame(width: 200, height: 40, alignment: .leading)
@@ -97,7 +97,7 @@ struct RegisterAccountSheet: View {
                     )
                     .padding()*/
                 
-                SecureField(enterPasswordText, text: $passwordConfirmed)
+                SecureField(enterPasswordText, text: $passwordConfirmed).modifier(ClearButton(text: $passwordConfirmed))
                     .font(.body)
                     .foregroundColor(ColorManager.darkGray)
                     .frame(width: textEditorWidth, height: textEditorHeight, alignment: .leading)
@@ -177,7 +177,7 @@ struct RegisterAccountSheet: View {
                 }
             }
         }.onTapGesture {
-            endTextEditing()
+            //endTextEditing()
         }
     }
     

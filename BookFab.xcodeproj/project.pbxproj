@@ -30,6 +30,7 @@
 		FC5B807825CD8934009F2E92 /* RegisterAccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */; };
 		FC5B807D25CF5711009F2E92 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5B807C25CF5710009F2E92 /* MapView.swift */; };
 		FC5FF2F225C9D771000CFE92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */; };
+		FC639DCD273C698700206DA5 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC639DCC273C698700206DA5 /* ClearButton.swift */; };
 		FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC773BEE25DDAEC600223F8F /* BusinessImage.swift */; };
 		FC773BF425DDBCFA00223F8F /* BusinessUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC773BF325DDBCFA00223F8F /* BusinessUser.swift */; };
 		FC79C1D925E8725100A9FDDC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC79C1D825E8725100A9FDDC /* UserData.swift */; };
@@ -106,6 +107,7 @@
 		FC5B807725CD8934009F2E92 /* RegisterAccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountSheet.swift; sourceTree = "<group>"; };
 		FC5B807C25CF5710009F2E92 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FC5FF2F125C9D771000CFE92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FC639DCC273C698700206DA5 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 		FC773BEE25DDAEC600223F8F /* BusinessImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessImage.swift; sourceTree = "<group>"; };
 		FC773BF325DDBCFA00223F8F /* BusinessUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessUser.swift; sourceTree = "<group>"; };
 		FC79C1D825E8725100A9FDDC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			children = (
 				FCE0467727369AC70091E2A7 /* PartedTitleText.swift */,
 				FCE0467927370DF20091E2A7 /* PartedTextBtn.swift */,
+				FC639DCC273C698700206DA5 /* ClearButton.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				FC79C1E825E87AFE00A9FDDC /* UserLocationData.swift in Sources */,
 				FCE0467A27370DF30091E2A7 /* PartedTextBtn.swift in Sources */,
 				FC773BEF25DDAEC600223F8F /* BusinessImage.swift in Sources */,
+				FC639DCD273C698700206DA5 /* ClearButton.swift in Sources */,
 				FC3EB98C25EF9F4700025E89 /* CreateProfileView.swift in Sources */,
 				FCE799AD25F74EB3005C1AE5 /* AdminOrUserView.swift in Sources */,
 				FCA837BE25DB323A00349D8B /* DisplayBusinessSheet.swift in Sources */,
